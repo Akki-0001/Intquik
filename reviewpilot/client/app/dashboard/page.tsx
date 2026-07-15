@@ -455,55 +455,7 @@ export default function DashboardPage() {
     return matchesSearch && matchesStatus;
   });
 
-  // Locked Gate View
-  if (user && !isUnlocked) {
-    return (
-      <div className="relative overflow-hidden p-6 min-h-[80vh] flex flex-col items-center justify-center animate-in fade-in duration-500">
-        <div className="max-w-md w-full bg-white border border-[#E2DDD1] p-8 md:p-10 rounded-[6px] shadow-sm text-center space-y-6">
-          <div className="w-16 h-16 rounded-[6px] bg-[#283570] border border-[#2E9E9C]/30 flex items-center justify-center text-[#2E9E9C] mx-auto shadow-sm relative">
-            <Lock className="w-6 h-6 stroke-[2.5]" />
-          </div>
-          <div>
-            <span className="text-[10px] font-serif font-bold text-[#283570] bg-[#2E9E9C]/10 border border-[#2E9E9C]/35 px-3 py-1 rounded-[6px] uppercase tracking-wider">
-              Growth & Enterprise Plan Feature
-            </span>
-            <h2 className="text-xl md:text-2xl font-serif font-bold text-[#283570] tracking-tight mt-4">Review Generator Locked</h2>
-            <p className="text-xs text-[#6B6B6B] font-semibold mt-2.5 leading-relaxed font-sans">
-              Auto-generate target customer reviews matching your custom keywords, locations, USPs, and language to display as 1-tap prompts.
-            </p>
-          </div>
-
-          <div className="border-t border-[#E2DDD1] pt-6 space-y-3 text-left text-xs font-semibold text-[#2B2B2B]">
-            <div className="flex items-center gap-3 bg-[#FFFFFF] p-3 rounded-[6px] border border-[#E2DDD1]">
-              <div className="bg-[#2E9E9C]/15 p-1 rounded-[6px]">
-                <Check className="w-4 h-4 text-[#FF5A3C] shrink-0" />
-              </div>
-              <span>Multi-field exact keyword configuration</span>
-            </div>
-            <div className="flex items-center gap-3 bg-[#FFFFFF] p-3 rounded-[6px] border border-[#E2DDD1]">
-              <div className="bg-[#2E9E9C]/15 p-1 rounded-[6px]">
-                <Check className="w-4 h-4 text-[#FF5A3C] shrink-0" />
-              </div>
-              <span>Tone, Style & Word Limit controls</span>
-            </div>
-            <div className="flex items-center gap-3 bg-[#FFFFFF] p-3 rounded-[6px] border border-[#E2DDD1]">
-              <div className="bg-[#2E9E9C]/15 p-1 rounded-[6px]">
-                <Check className="w-4 h-4 text-[#FF5A3C] shrink-0" />
-              </div>
-              <span>Interactive generator list dashboard</span>
-            </div>
-          </div>
-
-          <button
-            onClick={handleUpgradePlan}
-            className="w-full bg-[#283570] text-[#2E9E9C] hover:bg-[#2E9E9C] hover:text-[#283570] border border-[#2E9E9C] font-serif font-bold text-xs py-4 rounded-[6px] transition-all shadow-sm tracking-wider uppercase"
-          >
-            Upgrade to Professional (₹1,599/yr)
-          </button>
-        </div>
-      </div>
-    );
-  }
+  // Locked Gate View removed as requested
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">

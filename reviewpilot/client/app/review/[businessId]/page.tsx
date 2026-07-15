@@ -10,7 +10,7 @@ export default function PublicReviewFunnel() {
   const businessId = params.businessId as string;
 
   const [business, setBusiness] = useState<Business | null>(null);
-  const [step, setStep] = useState<"rating" | "feedback" | "google" | "thankyou">("rating");
+  const [step, setStep] = useState<"rating" | "suggestions" | "feedback" | "google" | "thankyou">("rating");
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
 
@@ -156,8 +156,7 @@ export default function PublicReviewFunnel() {
     if (!business) return;
 
     if (selectedRating >= business.ratingThreshold) {
-      setStep("thankyou");
-      submitPublicReviewBackground(selectedRating, "Shared positive experience.");
+      setStep("suggestions");
     } else {
       setStep("feedback");
     }
@@ -286,6 +285,46 @@ export default function PublicReviewFunnel() {
                 </p>
               </div>
 
+              <div className="flex flex-col items-center pb-2">
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onMouseEnter={() => setHoverRating(star)}
+                      onMouseLeave={() => setHoverRating(0)}
+                      onClick={() => handleRatingSubmit(star)}
+                      className="text-[#E2DDD1] active:scale-95 transition-transform hover:scale-105"
+                    >
+                      <Star 
+                        className={`w-10 h-10 ${
+                          star <= (hoverRating || rating)
+                            ? "fill-[#2E9E9C] text-[#2E9E9C]" 
+                            : "text-[#E2DDD1]"
+                        }`} 
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-auto pt-3 text-[9px] text-[#6B6B6B] font-bold uppercase tracking-widest flex items-center justify-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-[#2E9E9C]" />
+                <span>Powered by Intuik AI</span>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 1.5: AI SUGGESTIONS (SHOWN AFTER POSITIVE RATING) */}
+          {step === "suggestions" && (
+            <div className="flex-grow flex flex-col text-center space-y-6">
+              <div>
+                <h2 className="text-xl font-serif font-bold text-[#283570] tracking-tight">Write a Review</h2>
+                <p className="text-xs text-[#6B6B6B] font-semibold mt-1">
+                  Tap any suggestion below to instantly post your review, or write your own.
+                </p>
+              </div>
+
               {/* AI 1-Tap Suggestions */}
               <div className="space-y-2.5 pt-2">
                 <div className="flex items-center gap-2 justify-center mb-3">
@@ -311,33 +350,27 @@ export default function PublicReviewFunnel() {
 
               <div className="flex items-center gap-4 py-1">
                 <div className="h-px bg-[#E2DDD1] flex-1" />
-                <span className="text-[9px] font-bold text-[#6B6B6B] uppercase tracking-widest">or rate manually</span>
+                <span className="text-[9px] font-bold text-[#6B6B6B] uppercase tracking-widest">or write your own</span>
                 <div className="h-px bg-[#E2DDD1] flex-1" />
               </div>
 
-              {/* Manual Stars selection */}
-              <div className="flex flex-col items-center pb-2">
-                <div className="flex gap-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      type="button"
-                      onMouseEnter={() => setHoverRating(star)}
-                      onMouseLeave={() => setHoverRating(0)}
-                      onClick={() => handleRatingSubmit(star)}
-                      className="text-[#E2DDD1] active:scale-95 transition-transform hover:scale-105"
-                    >
-                      <Star 
-                        className={`w-9 h-9 ${
-                          star <= (hoverRating || rating)
-                            ? "fill-[#2E9E9C] text-[#2E9E9C]" 
-                            : "text-[#E2DDD1]"
-                        }`} 
-                      />
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <form onSubmit={(e) => { e.preventDefault(); handleSuggestionClick(comment); }} className="space-y-3 pb-2">
+                <textarea 
+                  rows={2} 
+                  required
+                  placeholder="I loved the service..."
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  className="w-full bg-[#FFFFFF] hover:bg-white border border-[#E2DDD1] rounded-[6px] px-3.5 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] resize-none placeholder:text-[#6B6B6B] font-semibold transition-colors"
+                />
+                <button
+                  type="submit"
+                  className="w-full bg-[#283570] hover:bg-[#2E9E9C] text-[#2E9E9C] hover:text-[#283570] border border-[#2E9E9C]/20 font-serif font-bold py-3 rounded-[6px] text-xs transition-all flex items-center justify-center gap-1.5"
+                >
+                  <Send className="w-3.5 h-3.5" />
+                  <span>Post Review</span>
+                </button>
+              </form>
 
               <div className="mt-auto pt-3 text-[9px] text-[#6B6B6B] font-bold uppercase tracking-widest flex items-center justify-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-[#2E9E9C]" />
