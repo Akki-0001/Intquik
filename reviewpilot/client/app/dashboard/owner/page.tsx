@@ -22,7 +22,7 @@ import QRCode from "qrcode";
 import { getDB } from "@/lib/db";
 
 interface Subscription {
-  plan: "Free" | "Starter" | "Professional" | "Enterprise";
+  plan: "Free" | "Starter" | "Professional" | "Enterprise" | "Smart AI-Review" | "WhatsApp Chatbot" | "AI Telecalling";
   startDate: string;
   endDate: string;
   status: "Active" | "Expired" | "Cancelled";
