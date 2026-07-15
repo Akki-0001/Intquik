@@ -190,6 +190,24 @@ export default function DashboardPage() {
     }
   };
 
+  const handleDeleteLocation = async (id: string, name: string) => {
+    if (!window.confirm(`Are you sure you want to delete "${name}"? This action cannot be undone and will delete all associated reviews.`)) return;
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (res.ok) {
+        await loadUserLocations();
+      } else {
+        alert("Failed to delete location.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Network error deleting business location.");
+    }
+  };
+
   // Generate QR Matrix when selectedLocationForQr changes
   useEffect(() => {
     if (selectedLocationForQr) {
@@ -641,6 +659,13 @@ export default function DashboardPage() {
                             <QrCode className="w-3.5 h-3.5" />
                           </button>
                         )}
+                        <button
+                          onClick={() => handleDeleteLocation(loc._id, loc.name)}
+                          className="bg-white hover:bg-rose-50 text-[#283570] hover:text-rose-600 border border-[#E2DDD1] hover:border-rose-200 p-2 rounded-[6px] transition-colors"
+                          title="Delete Location"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
                       </div>
                     </div>
                   );
