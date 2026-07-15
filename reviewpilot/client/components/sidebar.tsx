@@ -70,7 +70,16 @@ export default function Sidebar({ user, mobileMenuOpen, setMobileMenuOpen }: Sid
                     <Link
                       key={item.href}
                       href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={(e) => {
+                        const isProtected = item.name !== "Plans" && item.name !== "Change Password" && item.name !== "Clients & DB";
+                        const isFreeOrInactive = user.role !== "admin" && (user.subscription?.plan === "Free" || user.subscription?.status !== "Active");
+                        if (isProtected && isFreeOrInactive) {
+                          e.preventDefault();
+                          alert("Please buy or renew a plan to access this feature.");
+                          router.push("/dashboard/plans");
+                        }
+                        setMobileMenuOpen(false);
+                      }}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-[14px] text-sm font-semibold transition-all duration-200 group ${
                         isActive 
                           ? "bg-white text-sky-600 border-l-[3px] border-sky-500 shadow-sm font-bold" 
@@ -129,6 +138,15 @@ export default function Sidebar({ user, mobileMenuOpen, setMobileMenuOpen }: Sid
                 <Link
                   key={item.href}
                   href={item.href}
+                  onClick={(e) => {
+                    const isProtected = item.name !== "Plans" && item.name !== "Change Password" && item.name !== "Clients & DB";
+                    const isFreeOrInactive = user.role !== "admin" && (user.subscription?.plan === "Free" || user.subscription?.status !== "Active");
+                    if (isProtected && isFreeOrInactive) {
+                      e.preventDefault();
+                      alert("Please buy or renew a plan to access this feature.");
+                      router.push("/dashboard/plans");
+                    }
+                  }}
                   className={`flex items-center gap-3 px-3.5 py-3 rounded-[14px] text-sm font-semibold transition-all duration-200 group ${
                     isActive 
                       ? "bg-white text-sky-600 border-l-[3px] border-sky-500 shadow-sm font-bold relative" 

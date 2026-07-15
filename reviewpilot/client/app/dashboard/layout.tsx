@@ -31,7 +31,8 @@ export default function DashboardLayout({
 
     // Intercept Free/unsubscribed users and force plans view, but allow change password
     const allowedFreePaths = ["/dashboard/plans", "/dashboard/change-password"];
-    if (db.user.role !== "admin" && db.user.subscription?.plan === "Free" && !allowedFreePaths.includes(pathname)) {
+    const isFreeOrInactive = db.user.role !== "admin" && (db.user.subscription?.plan === "Free" || db.user.subscription?.status !== "Active");
+    if (isFreeOrInactive && !allowedFreePaths.includes(pathname)) {
       router.push("/dashboard/plans");
       return;
     }
@@ -42,11 +43,16 @@ export default function DashboardLayout({
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/me`, {
           credentials: "include",
         });
-        if (res.status === 403 || res.status === 401) {
-          // Inactive subscription or invalid session
+        if (res.status === 401) {
+          // Invalid session
           localStorage.removeItem("rp_user"); // Clear user
-          alert("Access Denied: Your account subscription is inactive or has expired.");
           router.push("/login");
+        } else if (res.status === 403) {
+          // Inactive subscription
+          if (!allowedFreePaths.includes(pathname)) {
+            alert("Your account subscription is inactive or has expired. Please buy a plan.");
+            router.push("/dashboard/plans");
+          }
         } else if (res.ok) {
           const data = await res.json();
           setUser(data);
@@ -55,7 +61,8 @@ export default function DashboardLayout({
           if (localDb.user) {
             localStorage.setItem("rp_user", JSON.stringify({ ...localDb.user, subscription: data.subscription }));
           }
-          if (data.role !== "admin" && data.subscription?.plan === "Free" && !allowedFreePaths.includes(pathname)) {
+          const isUserFreeOrInactive = data.role !== "admin" && (data.subscription?.plan === "Free" || data.subscription?.status !== "Active");
+          if (isUserFreeOrInactive && !allowedFreePaths.includes(pathname)) {
             router.push("/dashboard/plans");
           }
         }
