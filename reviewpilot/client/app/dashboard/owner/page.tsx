@@ -85,7 +85,7 @@ const generateRealQrMatrix = (bizId?: string) => {
   }
   return matrix;
 };
-
+//http://localhost:5000/api/qr/${bizId}/scan
 export default function SuperOwnerDashboard() {
   const [activeTab, setActiveTab] = useState<"clients" | "locations" | "reviews">("clients");
   const [loading, setLoading] = useState(true);
