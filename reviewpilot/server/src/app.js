@@ -16,7 +16,11 @@ const app = express();
 // Middlewares
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+    origin: [
+      "http://localhost:3000", 
+      "https://intquik-amr2.vercel.app",
+      process.env.CORS_ORIGIN
+    ].filter(Boolean),
     credentials: true,
   })
 );
