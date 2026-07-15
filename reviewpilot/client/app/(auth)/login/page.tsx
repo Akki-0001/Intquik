@@ -92,7 +92,7 @@ export default function LoginPage() {
       // Redirect based on role and plan
       if (data.role === "admin") {
         router.push("/dashboard/owner");
-      } else if (data.subscription?.plan === "Free") {
+      } else if (data.subscription?.plan === "Free" || data.subscription?.status !== "Active") {
         router.push("/dashboard/plans");
       } else {
         router.push("/dashboard");
