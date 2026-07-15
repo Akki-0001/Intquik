@@ -168,6 +168,10 @@ export default function PublicReviewFunnel() {
     // Copy to clipboard for easy pasting in Google
     navigator.clipboard.writeText(text).catch(() => {});
     
+    if (business && business.googleReviewUrl) {
+      window.open(business.googleReviewUrl, "_blank", "noopener,noreferrer");
+    }
+    
     setStep("thankyou");
     submitPublicReviewBackground(5, text);
   };
