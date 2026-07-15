@@ -22,6 +22,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Intuik - Premium Google Reviews NFC Standees & Analytics",
   description: "Boost your Google My Business reputation with smart NFC standees and AI review generation.",
+  icons: {
+    icon: "/logoen.png",
+  },
 };
 
 export default function RootLayout({
