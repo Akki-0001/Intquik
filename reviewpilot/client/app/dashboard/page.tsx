@@ -614,7 +614,7 @@ export default function DashboardPage() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {businesses.map((loc) => {
-                  const scanUrl = `http://localhost:3000/review/${loc._id}`;
+                  const scanUrl = typeof window !== 'undefined' ? `${window.location.origin}/review/${loc._id}` : `https://intquik-amr2.vercel.app/review/${loc._id}`;
                   return (
                     <div key={loc._id} className="bg-[#FFFFFF] border border-[#E2DDD1] p-6 rounded-[6px] flex justify-between items-center hover:border-[#2E9E9C]/50 transition-all duration-350 group">
                       <div className="space-y-2 max-w-[70%]">
@@ -1144,7 +1144,7 @@ export default function DashboardPage() {
               </button>
               <button
                 onClick={() => {
-                  const scanUrl = `http://localhost:3000/review/${selectedLocationForQr._id}`;
+                  const scanUrl = typeof window !== 'undefined' ? `${window.location.origin}/review/${selectedLocationForQr._id}` : `https://intquik-amr2.vercel.app/review/${selectedLocationForQr._id}`;
                   navigator.clipboard.writeText(scanUrl);
                   alert("Review link copied!");
                 }}
