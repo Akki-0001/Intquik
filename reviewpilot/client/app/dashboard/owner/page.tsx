@@ -198,15 +198,15 @@ export default function SuperOwnerDashboard() {
   // Plan Price mappings
   const getPlanPrice = (plan: string) => {
     switch (plan) {
-      case "Starter": return 29;
-      case "Professional": return 79;
-      case "Enterprise": return 249;
+      case "Starter": return 799;
+      case "Professional": return 1599;
+      case "Enterprise": return 4999;
       default: return 0;
     }
   };
 
-  // Calculate MRR
-  const calculateMRR = () => {
+  // Calculate ARR
+  const calculateARR = () => {
     return clients.reduce((acc, user) => {
       if (user.subscription.status === "Active") {
         return acc + getPlanPrice(user.subscription.plan);
@@ -456,14 +456,14 @@ export default function SuperOwnerDashboard() {
           </div>
         </div>
 
-        {/* MRR estimate */}
+        {/* ARR estimate */}
         <div className="bg-white border border-[#E2DDD1] rounded-[6px] p-6 shadow-sm flex items-center gap-4">
           <div className="bg-[#2E9E9C]/15 p-3 rounded-[6px] text-[#283570]">
-            <span className="text-lg font-bold font-mono">$</span>
+            <span className="text-lg font-bold font-mono">₹</span>
           </div>
           <div>
-            <p className="text-[10px] text-[#6B6B6B] font-bold uppercase tracking-wider">Estimated MRR</p>
-            <p className="text-2xl font-serif font-bold text-[#283570] mt-0.5">${calculateMRR()}/mo</p>
+            <p className="text-[10px] text-[#6B6B6B] font-bold uppercase tracking-wider">Estimated ARR</p>
+            <p className="text-2xl font-serif font-bold text-[#283570] mt-0.5">₹{calculateARR()}/yr</p>
           </div>
         </div>
 
@@ -858,10 +858,10 @@ export default function SuperOwnerDashboard() {
                   onChange={(e) => setEditPlan(e.target.value as any)}
                   className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-bold"
                 >
-                  <option value="Free">Free Trial ($0/mo)</option>
-                  <option value="Starter">Starter Package ($29/mo)</option>
-                  <option value="Professional">Professional Tier ($79/mo)</option>
-                  <option value="Enterprise">Enterprise Solution ($249/mo)</option>
+                  <option value="Free">Free Trial (₹0/yr)</option>
+                  <option value="Starter">Starter Package (₹799/yr)</option>
+                  <option value="Professional">Professional Tier (₹1,599/yr)</option>
+                  <option value="Enterprise">Enterprise Solution (Custom/₹4,999/yr)</option>
                 </select>
               </div>
 
@@ -994,10 +994,10 @@ export default function SuperOwnerDashboard() {
                     onChange={(e) => setNewPlan(e.target.value as any)}
                     className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-bold"
                   >
-                    <option value="Free">Free ($0/mo)</option>
-                    <option value="Starter">Starter ($29/mo)</option>
-                    <option value="Professional">Professional ($79/mo)</option>
-                    <option value="Enterprise">Enterprise ($249/mo)</option>
+                    <option value="Free">Free (₹0/yr)</option>
+                    <option value="Starter">Starter (₹799/yr)</option>
+                    <option value="Professional">Professional (₹1,599/yr)</option>
+                    <option value="Enterprise">Enterprise (Custom)</option>
                   </select>
                 </div>
 
