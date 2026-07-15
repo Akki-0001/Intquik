@@ -173,8 +173,8 @@ const updateUserSubscription = async (req, res, next) => {
 const updateMySubscription = async (req, res, next) => {
   try {
     const { plan } = req.body;
-    
-    if (!["Free", "Starter", "Professional", "Enterprise"].includes(plan)) {
+    const validPlans = ["Free", "Starter", "Professional", "Enterprise", "Smart AI-Review", "WhatsApp Chatbot", "AI Telecalling"];
+    if (!validPlans.includes(plan)) {
       res.status(400);
       throw new Error("Invalid plan selected");
     }
@@ -196,7 +196,10 @@ const updateMySubscription = async (req, res, next) => {
       const planPrices = {
         "Starter": "₹799/yr",
         "Professional": "₹1,599/yr",
-        "Enterprise": "Custom Quote"
+        "Enterprise": "Custom Quote",
+        "Smart AI-Review": "₹4,999/yr",
+        "WhatsApp Chatbot": "₹9,999/yr",
+        "AI Telecalling": "₹14,999/yr"
       };
       const amount = planPrices[plan] || "₹0";
       const invoiceId = "INV-" + Math.floor(100000 + Math.random() * 900000);

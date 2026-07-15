@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
     subscription: {
       plan: {
         type: String,
-        enum: ["Free", "Starter", "Professional", "Enterprise"],
+        enum: ["Free", "Starter", "Professional", "Enterprise", "Smart AI-Review", "WhatsApp Chatbot", "AI Telecalling"],
         default: "Free",
       },
       startDate: {

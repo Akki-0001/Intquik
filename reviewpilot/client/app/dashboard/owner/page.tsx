@@ -117,7 +117,7 @@ export default function SuperOwnerDashboard() {
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newCompanyName, setNewCompanyName] = useState("");
-  const [newPlan, setNewPlan] = useState<Subscription["plan"]>("Starter");
+  const [newPlan, setNewPlan] = useState<Subscription["plan"]>("Smart AI-Review");
   const [newStatus, setNewStatus] = useState<Subscription["status"]>("Active");
   const [newEndDate, setNewEndDate] = useState("");
   const [creatingClient, setCreatingClient] = useState(false);
@@ -195,9 +195,12 @@ export default function SuperOwnerDashboard() {
     return diffDays;
   };
 
-  // Plan Price mappings
   const getPlanPrice = (plan: string) => {
     switch (plan) {
+      case "Smart AI-Review": return 4999;
+      case "WhatsApp Chatbot": return 9999;
+      case "AI Telecalling": return 14999;
+      // Keep old ones for legacy calculations if any exist
       case "Starter": return 799;
       case "Professional": return 1599;
       case "Enterprise": return 4999;
@@ -295,7 +298,7 @@ export default function SuperOwnerDashboard() {
         setNewEmail("");
         setNewPassword("");
         setNewCompanyName("");
-        setNewPlan("Starter");
+        setNewPlan("Smart AI-Review");
         setNewStatus("Active");
         loadAllData();
       } else {
@@ -590,12 +593,12 @@ export default function SuperOwnerDashboard() {
                           </td>
                           <td className="px-6 py-4">
                             <span className={`text-[10px] font-serif font-bold px-2.5 py-1 rounded-[6px] border uppercase tracking-wider ${
-                              client.subscription.plan === "Enterprise"
+                              client.subscription.plan === "AI Telecalling"
                                 ? "bg-[#283570] border-[#2E9E9C]/30 text-[#2E9E9C]"
-                                : client.subscription.plan === "Professional"
+                                : client.subscription.plan === "WhatsApp Chatbot"
+                                ? "bg-amber-500/10 border-amber-500/30 text-amber-700"
+                                : client.subscription.plan === "Smart AI-Review"
                                 ? "bg-[#2E9E9C]/10 border-[#2E9E9C]/30 text-[#283570]"
-                                : client.subscription.plan === "Starter"
-                                ? "bg-transparent border-[#E2DDD1] text-[#2B2B2B]"
                                 : "bg-transparent border-dashed border-[#E2DDD1] text-[#6B6B6B]"
                             }`}>
                               {client.subscription.plan}
@@ -859,9 +862,9 @@ export default function SuperOwnerDashboard() {
                   className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-bold"
                 >
                   <option value="Free">Free Trial (₹0/yr)</option>
-                  <option value="Starter">Starter Package (₹799/yr)</option>
-                  <option value="Professional">Professional Tier (₹1,599/yr)</option>
-                  <option value="Enterprise">Enterprise Solution (Custom/₹4,999/yr)</option>
+                  <option value="Smart AI-Review">Smart AI-Review (₹4,999/yr)</option>
+                  <option value="WhatsApp Chatbot">WhatsApp Chatbot (₹9,999/yr)</option>
+                  <option value="AI Telecalling">AI Telecalling (₹14,999/yr)</option>
                 </select>
               </div>
 
@@ -995,9 +998,9 @@ export default function SuperOwnerDashboard() {
                     className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-bold"
                   >
                     <option value="Free">Free (₹0/yr)</option>
-                    <option value="Starter">Starter (₹799/yr)</option>
-                    <option value="Professional">Professional (₹1,599/yr)</option>
-                    <option value="Enterprise">Enterprise (Custom)</option>
+                    <option value="Smart AI-Review">Smart AI-Review (₹4,999/yr)</option>
+                    <option value="WhatsApp Chatbot">WhatsApp Chatbot (₹9,999/yr)</option>
+                    <option value="AI Telecalling">AI Telecalling (₹14,999/yr)</option>
                   </select>
                 </div>
 
