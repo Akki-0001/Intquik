@@ -71,7 +71,7 @@ interface Review {
 }
 
 const generateRealQrMatrix = (bizId?: string) => {
-  const url = bizId ? `http://localhost:5000/api/qr/${bizId}/scan` : "http://intuik.com";
+  const url = bizId ? `${process.env.NEXT_PUBLIC_API_URL}/api/qr/${bizId}/scan` : "http://intuik.com";
   const qr = QRCode.create(url, { errorCorrectionLevel: 'H' });
   const size = qr.modules.size;
   const matrix: number[][] = [];
@@ -133,15 +133,15 @@ export default function SuperOwnerDashboard() {
     setError("");
     try {
       // 1. Fetch Clients
-      const clientsRes = await fetch("http://localhost:5000/api/auth/users", {
+      const clientsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/users`, {
         credentials: "include",
       });
       // 2. Fetch Locations
-      const locationsRes = await fetch("http://localhost:5000/api/businesses/admin/all", {
+      const locationsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/admin/all`, {
         credentials: "include",
       });
       // 3. Fetch Reviews
-      const reviewsRes = await fetch("http://localhost:5000/api/reviews/admin/all", {
+      const reviewsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reviews/admin/all`, {
         credentials: "include",
       });
 
@@ -236,7 +236,7 @@ export default function SuperOwnerDashboard() {
     if (!selectedClient) return;
     setSavingPlan(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/auth/users/${selectedClient._id}/subscription`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/users/${selectedClient._id}/subscription`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -269,7 +269,7 @@ export default function SuperOwnerDashboard() {
     }
     setCreatingClient(true);
     try {
-      const res = await fetch("http://localhost:5000/api/auth/users", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -314,7 +314,7 @@ export default function SuperOwnerDashboard() {
   const handleDeleteLocation = async (id: string, name: string) => {
     if (!window.confirm(`Are you absolutely sure you want to delete the business location "${name}"? This will also remove its associated reviews.`)) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/businesses/admin/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/admin/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -335,7 +335,7 @@ export default function SuperOwnerDashboard() {
     const actionText = nextStatus ? "activate" : "deactivate";
     if (!window.confirm(`Are you sure you want to ${actionText} this business location?`)) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/businesses/admin/${id}/status`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/admin/${id}/status`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -358,7 +358,7 @@ export default function SuperOwnerDashboard() {
   const handleDeleteReview = async (id: string, customer: string) => {
     if (!window.confirm(`Delete review from "${customer}"? This cannot be undone.`)) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/reviews/admin/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reviews/admin/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -1203,7 +1203,7 @@ Intuik Admin`;
               </button>
               <button
                 onClick={() => {
-                  const scanUrl = `http://localhost:5000/api/qr/${selectedLocationForQr._id}/scan`;
+                  const scanUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/qr/${selectedLocationForQr._id}/scan`;
                   navigator.clipboard.writeText(scanUrl);
                   alert("Scan link copied to clipboard!");
                 }}
@@ -1214,7 +1214,7 @@ Intuik Admin`;
             </div>
 
             <div className="text-[9px] font-semibold text-[#6B6B6B] leading-normal">
-              Scan URL: <span className="font-mono text-[#2B2B2B] break-all select-all">http://localhost:5000/api/qr/{selectedLocationForQr._id}/scan</span>
+              Scan URL: <span className="font-mono text-[#2B2B2B] break-all select-all">{process.env.NEXT_PUBLIC_API_URL}/api/qr/{selectedLocationForQr._id}/scan</span>
             </div>
           </div>
         </div>

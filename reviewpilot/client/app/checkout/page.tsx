@@ -74,7 +74,7 @@ function CheckoutContent() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/payment/create-order", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/payment/create-order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -91,7 +91,7 @@ function CheckoutContent() {
 
       // 2. Handle Mock/Staging Bypass Flow directly
       if (data.isMock) {
-        const verifyRes = await fetch("http://localhost:5000/api/payment/verify-payment", {
+        const verifyRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/payment/verify-payment`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -133,7 +133,7 @@ function CheckoutContent() {
         handler: async function (response: any) {
           setLoading(true);
           try {
-            const verifyRes = await fetch("http://localhost:5000/api/payment/verify-payment", {
+            const verifyRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/payment/verify-payment`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

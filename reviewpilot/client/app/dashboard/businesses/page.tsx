@@ -39,7 +39,7 @@ export default function BusinessesPage() {
 
     if (db.user) {
       try {
-        const res = await fetch("http://localhost:5000/api/businesses", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses`, {
           credentials: "include",
         });
         if (res.ok) {
@@ -89,7 +89,7 @@ export default function BusinessesPage() {
         formData.append("ratingThreshold", threshold.toString());
         if (logoFile) formData.append("logo", logoFile);
 
-        const res = await fetch("http://localhost:5000/api/businesses", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses`, {
           method: "POST",
           body: formData,
           credentials: "include",
@@ -160,7 +160,7 @@ export default function BusinessesPage() {
     const db = getDB();
     if (db.user && !id.startsWith("biz-")) {
       try {
-        const res = await fetch(`http://localhost:5000/api/businesses/${id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/${id}`, {
           method: "DELETE",
           credentials: "include",
         });
@@ -205,7 +205,7 @@ export default function BusinessesPage() {
         formData.append("ratingThreshold", threshold.toString());
         if (logoFile) formData.append("logo", logoFile);
 
-        const res = await fetch(`http://localhost:5000/api/businesses/${editBizId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/${editBizId}`, {
           method: "PUT",
           body: formData,
           credentials: "include",

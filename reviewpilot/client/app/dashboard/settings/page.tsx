@@ -77,7 +77,7 @@ export default function SettingsPage() {
     setUpgradingPlan(plan);
     setBillingSuccess("");
     try {
-      const res = await fetch("http://localhost:5000/api/auth/my-subscription", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/my-subscription`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ plan }),

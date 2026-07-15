@@ -51,7 +51,7 @@ interface ReviewConfig {
 }
 
 const generateRealQrMatrix = (bizId?: string) => {
-  const url = bizId ? `http://localhost:5000/api/qr/${bizId}/scan` : "http://intuik.com";
+  const url = bizId ? `${process.env.NEXT_PUBLIC_API_URL}/api/qr/${bizId}/scan` : "http://intuik.com";
   const qr = QRCode.create(url, { errorCorrectionLevel: 'H' });
   const size = qr.modules.size;
   const matrix: number[][] = [];
@@ -131,7 +131,7 @@ export default function DashboardPage() {
   const loadUserLocations = async () => {
     setLoadingLocs(true);
     try {
-      const res = await fetch("http://localhost:5000/api/businesses", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses`, {
         credentials: "include",
       });
       if (res.ok) {
@@ -160,7 +160,7 @@ export default function DashboardPage() {
       formData.append("ratingThreshold", newLocThreshold.toString());
       if (newLocLogo) formData.append("logo", newLocLogo);
 
-      const res = await fetch("http://localhost:5000/api/businesses", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses`, {
         method: "POST",
         body: formData,
         credentials: "include",

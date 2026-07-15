@@ -27,7 +27,7 @@ import QRCode from "qrcode";
 // Helper to generate a real QR code matrix grid using the qrcode package
 const generateRealQrMatrix = (bizId?: string) => {
   // Point the QR code to the backend scan tracking endpoint!
-  const url = bizId ? `http://localhost:5000/api/qr/${bizId}/scan` : "http://intuik.com";
+  const url = bizId ? `${process.env.NEXT_PUBLIC_API_URL}/api/qr/${bizId}/scan` : "http://intuik.com";
   
   // Use High error correction so the center badge doesn't break scannability
   const qr = QRCode.create(url, { errorCorrectionLevel: 'H' });
@@ -68,7 +68,7 @@ export default function QrGeneratorPage() {
 
   const loadQRConfig = async (bizId: string) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/qr/${bizId}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/qr/${bizId}`, {
         credentials: "include",
       });
       if (res.ok) {
@@ -89,7 +89,7 @@ export default function QrGeneratorPage() {
     const db = getDB();
     if (db.user) {
       try {
-        const res = await fetch("http://localhost:5000/api/businesses", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses`, {
           credentials: "include",
         });
         if (res.ok) {
@@ -160,7 +160,7 @@ export default function QrGeneratorPage() {
     const db = getDB();
     if (db.user) {
       try {
-        const res = await fetch(`http://localhost:5000/api/qr/${selectedBiz.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/qr/${selectedBiz.id}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

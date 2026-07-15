@@ -24,10 +24,10 @@ export default function ReviewsPage() {
     const db = getDB();
     if (db.user) {
       try {
-        const bizRes = await fetch("http://localhost:5000/api/businesses", {
+        const bizRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses`, {
           credentials: "include",
         });
-        const revRes = await fetch("http://localhost:5000/api/reviews", {
+        const revRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reviews`, {
           credentials: "include",
         });
 

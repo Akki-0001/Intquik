@@ -47,7 +47,7 @@ export default function PublicReviewFunnel() {
       const db = getDB();
       // Try to load business from backend
       try {
-        const res = await fetch(`http://localhost:5000/api/businesses/public/${businessId}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/public/${businessId}`);
         if (res.ok) {
           const b = await res.json();
           const biz: Business = {
@@ -64,7 +64,7 @@ export default function PublicReviewFunnel() {
           setBusiness(biz);
 
           // Track scan on backend
-          const scanRes = await fetch(`http://localhost:5000/api/businesses/${b._id}/scan`, {
+          const scanRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/${b._id}/scan`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ device }),
@@ -107,7 +107,7 @@ export default function PublicReviewFunnel() {
     
     // 1. Submit review
     try {
-      await fetch("http://localhost:5000/api/reviews", {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reviews`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -122,7 +122,7 @@ export default function PublicReviewFunnel() {
 
       // 2. Mark scan converted
       if (scanId && !scanId.startsWith("scan-")) {
-        await fetch(`http://localhost:5000/api/businesses/${business.id}/scan/${scanId}`, {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/${business.id}/scan/${scanId}`, {
           method: "PUT",
         });
       }
@@ -197,7 +197,7 @@ export default function PublicReviewFunnel() {
 
     // 1. Submit review to backend
     try {
-      const res = await fetch("http://localhost:5000/api/reviews", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reviews`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -212,7 +212,7 @@ export default function PublicReviewFunnel() {
 
       // 2. Mark scan converted
       if (res.ok && scanId && !scanId.startsWith("scan-")) {
-        await fetch(`http://localhost:5000/api/businesses/${business.id}/scan/${scanId}`, {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/${business.id}/scan/${scanId}`, {
           method: "PUT",
         });
       }

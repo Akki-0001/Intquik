@@ -19,7 +19,7 @@ export default function ReviewCard({ review, businessName, onRefresh }: ReviewCa
     const db = getDB();
     if (db.user && !review.id.startsWith("rev-")) {
       try {
-        await fetch(`http://localhost:5000/api/reviews/${review.id}/reply`, {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reviews/${review.id}/reply`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ reply: replyText }),
