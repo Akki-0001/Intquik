@@ -222,7 +222,7 @@ const sendWelcomeEmail = async (user) => {
     <p>Intuik helps you capture premium reviews, customize visual table tent QR stands, order NFC cards, and utilize AI review-prompts to accelerate your local Google review acquisition.</p>
     <p>Get started by setting up your first business location and downloading your custom-tailored QR stand:</p>
     <div style="text-align: center;">
-      <a href="http://localhost:3000/dashboard" class="btn">Access Your Dashboard</a>
+      <a href="https://intquik-amr2.vercel.app/dashboard" class="btn">Access Your Dashboard</a>
     </div>
     <p>If you have any questions, our support team is available 24/7 to assist you.</p>
     <p>Let's grow together,<br>The Intuik Team</p>
@@ -292,7 +292,7 @@ const sendSubscriptionEmail = async (user, planName, status) => {
     </table>
     <p>Your premium features have been unlocked immediately! You can now manage your active slots and custom styles from your control center.</p>
     <div style="text-align: center;">
-      <a href="http://localhost:3000/dashboard" class="btn">Go to Dashboard</a>
+      <a href="https://intquik-amr2.vercel.app/dashboard" class="btn">Go to Dashboard</a>
     </div>
     <p>Thank you for choosing Intuik,<br>The Intuik Team</p>
   `);

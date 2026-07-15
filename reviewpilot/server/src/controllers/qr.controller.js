@@ -127,7 +127,7 @@ const scanQRCode = async (req, res, next) => {
     );
 
     // Redirect to frontend review page
-    const frontendUrl = process.env.CORS_ORIGIN || "http://localhost:3000";
+    const frontendUrl = process.env.FRONTEND_URL || "https://intquik-amr2.vercel.app";
     res.redirect(`${frontendUrl}/review/${businessId}`);
   } catch (error) {
     next(error);
