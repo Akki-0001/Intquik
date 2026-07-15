@@ -156,10 +156,8 @@ export default function PublicReviewFunnel() {
     if (!business) return;
 
     if (selectedRating >= business.ratingThreshold) {
-      // Open Google Review page IMMEDIATELY (avoids popup blockers)
-      window.open(business.googleReviewUrl, "_blank", "noopener,noreferrer");
       setStep("thankyou");
-      submitPublicReviewBackground(selectedRating, "Shared positive experience directly on Google Reviews portal.");
+      submitPublicReviewBackground(selectedRating, "Shared positive experience.");
     } else {
       setStep("feedback");
     }
@@ -171,17 +169,11 @@ export default function PublicReviewFunnel() {
     // Copy to clipboard for easy pasting in Google
     navigator.clipboard.writeText(text).catch(() => {});
     
-    if (business) {
-      // Open Google Review page IMMEDIATELY (avoids popup blockers)
-      window.open(business.googleReviewUrl, "_blank", "noopener,noreferrer");
-    }
     setStep("thankyou");
     submitPublicReviewBackground(5, text);
   };
 
   const handleGoogleRedirect = async () => {
-    if (!business) return;
-    window.open(business.googleReviewUrl, "_blank", "noopener,noreferrer");
     setStep("thankyou");
   };
 
