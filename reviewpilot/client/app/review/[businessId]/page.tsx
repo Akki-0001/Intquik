@@ -10,8 +10,8 @@ export default function PublicReviewFunnel() {
   const businessId = params.businessId as string;
 
   const [business, setBusiness] = useState<Business | null>(null);
-  const [step, setStep] = useState<"rating" | "suggestions" | "feedback" | "google" | "thankyou">("rating");
-  const [rating, setRating] = useState(0);
+  const [step, setStep] = useState<"suggestions" | "feedback" | "google" | "thankyou">("suggestions");
+  const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
 
   // AI Suggestions
@@ -275,7 +275,8 @@ export default function PublicReviewFunnel() {
         <div className="p-6 sm:p-8 flex flex-col justify-between min-h-[440px]">
           
           {/* STEP 1: INITIAL RATING & AI SUGGESTIONS */}
-          {step === "rating" && (
+          {/* STEP 1: AI SUGGESTIONS (SHOWN DIRECTLY) */}
+          {step === "suggestions" && (
             <div className="flex-grow flex flex-col text-center space-y-6">
               <div>
                 <div 
@@ -285,47 +286,7 @@ export default function PublicReviewFunnel() {
                 </div>
                 <h2 className="text-2xl font-serif font-bold text-[#283570] tracking-tight">{business.name}</h2>
                 <p className="text-xs text-[#6B6B6B] font-semibold mt-1">
-                  How was your experience today?
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center pb-2">
-                <div className="flex gap-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      type="button"
-                      onMouseEnter={() => setHoverRating(star)}
-                      onMouseLeave={() => setHoverRating(0)}
-                      onClick={() => handleRatingSubmit(star)}
-                      className="text-[#E2DDD1] active:scale-95 transition-transform hover:scale-105"
-                    >
-                      <Star 
-                        className={`w-10 h-10 ${
-                          star <= (hoverRating || rating)
-                            ? "fill-[#2E9E9C] text-[#2E9E9C]" 
-                            : "text-[#E2DDD1]"
-                        }`} 
-                      />
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-auto pt-3 text-[9px] text-[#6B6B6B] font-bold uppercase tracking-widest flex items-center justify-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#2E9E9C]" />
-                <span>Powered by Intuik AI</span>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 1.5: AI SUGGESTIONS (SHOWN AFTER POSITIVE RATING) */}
-          {step === "suggestions" && (
-            <div className="flex-grow flex flex-col text-center space-y-6">
-              <div>
-                <h2 className="text-xl font-serif font-bold text-[#283570] tracking-tight">Write a Review</h2>
-                <p className="text-xs text-[#6B6B6B] font-semibold mt-1">
-                  Tap any suggestion below to instantly post your review, or write your own.
+                  Select a review below to copy and post to Google, or write your own.
                 </p>
               </div>
 
@@ -337,18 +298,26 @@ export default function PublicReviewFunnel() {
                 </div>
                 
                 {aiSuggestions.map((suggestion, idx) => (
-                  <button
+                  <div
                     key={idx}
-                    onClick={() => handleSuggestionClick(suggestion)}
-                    className="w-full bg-[#FFFFFF] border border-[#E2DDD1] hover:border-[#2E9E9C] hover:bg-[#F8FAFC]/20 p-4 rounded-[6px] text-left transition-all group flex items-start gap-3"
+                    className="w-full bg-[#FFFFFF] border border-[#E2DDD1] hover:border-[#2E9E9C] hover:bg-[#F8FAFC]/20 p-4 rounded-[6px] text-left transition-all group flex flex-col gap-3 shadow-sm"
                   >
-                    <div className="bg-white border border-[#E2DDD1] p-1.5 rounded-[6px] text-[#283570] group-hover:scale-105 transition-transform shrink-0">
-                      <Star className="w-3.5 h-3.5 fill-[#2E9E9C] text-[#2E9E9C]" />
+                    <div className="flex items-start gap-3">
+                      <div className="bg-white border border-[#E2DDD1] p-1.5 rounded-[6px] text-[#283570] group-hover:scale-105 transition-transform shrink-0">
+                        <Star className="w-3.5 h-3.5 fill-[#2E9E9C] text-[#2E9E9C]" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-[#2B2B2B] leading-relaxed">"{suggestion}"</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-xs font-semibold text-[#2B2B2B] leading-relaxed">"{suggestion}"</p>
-                    </div>
-                  </button>
+                    <button 
+                      onClick={() => handleSuggestionClick(suggestion)}
+                      className="w-full mt-1 bg-[#283570] text-[#2E9E9C] hover:bg-[#2E9E9C] hover:text-[#283570] border border-[#2E9E9C]/20 font-serif font-bold py-2.5 rounded-[6px] text-xs transition-all flex items-center justify-center gap-1.5"
+                    >
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Copy & Post to Google</span>
+                    </button>
+                  </div>
                 ))}
               </div>
 
@@ -365,14 +334,14 @@ export default function PublicReviewFunnel() {
                   placeholder="I loved the service..."
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  className="w-full bg-[#FFFFFF] hover:bg-white border border-[#E2DDD1] rounded-[6px] px-3.5 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] resize-none placeholder:text-[#6B6B6B] font-semibold transition-colors"
+                  className="w-full bg-[#FFFFFF] hover:bg-white border border-[#E2DDD1] rounded-[6px] px-3.5 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] resize-none placeholder:text-[#6B6B6B] font-semibold transition-colors shadow-sm"
                 />
                 <button
                   type="submit"
-                  className="w-full bg-[#283570] hover:bg-[#2E9E9C] text-[#2E9E9C] hover:text-[#283570] border border-[#2E9E9C]/20 font-serif font-bold py-3 rounded-[6px] text-xs transition-all flex items-center justify-center gap-1.5"
+                  className="w-full bg-[#283570] hover:bg-[#2E9E9C] text-[#2E9E9C] hover:text-[#283570] border border-[#2E9E9C]/20 font-serif font-bold py-3 rounded-[6px] text-xs transition-all flex items-center justify-center gap-1.5 shadow-sm"
                 >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>Post Review</span>
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>Copy & Post to Google</span>
                 </button>
               </form>
 
