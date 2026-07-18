@@ -26,8 +26,10 @@ import QRCode from "qrcode";
 
 // Helper to generate a real QR code matrix grid using the qrcode package
 const generateRealQrMatrix = (bizId?: string) => {
-  // Point the QR code to the backend scan tracking endpoint!
-  const url = bizId ? `${process.env.NEXT_PUBLIC_API_URL}/api/qr/${bizId}/scan` : "http://intuik.com";
+  // Point the QR code directly to the frontend review page
+  // The frontend handles scan tracking via API call on load.
+  const frontendUrl = typeof window !== 'undefined' ? window.location.origin : "https://intquik-amr2.vercel.app";
+  const url = bizId ? `${frontendUrl}/review/${bizId}` : "http://intuik.com";
   
   // Use High error correction so the center badge doesn't break scannability
   const qr = QRCode.create(url, { errorCorrectionLevel: 'H' });

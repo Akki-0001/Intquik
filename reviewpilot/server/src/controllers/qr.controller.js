@@ -83,11 +83,8 @@ const generateQRCodeImage = async (req, res, next) => {
     const fg = qrConfig ? qrConfig.fgColor : "#0d9488";
     const bg = qrConfig ? qrConfig.bgColor : "#ffffff";
 
-    // Create a dynamic URL pointing back to our new scan tracking endpoint
-    // Fallback to localhost if no host available
-    const protocol = req.protocol || "http";
-    const host = req.get("host") || "localhost:5000";
-    const scanUrl = `${protocol}://${host}/api/qr/${businessId}/scan`;
+    const frontendUrl = process.env.FRONTEND_URL || "https://intquik-amr2.vercel.app";
+    const scanUrl = `${frontendUrl}/review/${businessId}`;
 
     const svgString = await QRCode.toString(scanUrl, {
       type: "svg",
