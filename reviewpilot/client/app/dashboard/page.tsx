@@ -51,7 +51,8 @@ interface ReviewConfig {
 }
 
 const generateRealQrMatrix = (bizId?: string) => {
-  const url = bizId ? `${process.env.NEXT_PUBLIC_API_URL}/api/qr/${bizId}/scan` : "http://intuik.com";
+  const frontendUrl = typeof window !== 'undefined' ? window.location.origin : "https://intquik-amr2.vercel.app";
+  const url = bizId ? `${frontendUrl}/review/${bizId}` : "http://intuik.com";
   const qr = QRCode.create(url, { errorCorrectionLevel: 'H' });
   const size = qr.modules.size;
   const matrix: number[][] = [];
