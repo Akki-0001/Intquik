@@ -176,42 +176,15 @@ const isClient = typeof window !== 'undefined';
 export const getDB = () => {
   if (!isClient) {
     return {
-      businesses: DEFAULT_BUSINESSES,
-      reviews: DEFAULT_REVIEWS,
+      businesses: [],
+      reviews: [],
       scans: [],
       user: null as MockUser | null,
     };
   }
 
-  const businessesJson = localStorage.getItem('rp_businesses');
-  const reviewsJson = localStorage.getItem('rp_reviews');
-  const scansJson = localStorage.getItem('rp_scans');
-  const userJson = localStorage.getItem('rp_user');
-
-  let businesses = DEFAULT_BUSINESSES;
-  let reviews = DEFAULT_REVIEWS;
-  let scans: Scan[] = [];
   let user = null;
-
-  if (businessesJson) {
-    businesses = JSON.parse(businessesJson);
-  } else {
-    localStorage.setItem('rp_businesses', JSON.stringify(DEFAULT_BUSINESSES));
-  }
-
-  if (reviewsJson) {
-    reviews = JSON.parse(reviewsJson);
-  } else {
-    localStorage.setItem('rp_reviews', JSON.stringify(DEFAULT_REVIEWS));
-  }
-
-  if (scansJson) {
-    scans = JSON.parse(scansJson);
-  } else {
-    scans = generateDefaultScans();
-    localStorage.setItem('rp_scans', JSON.stringify(scans));
-  }
-
+  const userJson = localStorage.getItem('rp_user');
   if (userJson) {
     if (userJson === 'null') {
       user = null;
@@ -224,19 +197,66 @@ export const getDB = () => {
     }
   }
 
+  const suffix = user ? `_${user.id || user._id}` : '';
+
+  const businessesJson = localStorage.getItem(`rp_businesses${suffix}`);
+  const reviewsJson = localStorage.getItem(`rp_reviews${suffix}`);
+  const scansJson = localStorage.getItem(`rp_scans${suffix}`);
+
+  let businesses = [];
+  let reviews = [];
+  let scans: Scan[] = [];
+
+  if (businessesJson) {
+    businesses = JSON.parse(businessesJson);
+  } else {
+    // If no user is logged in, show default demo data. If logged in, start with empty data.
+    businesses = user ? [] : DEFAULT_BUSINESSES;
+    localStorage.setItem(`rp_businesses${suffix}`, JSON.stringify(businesses));
+  }
+
+  if (reviewsJson) {
+    reviews = JSON.parse(reviewsJson);
+  } else {
+    reviews = user ? [] : DEFAULT_REVIEWS;
+    localStorage.setItem(`rp_reviews${suffix}`, JSON.stringify(reviews));
+  }
+
+  if (scansJson) {
+    scans = JSON.parse(scansJson);
+  } else {
+    scans = user ? [] : generateDefaultScans();
+    localStorage.setItem(`rp_scans${suffix}`, JSON.stringify(scans));
+  }
+
   return { businesses, reviews, scans, user };
 };
 
 export const saveBusinesses = (businesses: Business[]) => {
-  if (isClient) localStorage.setItem('rp_businesses', JSON.stringify(businesses));
+  if (isClient) {
+    const userJson = localStorage.getItem('rp_user');
+    const user = userJson && userJson !== 'null' ? JSON.parse(userJson) : null;
+    const suffix = user ? `_${user.id || user._id}` : '';
+    localStorage.setItem(`rp_businesses${suffix}`, JSON.stringify(businesses));
+  }
 };
 
 export const saveReviews = (reviews: Review[]) => {
-  if (isClient) localStorage.setItem('rp_reviews', JSON.stringify(reviews));
+  if (isClient) {
+    const userJson = localStorage.getItem('rp_user');
+    const user = userJson && userJson !== 'null' ? JSON.parse(userJson) : null;
+    const suffix = user ? `_${user.id || user._id}` : '';
+    localStorage.setItem(`rp_reviews${suffix}`, JSON.stringify(reviews));
+  }
 };
 
 export const saveScans = (scans: Scan[]) => {
-  if (isClient) localStorage.setItem('rp_scans', JSON.stringify(scans));
+  if (isClient) {
+    const userJson = localStorage.getItem('rp_user');
+    const user = userJson && userJson !== 'null' ? JSON.parse(userJson) : null;
+    const suffix = user ? `_${user.id || user._id}` : '';
+    localStorage.setItem(`rp_scans${suffix}`, JSON.stringify(scans));
+  }
 };
 
 export const saveUser = (user: MockUser | null) => {

@@ -1,7 +1,7 @@
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const User = require("../models/user.model");
-const { sendSubscriptionEmail, sendInvoiceEmail } = require("../utils/email");
+const { sendPurchaseWelcomeEmail, sendInvoiceEmail } = require("../utils/email");
 
 // Initialize Razorpay
 const razorpay = new Razorpay({
@@ -110,8 +110,8 @@ const verifyPayment = async (req, res, next) => {
     const invoiceId = "INV-" + Math.floor(100000 + Math.random() * 900000);
 
     // Send emails
-    sendSubscriptionEmail(updatedUser, plan, "Active")
-      .catch(err => console.error("Failed to send subscription confirmation email:", err.message));
+    sendPurchaseWelcomeEmail(updatedUser, plan)
+      .catch(err => console.error("Failed to send purchase welcome email:", err.message));
     sendInvoiceEmail(updatedUser, plan, amountStr, invoiceId)
       .catch(err => console.error("Failed to send invoice email:", err.message));
 

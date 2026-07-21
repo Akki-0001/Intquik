@@ -137,7 +137,7 @@ const sendEmail = async ({ to, subject, html }) => {
   const provider = (process.env.EMAIL_PROVIDER || "").toLowerCase();
   
   const senderName = process.env.EMAIL_SENDER_NAME || "Intuik";
-  const senderEmail = process.env.EMAIL_SENDER_EMAIL || "noreply@intuik.com";
+  const senderEmail = process.env.EMAIL_SENDER_EMAIL || "noreply@intuikintuiktechnologies@gmail.com.com";
 
   if (provider === "nodemailer") {
     try {
@@ -305,10 +305,32 @@ const sendInvoiceEmail = async (user, planName, amount, invoiceId) => {
       </tbody>
     </table>
     
+    <div style="text-align: right; margin-top: 16px; font-size: 16px;">
+      <span style="color: #64748b; margin-right: 16px;">Total Paid:</span>
+      <span class="invoice-total">${amount}</span>
+    </div>
     <p style="font-size: 12px; color: #64748b; margin-top: 24px;">If you have any billing queries, please contact billing@intuik.com.</p>
   `);
 
-  return sendEmail({ to: user.email, subject: `Invoice #${invoiceId} - Intuik`, html });
+  return sendEmail({ to: user.email, subject: title, html });
+};
+
+const sendPurchaseWelcomeEmail = async (user, planName) => {
+  const title = "Welcome & Thank You for Your Purchase! - Intuik";
+  const html = getEmailLayout(title, `
+    <h1>Welcome to Intuik Premium!</h1>
+    <p>Hello ${user.name},</p>
+    <p>Thank you so much for your purchase! We are absolutely thrilled to welcome you to the <strong>${planName}</strong> plan.</p>
+    <p>Your subscription is now fully active for <strong>${user.companyName}</strong>, unlocking our premium suite of tools.</p>
+    <p>You can now manage your smart standees, track AI reviews, and customize your configurations directly from your premium dashboard.</p>
+    <div style="text-align: center;">
+      <a href="http://localhost:3000/dashboard" class="btn">Access Premium Dashboard</a>
+    </div>
+    <p>If you need any help setting up your hardware or have any questions, our support team is always here for you!</p>
+    <p>Thank you again,<br>The Intuik Team</p>
+  `);
+
+  return sendEmail({ to: user.email, subject: title, html });
 };
 
 module.exports = {
@@ -316,4 +338,5 @@ module.exports = {
   sendForgotPasswordEmail,
   sendSubscriptionEmail,
   sendInvoiceEmail,
+  sendPurchaseWelcomeEmail
 };
