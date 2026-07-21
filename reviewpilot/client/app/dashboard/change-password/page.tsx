@@ -116,7 +116,7 @@ export default function ChangePasswordPage() {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-[#14142B] font-bold text-xs py-3.5 rounded-[14px] transition-all shadow-md shadow-blue-500/10 hover:shadow-lg active:scale-[0.98]"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3.5 rounded-[14px] transition-all shadow-md shadow-blue-500/10 hover:shadow-lg active:scale-[0.98]"
           >
             Update Password
           </button>

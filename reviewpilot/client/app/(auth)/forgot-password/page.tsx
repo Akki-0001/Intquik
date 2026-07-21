@@ -84,7 +84,7 @@ export default function ForgotPasswordPage() {
             {/* Logo and Headings */}
             <div className="text-center mb-6">
               <div className="bg-gradient-to-tr from-blue-600 to-indigo-500 p-2.5 rounded-[14px] shadow-lg shadow-blue-500/10 inline-block mb-3">
-                <Sparkles className="w-6 h-6 text-[#14142B] stroke-[2.5]" />
+                <Sparkles className="w-6 h-6 text-white stroke-[2.5]" />
               </div>
               <h2 className="text-2xl font-black text-blue-950 tracking-tight">Forgot Password?</h2>
               <p className="text-xs text-gray-500 font-semibold mt-1">
@@ -122,7 +122,7 @@ export default function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-blue-600 text-[#14142B] font-bold py-3.5 rounded-[14px] hover:bg-blue-700 transition-colors mt-6 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/10 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-blue-600 text-white font-bold py-3.5 rounded-[14px] hover:bg-blue-700 transition-colors mt-6 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/10 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>
@@ -159,7 +159,7 @@ export default function ForgotPasswordPage() {
             <div className="pt-3 border-t border-slate-100 space-y-2">
               <button
                 onClick={() => router.push(`/reset-password`)}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-[#14142B] text-xs font-bold px-6 py-3.5 rounded-[14px] transition-all shadow-lg shadow-blue-500/10 flex items-center justify-center gap-2"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-6 py-3.5 rounded-[14px] transition-all shadow-lg shadow-blue-500/10 flex items-center justify-center gap-2"
               >
                 <span>Enter OTP to Reset Password</span>
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />

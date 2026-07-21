@@ -188,7 +188,7 @@ export default function SettingsPage() {
           <div className="flex items-center gap-3 pt-2">
             <button
               type="submit"
-              className="bg-blue-600 text-[#14142B] text-xs font-bold px-4 py-2.5 rounded-[14px] hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/10"
+              className="bg-blue-600 text-white text-xs font-bold px-4 py-2.5 rounded-[14px] hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/10"
             >
               Save Profile Settings
             </button>
@@ -378,7 +378,7 @@ export default function SettingsPage() {
               className={`w-full mt-6 py-2 rounded-[14px] text-[10px] font-bold transition-all ${
                 user.subscription?.plan === "Starter"
                   ? "bg-slate-100 text-gray-400 cursor-not-allowed"
-                  : "bg-blue-650 hover:bg-blue-700 text-[#14142B] shadow-md shadow-blue-500/10"
+                  : "bg-blue-650 hover:bg-blue-700 text-white shadow-md shadow-blue-500/10"
               }`}
             >
               {user.subscription?.plan === "Starter" ? "Active Plan" : "Upgrade Starter"}
@@ -405,7 +405,7 @@ export default function SettingsPage() {
               className={`w-full mt-6 py-2 rounded-[14px] text-[10px] font-bold transition-all ${
                 user.subscription?.plan === "Professional"
                   ? "bg-slate-100 text-gray-400 cursor-not-allowed"
-                  : "bg-blue-650 hover:bg-blue-700 text-[#14142B] shadow-md shadow-blue-500/10"
+                  : "bg-blue-650 hover:bg-blue-700 text-white shadow-md shadow-blue-500/10"
               }`}
             >
               {user.subscription?.plan === "Professional" ? "Active Plan" : "Upgrade Professional"}
@@ -432,7 +432,7 @@ export default function SettingsPage() {
               className={`w-full mt-6 py-2 rounded-[14px] text-[10px] font-bold transition-all ${
                 user.subscription?.plan === "Enterprise"
                   ? "bg-slate-100 text-gray-400 cursor-not-allowed"
-                  : "bg-blue-650 hover:bg-blue-700 text-[#14142B] shadow-md shadow-blue-500/10"
+                  : "bg-blue-650 hover:bg-blue-700 text-white shadow-md shadow-blue-500/10"
               }`}
             >
               {user.subscription?.plan === "Enterprise" ? "Active Plan" : "Upgrade Enterprise"}

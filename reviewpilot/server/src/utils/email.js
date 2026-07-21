@@ -131,84 +131,45 @@ const getEmailLayout = (title, content) => {
   `;
 };
 
+const nodemailer = require('nodemailer');
+
 const sendEmail = async ({ to, subject, html }) => {
   const provider = (process.env.EMAIL_PROVIDER || "").toLowerCase();
-  const brevoKey = process.env.BREVO_API_KEY;
-  const resendKey = process.env.RESEND_API_KEY;
   
   const senderName = process.env.EMAIL_SENDER_NAME || "Intuik";
   const senderEmail = process.env.EMAIL_SENDER_EMAIL || "noreply@intuik.com";
 
-  if (!brevoKey && !resendKey) {
-    console.warn(`[EMAIL STATE] No Email API keys configured (BREVO_API_KEY / RESEND_API_KEY missing). Mock email logged:`);
+  if (provider === "nodemailer") {
+    try {
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT || 587,
+        secure: process.env.SMTP_PORT == 465, 
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+      });
+
+      const info = await transporter.sendMail({
+        from: `"${senderName}" <${senderEmail}>`,
+        to: to,
+        subject: subject,
+        html: html,
+      });
+
+      console.log(`[EMAIL SUCCESS] Email sent to ${to} via Nodemailer. MessageID: ${info.messageId}`);
+      return { success: true, provider: "nodemailer", id: info.messageId };
+    } catch (err) {
+      console.error(`[EMAIL ERROR] Failed to send via Nodemailer:`, err.message);
+      throw err;
+    }
+  } else {
+    // Fallback/Mock behavior if provider is not configured
+    console.warn(`[EMAIL STATE] EMAIL_PROVIDER is not set to 'nodemailer' (or missing SMTP credentials). Mock email logged:`);
     console.log(`To: ${to}`);
     console.log(`Subject: ${subject}`);
     return { success: true, mock: true };
-  }
-
-  // 1. Send via Resend
-  if (provider === "resend" || (resendKey && !brevoKey)) {
-    try {
-      const response = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${resendKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from: `${senderName} <${senderEmail}>`,
-          to: [to],
-          subject: subject,
-          html: html,
-        }),
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.message || JSON.stringify(data));
-      }
-      console.log(`[EMAIL SUCCESS] Email sent to ${to} via Resend. ID: ${data.id || data.id_string}`);
-      return { success: true, provider: "resend", id: data.id };
-    } catch (err) {
-      console.error(`[EMAIL ERROR] Failed to send via Resend:`, err.message);
-      throw err;
-    }
-  }
-
-  // 2. Send via Brevo (Default or fallback)
-  if (provider === "brevo" || brevoKey) {
-    try {
-      const response = await fetch("https://api.brevo.com/v3/smtp/email", {
-        method: "POST",
-        headers: {
-          "api-key": brevoKey,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sender: {
-            name: senderName,
-            email: senderEmail,
-          },
-          to: [
-            {
-              email: to,
-            },
-          ],
-          subject: subject,
-          htmlContent: html,
-        }),
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.message || JSON.stringify(data));
-      }
-      console.log(`[EMAIL SUCCESS] Email sent to ${to} via Brevo. MessageID: ${data.messageId}`);
-      return { success: true, provider: "brevo", id: data.messageId };
-    } catch (err) {
-      console.error(`[EMAIL ERROR] Failed to send via Brevo:`, err.message);
-      throw err;
-    }
   }
 };
 

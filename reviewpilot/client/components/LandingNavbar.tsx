@@ -42,7 +42,7 @@ export default function LandingNavbar() {
             <span>Home</span>
             <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[3px] bg-sky-500 rounded-full transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100" />
           </Link>
-          <Link href="/#how-it-works" className="relative hover:text-sky-600 transition-colors py-2 group">
+          <Link href="/about" className="relative hover:text-sky-600 transition-colors py-2 group">
             <span>About Us</span>
             <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[3px] bg-sky-500 rounded-full transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100" />
           </Link>

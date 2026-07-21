@@ -166,7 +166,7 @@ export default function AIRepliesPage() {
                   </div>
                   <button 
                     onClick={() => generateReply(review.id)}
-                    className="bg-indigo-600 text-[#14142B] text-xs font-bold px-5 py-2.5 rounded-[14px] hover:bg-indigo-700 transition-colors flex items-center gap-2 shadow-md shadow-indigo-500/20"
+                    className="bg-indigo-600 text-white text-xs font-bold px-5 py-2.5 rounded-[14px] hover:bg-indigo-700 transition-colors flex items-center gap-2 shadow-md shadow-indigo-500/20"
                   >
                     <Sparkles className="w-4 h-4" />
                     <span>Generate AI Reply</span>
@@ -214,7 +214,7 @@ export default function AIRepliesPage() {
                       </button>
                       <button 
                         onClick={() => publishReply(review.id)}
-                        className="bg-blue-950 text-[#14142B] text-xs font-bold px-5 py-2.5 rounded-[14px] hover:bg-blue-900 transition-colors flex items-center gap-2 shadow-md shadow-blue-950/10"
+                        className="bg-blue-600 text-white text-xs font-bold px-5 py-2.5 rounded-[14px] hover:bg-blue-900 transition-colors flex items-center gap-2 shadow-md shadow-blue-950/10"
                       >
                         <Send className="w-3.5 h-3.5" />
                         <span>Publish Reply</span>

@@ -23,6 +23,8 @@ export default function Navbar({ setMobileMenuOpen }: NavbarProps) {
   const pathname = usePathname();
   const activeItem = NAV_ITEMS.find(item => item.href === pathname) || { name: "Dashboard" };
   const [user, setUser] = useState<MockUser | null>(null);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [daysLeft, setDaysLeft] = useState<number | null>(null);
 
   useEffect(() => {
     const db = getDB();
@@ -30,6 +32,32 @@ export default function Navbar({ setMobileMenuOpen }: NavbarProps) {
       setUser(db.user);
     }
   }, []);
+
+  useEffect(() => {
+    if (user?.subscription?.endDate && user.subscription.plan !== "Free") {
+      const end = new Date(user.subscription.endDate).getTime();
+      const now = new Date().getTime();
+      if (end > now) {
+        setDaysLeft(Math.ceil((end - now) / (1000 * 60 * 60 * 24)));
+      } else {
+        setDaysLeft(0);
+      }
+    }
+  }, [user]);
+
+  // Handle clicking outside to close
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (showNotifications) {
+        const target = event.target as HTMLElement;
+        if (!target.closest('.notification-container')) {
+          setShowNotifications(false);
+        }
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showNotifications]);
 
   return (
     <>
@@ -68,10 +96,39 @@ export default function Navbar({ setMobileMenuOpen }: NavbarProps) {
         </div>
 
         <div className="flex items-center gap-4">
-          <button className="text-slate-600 hover:text-sky-600 p-2.5 rounded-[12px] border border-slate-200 hover:bg-slate-50 transition-colors relative shadow-sm bg-white">
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-rose-500 rounded-full ring-2 ring-white" />
-          </button>
+          <div className="relative notification-container">
+            <button 
+              onClick={() => setShowNotifications(!showNotifications)}
+              className={`text-slate-600 hover:text-sky-600 p-2.5 rounded-[12px] border transition-colors relative shadow-sm bg-white ${showNotifications ? 'border-sky-300 ring-2 ring-sky-100' : 'border-slate-200 hover:bg-slate-50'}`}
+            >
+              <Bell className="w-5 h-5" />
+              <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-rose-500 rounded-full ring-2 ring-white" />
+            </button>
+
+            {showNotifications && (
+              <div className="absolute right-0 top-full mt-2 w-80 bg-white border border-slate-200 rounded-[16px] shadow-xl overflow-hidden z-50">
+                <div className="p-4 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
+                  <h3 className="font-bold text-slate-900 text-sm">Notifications</h3>
+                  <span className="bg-rose-100 text-rose-600 text-[10px] font-bold px-2 py-0.5 rounded-full">1 New</span>
+                </div>
+                <div className="p-2">
+                  <div className="p-3 hover:bg-slate-50 rounded-[12px] transition-colors cursor-pointer border border-transparent hover:border-slate-100 flex gap-3 items-start">
+                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                      <Sparkles className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-slate-900 mb-1">Subscription Status</p>
+                      {(!user || !user.subscription || user.subscription.plan === 'Free') ? (
+                        <p className="text-xs text-slate-500">You are currently on the <span className="font-bold text-slate-700">Free</span> plan. Upgrade to unlock premium features and add more locations.</p>
+                      ) : (
+                        <p className="text-xs text-slate-500">You are currently on the <span className="font-bold text-blue-600">{user.subscription.plan}</span> plan. Your subscription expires in <span className="font-bold text-rose-500">{daysLeft} days</span>.</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Buy Plan / Renew Plan dynamic header button */}
           {user && (

@@ -86,7 +86,7 @@ export default function FollowUpsPage() {
           <h2 className="text-xl font-black text-blue-950 tracking-tight">SMS & WhatsApp Follow-ups</h2>
           <p className="text-xs text-gray-500 font-semibold mt-1">Automatically text customers after calls or visits to capture leads and drive 5-star reviews.</p>
         </div>
-        <button className="bg-blue-950 text-[#14142B] text-xs font-bold px-4 py-2.5 rounded-[14px] hover:bg-blue-900 transition-colors flex items-center gap-1.5 shadow-md shadow-blue-950/10">
+        <button className="bg-blue-600 text-white text-xs font-bold px-4 py-2.5 rounded-[14px] hover:bg-blue-900 transition-colors flex items-center gap-1.5 shadow-md shadow-blue-950/10">
           <Save className="w-4 h-4" />
           <span>Save Automations</span>
         </button>

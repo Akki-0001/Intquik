@@ -402,11 +402,11 @@ export default function SuperOwnerDashboard() {
       {/* Upper header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-serif font-bold text-[#283570] tracking-tight flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-[#2E9E9C]" />
+          <h2 className="text-xl font-bold text-blue-950 tracking-tight flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-blue-600" />
             <span>Website Owner Panel (Super Admin)</span>
           </h2>
-          <p className="text-xs text-[#6B6B6B] font-semibold mt-1 font-sans">
+          <p className="text-xs text-gray-500 font-semibold mt-1 font-sans">
             Manage your customer accounts, verify subscription payments, and clean up the database.
           </p>
         </div>
@@ -414,19 +414,19 @@ export default function SuperOwnerDashboard() {
         <button
           onClick={loadAllData}
           disabled={loading}
-          className="bg-white border border-[#E2DDD1] text-[#283570] hover:bg-[#FFFFFF] hover:text-[#2E9E9C] text-xs font-serif font-bold px-4 py-2.5 rounded-[6px] transition-colors flex items-center gap-1.5 shadow-sm"
+          className="bg-white border border-slate-200 text-blue-950 hover:bg-white hover:text-blue-600 text-xs font-bold px-4 py-2.5 rounded-[14px] transition-colors flex items-center gap-1.5 shadow-sm"
         >
-          <RefreshCw className={`w-3.5 h-3.5 text-[#2E9E9C] ${loading ? "animate-spin" : ""}`} />
+          <RefreshCw className={`w-3.5 h-3.5 text-blue-600 ${loading ? "animate-spin" : ""}`} />
           <span>Refresh Database</span>
         </button>
       </div>
 
       {/* error state */}
       {error && (
-        <div className="bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-[6px] p-4 flex items-start gap-2.5">
+        <div className="bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-[14px] p-4 flex items-start gap-2.5">
           <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
           <div>
-            <p className="font-bold font-serif">Database Access Error</p>
+            <p className="font-bold">Database Access Error</p>
             <p className="mt-0.5 font-sans">{error}</p>
           </div>
         </div>
@@ -436,62 +436,62 @@ export default function SuperOwnerDashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         {/* Total Clients */}
-        <div className="bg-white border border-[#E2DDD1] rounded-[6px] p-6 shadow-sm flex items-center gap-4">
-          <div className="bg-[#2E9E9C]/15 p-3 rounded-[6px] text-[#283570]">
+        <div className="bg-white border border-slate-200 rounded-[14px] p-6 shadow-sm flex items-center gap-4">
+          <div className="bg-blue-600/15 p-3 rounded-[14px] text-blue-950">
             <Users className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-[10px] text-[#6B6B6B] font-bold uppercase tracking-wider">Total Companies</p>
-            <p className="text-2xl font-serif font-bold text-[#283570] mt-0.5">{clients.length}</p>
+            <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Total Companies</p>
+            <p className="text-2xl font-bold text-blue-950 mt-0.5">{clients.length}</p>
           </div>
         </div>
 
         {/* Active Subscribers */}
-        <div className="bg-white border border-[#E2DDD1] rounded-[6px] p-6 shadow-sm flex items-center gap-4">
-          <div className="bg-[#2E9E9C]/15 p-3 rounded-[6px] text-[#283570]">
+        <div className="bg-white border border-slate-200 rounded-[14px] p-6 shadow-sm flex items-center gap-4">
+          <div className="bg-blue-600/15 p-3 rounded-[14px] text-blue-950">
             <CheckCircle className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-[10px] text-[#6B6B6B] font-bold uppercase tracking-wider">Active Plans</p>
-            <p className="text-2xl font-serif font-bold text-[#283570] mt-0.5">
+            <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Active Plans</p>
+            <p className="text-2xl font-bold text-blue-950 mt-0.5">
               {clients.filter(c => c.subscription.status === "Active" && c.subscription.plan !== "Free").length}
             </p>
           </div>
         </div>
 
         {/* ARR estimate */}
-        <div className="bg-white border border-[#E2DDD1] rounded-[6px] p-6 shadow-sm flex items-center gap-4">
-          <div className="bg-[#2E9E9C]/15 p-3 rounded-[6px] text-[#283570]">
+        <div className="bg-white border border-slate-200 rounded-[14px] p-6 shadow-sm flex items-center gap-4">
+          <div className="bg-blue-600/15 p-3 rounded-[14px] text-blue-950">
             <span className="text-lg font-bold font-mono">₹</span>
           </div>
           <div>
-            <p className="text-[10px] text-[#6B6B6B] font-bold uppercase tracking-wider">Estimated ARR</p>
-            <p className="text-2xl font-serif font-bold text-[#283570] mt-0.5">₹{calculateARR()}/yr</p>
+            <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Estimated ARR</p>
+            <p className="text-2xl font-bold text-blue-950 mt-0.5">₹{calculateARR()}/yr</p>
           </div>
         </div>
 
         {/* Total Locations */}
-        <div className="bg-white border border-[#E2DDD1] rounded-[6px] p-6 shadow-sm flex items-center gap-4">
-          <div className="bg-[#2E9E9C]/15 p-3 rounded-[6px] text-[#283570]">
+        <div className="bg-white border border-slate-200 rounded-[14px] p-6 shadow-sm flex items-center gap-4">
+          <div className="bg-blue-600/15 p-3 rounded-[14px] text-blue-950">
             <Building2 className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-[10px] text-[#6B6B6B] font-bold uppercase tracking-wider">Live Locations</p>
-            <p className="text-2xl font-serif font-bold text-[#283570] mt-0.5">{locations.length}</p>
+            <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Live Locations</p>
+            <p className="text-2xl font-bold text-blue-950 mt-0.5">{locations.length}</p>
           </div>
         </div>
 
       </div>
 
       {/* Tabs list & search bar */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-[#E2DDD1] pb-2">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-slate-200 pb-2">
         <div className="flex gap-2 flex-wrap items-center">
           <button
             onClick={() => { setActiveTab("clients"); setSearchQuery(""); }}
-            className={`px-4 py-2 text-xs font-serif font-bold rounded-[6px] transition-all ${
+            className={`px-4 py-2 text-xs  font-bold rounded-[14px] transition-all ${
               activeTab === "clients" 
-                ? "bg-[#283570] text-[#2E9E9C] border border-[#2E9E9C]/25" 
-                : "bg-white border border-[#E2DDD1] text-[#6B6B6B] hover:bg-[#FFFFFF]"
+                ? "bg-blue-600 text-white border border-transparent/25" 
+                : "bg-white border border-slate-200 text-gray-500 hover:bg-white"
             }`}
           >
             👥 Clients & Subscriptions ({filteredClients.length})
@@ -508,7 +508,7 @@ export default function SuperOwnerDashboard() {
                 setNewEndDate(`${yyyy}-${mm}-${dd}`);
                 setIsCreateModalOpen(true);
               }}
-              className="bg-[#2E9E9C] hover:bg-[#283570] text-[#283570] hover:text-[#2E9E9C] border border-[#2E9E9C] text-xs font-serif font-bold px-4 py-2 rounded-[6px] transition-all flex items-center gap-1.5"
+              className="bg-blue-600 text-white hover:bg-blue-700 hover:text-white border-transparent border border-transparent text-xs font-bold px-4 py-2 rounded-[14px] transition-all flex items-center gap-1.5"
             >
               <span>+ Create Client Account</span>
             </button>
@@ -516,10 +516,10 @@ export default function SuperOwnerDashboard() {
           
           <button
             onClick={() => { setActiveTab("locations"); setSearchQuery(""); }}
-            className={`px-4 py-2 text-xs font-serif font-bold rounded-[6px] transition-all ${
+            className={`px-4 py-2 text-xs  font-bold rounded-[14px] transition-all ${
               activeTab === "locations" 
-                ? "bg-[#283570] text-[#2E9E9C] border border-[#2E9E9C]/25" 
-                : "bg-white border border-[#E2DDD1] text-[#6B6B6B] hover:bg-[#FFFFFF]"
+                ? "bg-blue-600 text-white border border-transparent/25" 
+                : "bg-white border border-slate-200 text-gray-500 hover:bg-white"
             }`}
           >
             🏢 Locations DB ({filteredLocations.length})
@@ -527,10 +527,10 @@ export default function SuperOwnerDashboard() {
 
           <button
             onClick={() => { setActiveTab("reviews"); setSearchQuery(""); }}
-            className={`px-4 py-2 text-xs font-serif font-bold rounded-[6px] transition-all ${
+            className={`px-4 py-2 text-xs  font-bold rounded-[14px] transition-all ${
               activeTab === "reviews" 
-                ? "bg-[#283570] text-[#2E9E9C] border border-[#2E9E9C]/25" 
-                : "bg-white border border-[#E2DDD1] text-[#6B6B6B] hover:bg-[#FFFFFF]"
+                ? "bg-blue-600 text-white border border-transparent/25" 
+                : "bg-white border border-slate-200 text-gray-500 hover:bg-white"
             }`}
           >
             💬 Feedbacks DB ({filteredReviews.length})
@@ -539,32 +539,32 @@ export default function SuperOwnerDashboard() {
 
         {/* Global Search Bar */}
         <div className="relative w-full lg:w-72">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2E9E9C]" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-600" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={`Search ${activeTab}...`}
-            className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] pl-9 pr-4 py-2 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] focus:ring-2 focus:ring-[#2E9E9C] font-semibold placeholder:text-[#6B6B6B]"
+            className="w-full bg-white border border-slate-200 rounded-[14px] pl-9 pr-4 py-2 text-xs text-[#2B2B2B] focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-[#2E9E9C] font-semibold placeholder:text-gray-500"
           />
         </div>
       </div>
 
       {/* Main lists */}
       {loading ? (
-        <div className="bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] p-16 text-center shadow-sm">
-          <RefreshCw className="w-8 h-8 text-[#2E9E9C] animate-spin mx-auto mb-4" />
-          <p className="text-xs text-[#6B6B6B] font-bold">Querying MongoDB Server Database...</p>
+        <div className="bg-white border border-slate-200 rounded-[14px] p-16 text-center shadow-sm">
+          <RefreshCw className="w-8 h-8 text-blue-600 animate-spin mx-auto mb-4" />
+          <p className="text-xs text-gray-500 font-bold">Querying MongoDB Server Database...</p>
         </div>
       ) : (
-        <div className="bg-white border border-[#E2DDD1] rounded-[6px] overflow-hidden shadow-sm">
+        <div className="bg-white border border-slate-200 rounded-[14px] overflow-hidden shadow-sm">
           
           {/* TAB 1: Clients & Subscriptions */}
           {activeTab === "clients" && (
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-[#FFFFFF] border-b border-[#E2DDD1] text-[10px] font-serif font-bold uppercase text-[#283570] tracking-wider">
+                  <tr className="bg-slate-50 border-b border-slate-200 text-[10px] font-bold uppercase text-gray-500 tracking-wider">
                     <th className="px-6 py-4">Company & Client Details</th>
                     <th className="px-6 py-4">Active Plan</th>
                     <th className="px-6 py-4">Subscription Status</th>
@@ -572,10 +572,10 @@ export default function SuperOwnerDashboard() {
                     <th className="px-6 py-4 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#E2DDD1]/40">
+                <tbody className="divide-y divide-slate-200">
                   {filteredClients.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="px-6 py-12 text-center text-xs font-bold text-[#6B6B6B]">
+                      <td colSpan={5} className="px-6 py-12 text-center text-xs font-bold text-gray-500">
                         No clients found in MongoDB records.
                       </td>
                     </tr>
@@ -585,27 +585,27 @@ export default function SuperOwnerDashboard() {
                       const isExpired = daysLeft <= 0 || client.subscription.status === "Expired";
                       
                       return (
-                        <tr key={client._id} className="odd:bg-[#FFFFFF]/50 even:bg-white hover:bg-[#F8FAFC]/20 transition-colors">
+                        <tr key={client._id} className="bg-white hover:bg-slate-50 transition-colors">
                           <td className="px-6 py-4">
-                            <div className="font-serif font-bold text-[#283570] text-xs">{client.companyName || "No Company"}</div>
-                            <div className="text-[10px] font-semibold text-[#6B6B6B] mt-0.5">{client.name} ({client.email})</div>
-                            <div className="text-[9px] text-[#6B6B6B]/80 mt-1 font-mono">Registered: {new Date(client.createdAt).toLocaleDateString()}</div>
+                            <div className="font-bold text-blue-950 text-xs">{client.companyName || "No Company"}</div>
+                            <div className="text-[10px] font-semibold text-gray-500 mt-0.5">{client.name} ({client.email})</div>
+                            <div className="text-[9px] text-gray-500/80 mt-1 font-mono">Registered: {new Date(client.createdAt).toLocaleDateString()}</div>
                           </td>
                           <td className="px-6 py-4">
-                            <span className={`text-[10px] font-serif font-bold px-2.5 py-1 rounded-[6px] border uppercase tracking-wider ${
+                            <span className={`text-[10px]  font-bold px-2.5 py-1 rounded-[14px] border uppercase tracking-wider ${
                               client.subscription.plan === "AI Telecalling"
-                                ? "bg-[#283570] border-[#2E9E9C]/30 text-[#2E9E9C]"
+                                ? "bg-blue-950 border-transparent text-blue-600"
                                 : client.subscription.plan === "WhatsApp Chatbot"
                                 ? "bg-amber-500/10 border-amber-500/30 text-amber-700"
                                 : client.subscription.plan === "Smart AI-Review"
-                                ? "bg-[#2E9E9C]/10 border-[#2E9E9C]/30 text-[#283570]"
-                                : "bg-transparent border-dashed border-[#E2DDD1] text-[#6B6B6B]"
+                                ? "bg-blue-600/10 border-transparent text-blue-950"
+                                : "bg-transparent border-dashed border-slate-200 text-gray-500"
                             }`}>
                               {client.subscription.plan}
                             </span>
                           </td>
                           <td className="px-6 py-4">
-                            <span className={`text-[10px] font-bold px-2.5 py-1 rounded-[6px] border uppercase tracking-wider ${
+                            <span className={`text-[10px] font-bold px-2.5 py-1 rounded-[14px] border uppercase tracking-wider ${
                               client.subscription.status === "Active" && !isExpired
                                 ? "bg-emerald-500/10 text-emerald-700 border-emerald-500/20"
                                 : "bg-rose-500/10 text-rose-700 border-rose-500/20"
@@ -619,10 +619,10 @@ export default function SuperOwnerDashboard() {
                             ) : (
                               <div className="space-y-1">
                                 <div className="text-xs font-bold text-[#2B2B2B] flex items-center gap-1">
-                                  <Calendar className="w-3.5 h-3.5 text-[#2E9E9C]" />
+                                  <Calendar className="w-3.5 h-3.5 text-blue-600" />
                                   <span>{daysLeft} days remaining</span>
                                 </div>
-                                <div className="text-[9px] text-[#6B6B6B] font-semibold font-mono">
+                                <div className="text-[9px] text-gray-500 font-semibold font-mono">
                                   Ends: {new Date(client.subscription.endDate).toLocaleDateString()}
                                 </div>
                               </div>
@@ -631,7 +631,7 @@ export default function SuperOwnerDashboard() {
                           <td className="px-6 py-4 text-right">
                             <button
                               onClick={() => openEditModal(client)}
-                              className="bg-white border border-[#E2DDD1] hover:bg-[#FFFFFF] text-[#283570] hover:text-[#2E9E9C] text-[10px] font-serif font-bold px-3 py-1.5 rounded-[6px] transition-all shadow-sm flex items-center gap-1.5 inline-flex"
+                              className="bg-white border border-slate-200 hover:bg-white text-blue-950 hover:text-blue-600 text-[10px] font-bold px-3 py-1.5 rounded-[14px] transition-all shadow-sm flex items-center gap-1.5 inline-flex"
                             >
                               <Settings2 className="w-3.5 h-3.5" />
                               <span>Modify Plan</span>
@@ -651,7 +651,7 @@ export default function SuperOwnerDashboard() {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-[#FFFFFF] border-b border-[#E2DDD1] text-[10px] font-serif font-bold uppercase text-[#283570] tracking-wider">
+                  <tr className="bg-slate-50 border-b border-slate-200 text-[10px] font-bold uppercase text-gray-500 tracking-wider">
                     <th className="px-6 py-4">Business Location Name</th>
                     <th className="px-6 py-4">Created By (Owner)</th>
                     <th className="px-6 py-4">Review Hyperlinks</th>
@@ -659,36 +659,36 @@ export default function SuperOwnerDashboard() {
                     <th className="px-6 py-4 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#E2DDD1]/40">
+                <tbody className="divide-y divide-slate-200">
                   {filteredLocations.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="px-6 py-12 text-center text-xs font-bold text-[#6B6B6B]">
+                      <td colSpan={5} className="px-6 py-12 text-center text-xs font-bold text-gray-500">
                         No locations registered in MongoDB.
                       </td>
                     </tr>
                   ) : (
                     filteredLocations.map((loc) => (
-                      <tr key={loc._id} className="odd:bg-[#FFFFFF]/50 even:bg-white hover:bg-[#F8FAFC]/20 transition-colors">
+                      <tr key={loc._id} className="bg-white hover:bg-slate-50 transition-colors">
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-2">
-                            <span className="font-serif font-bold text-[#283570] text-xs">{loc.name}</span>
+                            <span className="font-bold text-blue-950 text-xs">{loc.name}</span>
                             {loc.isActive === false ? (
-                              <span className="bg-rose-500/10 text-rose-700 border border-rose-500/20 text-[8px] font-bold px-2 py-0.5 rounded-[6px] uppercase tracking-wider">
+                              <span className="bg-rose-500/10 text-rose-700 border border-rose-500/20 text-[8px] font-bold px-2 py-0.5 rounded-[14px] uppercase tracking-wider">
                                 Inactive
                               </span>
                             ) : (
-                              <span className="bg-emerald-500/10 text-emerald-700 border border-emerald-500/20 text-[8px] font-bold px-2 py-0.5 rounded-[6px] uppercase tracking-wider">
+                              <span className="bg-emerald-500/10 text-emerald-700 border border-emerald-500/20 text-[8px] font-bold px-2 py-0.5 rounded-[14px] uppercase tracking-wider">
                                 Active
                               </span>
                             )}
                           </div>
-                          <div className="text-[9px] text-[#6B6B6B]/80 font-mono mt-1">ID: {loc._id}</div>
+                          <div className="text-[9px] text-gray-500/80 font-mono mt-1">ID: {loc._id}</div>
                         </td>
                         <td className="px-6 py-4">
                           {loc.userId ? (
                             <div>
-                               <div className="text-xs font-serif font-bold text-[#283570]">{loc.userId.companyName || "No Company"}</div>
-                               <div className="text-[10px] text-[#6B6B6B] font-semibold mt-0.5">{loc.userId.name} ({loc.userId.email})</div>
+                               <div className="text-xs font-bold text-blue-950">{loc.userId.companyName || "No Company"}</div>
+                               <div className="text-[10px] text-gray-500 font-semibold mt-0.5">{loc.userId.name} ({loc.userId.email})</div>
                             </div>
                           ) : (
                             <span className="text-xs text-rose-600 font-semibold italic">Orphaned Location</span>
@@ -700,7 +700,7 @@ export default function SuperOwnerDashboard() {
                               href={loc.googleReviewUrl} 
                               target="_blank" 
                               rel="noreferrer"
-                              className="text-[10px] text-[#283570] font-bold block hover:underline truncate max-w-xs"
+                              className="text-[10px] text-blue-950 font-bold block hover:underline truncate max-w-xs"
                             >
                               Google URL: {loc.googleReviewUrl}
                             </a>
@@ -709,30 +709,30 @@ export default function SuperOwnerDashboard() {
                                 href={loc.yelpReviewUrl} 
                                 target="_blank" 
                                 rel="noreferrer"
-                                className="text-[10px] text-[#2E9E9C] font-bold block hover:underline truncate max-w-xs"
+                                className="text-[10px] text-blue-600 font-bold block hover:underline truncate max-w-xs"
                               >
                                 Yelp URL: {loc.yelpReviewUrl}
                               </a>
                             )}
                           </div>
                         </td>
-                        <td className="px-6 py-4 text-xs font-semibold text-[#6B6B6B] font-mono">
+                        <td className="px-6 py-4 text-xs font-semibold text-gray-500 font-mono">
                           {new Date(loc.createdAt).toLocaleDateString()}
                         </td>
                         <td className="px-6 py-4 text-right space-x-2">
                           <button
                             onClick={() => setSelectedLocationForQr(loc)}
-                            className="bg-white border border-[#E2DDD1] hover:bg-[#FFFFFF] text-[#283570] hover:text-[#2E9E9C] p-2 rounded-[6px] transition-colors inline-flex items-center"
+                            className="bg-white border border-slate-200 hover:bg-white text-blue-950 hover:text-blue-600 p-2 rounded-[14px] transition-colors inline-flex items-center"
                             title="View QR Code"
                           >
                             <QrCode className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => handleToggleLocationStatus(loc._id, loc.isActive !== false)}
-                            className={`p-2 rounded-[6px] border transition-colors inline-flex items-center ${
+                            className={`p-2 rounded-[14px] border transition-colors inline-flex items-center ${
                               loc.isActive === false
-                                ? "bg-[#2E9E9C]/15 hover:bg-[#2E9E9C]/30 text-[#283570] border-[#2E9E9C]/35"
-                                : "bg-[#283570]/10 hover:bg-[#283570]/20 text-[#283570] border-[#283570]/20"
+                                ? "bg-blue-600/15 hover:bg-blue-600/30 text-blue-950 border-transparent"
+                                : "bg-blue-950/10 hover:bg-blue-950/20 text-blue-950 border-blue-950/20"
                             }`}
                             title={loc.isActive === false ? "Activate Location" : "Deactivate Location"}
                           >
@@ -740,7 +740,7 @@ export default function SuperOwnerDashboard() {
                           </button>
                           <button
                             onClick={() => handleDeleteLocation(loc._id, loc.name)}
-                            className="bg-white border border-[#E2DDD1] hover:bg-rose-50 hover:text-rose-600 text-[#283570] p-2 rounded-[6px] transition-colors inline-flex items-center"
+                            className="bg-white border border-slate-200 hover:bg-rose-50 hover:text-rose-600 text-blue-950 p-2 rounded-[14px] transition-colors inline-flex items-center"
                             title="Delete location from database"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -759,7 +759,7 @@ export default function SuperOwnerDashboard() {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-[#FFFFFF] border-b border-[#E2DDD1] text-[10px] font-serif font-bold uppercase text-[#283570] tracking-wider">
+                  <tr className="bg-slate-50 border-b border-slate-200 text-[10px] font-bold uppercase text-gray-500 tracking-wider">
                     <th className="px-6 py-4">Customer Details</th>
                     <th className="px-6 py-4">Rating</th>
                     <th className="px-6 py-4">Feedback Content</th>
@@ -767,31 +767,31 @@ export default function SuperOwnerDashboard() {
                     <th className="px-6 py-4 text-right">Database Clean</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#E2DDD1]/40">
+                <tbody className="divide-y divide-slate-200">
                   {filteredReviews.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="px-6 py-12 text-center text-xs font-bold text-[#6B6B6B]">
+                      <td colSpan={5} className="px-6 py-12 text-center text-xs font-bold text-gray-500">
                         No customer feedback records found.
                       </td>
                     </tr>
                   ) : (
                     filteredReviews.map((rev) => (
-                      <tr key={rev._id} className="odd:bg-[#FFFFFF]/50 even:bg-white hover:bg-[#F8FAFC]/20 transition-colors">
+                      <tr key={rev._id} className="bg-white hover:bg-slate-50 transition-colors">
                         <td className="px-6 py-4">
-                          <div className="font-serif font-bold text-[#283570] text-xs">{rev.customerName}</div>
-                          <div className="text-[10px] text-[#6B6B6B] mt-0.5">{rev.customerEmail}</div>
+                          <div className="font-bold text-blue-950 text-xs">{rev.customerName}</div>
+                          <div className="text-[10px] text-gray-500 mt-0.5">{rev.customerEmail}</div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="flex items-center gap-1 bg-[#2E9E9C]/15 border border-[#2E9E9C]/30 px-2 py-0.5 rounded-[6px] w-max">
-                            <span className="text-xs font-bold text-[#283570]">{rev.rating}</span>
-                            <span className="text-[#2E9E9C] text-[9px] font-black">★</span>
+                          <div className="flex items-center gap-1 bg-blue-600/15 border border-transparent/30 px-2 py-0.5 rounded-[14px] w-max">
+                            <span className="text-xs font-bold text-blue-950">{rev.rating}</span>
+                            <span className="text-blue-600 text-[9px] font-black">★</span>
                           </div>
                         </td>
                         <td className="px-6 py-4">
                           <p className="text-xs text-[#2B2B2B] leading-relaxed italic max-w-sm">
                             "{rev.comment || "No comment left"}"
                           </p>
-                          <span className={`text-[8px] font-bold uppercase mt-1 px-1.5 py-0.5 rounded-[6px] border inline-block tracking-wider ${
+                          <span className={`text-[8px] font-bold uppercase mt-1 px-1.5 py-0.5 rounded-[14px] border inline-block tracking-wider ${
                             rev.status === "public"
                               ? "bg-emerald-500/10 text-emerald-700 border-emerald-500/20"
                               : "bg-amber-500/10 text-amber-700 border-amber-500/20"
@@ -802,8 +802,8 @@ export default function SuperOwnerDashboard() {
                         <td className="px-6 py-4">
                           {rev.businessId ? (
                             <div>
-                              <div className="text-xs font-serif font-bold text-[#283570]">{rev.businessId.name}</div>
-                              <div className="text-[9px] text-[#6B6B6B] font-semibold mt-0.5 font-sans">
+                              <div className="text-xs font-bold text-blue-950">{rev.businessId.name}</div>
+                              <div className="text-[9px] text-gray-500 font-semibold mt-0.5 font-sans">
                                 Owner: {rev.businessId.userId?.companyName || "No Company"}
                               </div>
                             </div>
@@ -814,7 +814,7 @@ export default function SuperOwnerDashboard() {
                         <td className="px-6 py-4 text-right">
                           <button
                             onClick={() => handleDeleteReview(rev._id, rev.customerName)}
-                            className="bg-white border border-[#E2DDD1] hover:bg-rose-50 hover:text-rose-600 text-[#283570] p-2 rounded-[6px] transition-colors inline-flex items-center shadow-sm"
+                            className="bg-white border border-slate-200 hover:bg-rose-50 hover:text-rose-600 text-blue-950 p-2 rounded-[14px] transition-colors inline-flex items-center shadow-sm"
                             title="Delete review from database"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -834,17 +834,17 @@ export default function SuperOwnerDashboard() {
       {/* Subscription Editor Modal */}
       {isEditModalOpen && selectedClient && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-[#E2DDD1] rounded-[6px] w-full max-w-md p-6 shadow-2xl space-y-6 animate-in zoom-in duration-200 relative">
+          <div className="bg-white border border-slate-200 rounded-[14px] w-full max-w-md p-6 shadow-2xl space-y-6 animate-in zoom-in duration-200 relative">
             
             {/* Modal Header */}
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="text-sm font-serif font-bold text-[#283570] uppercase tracking-wider">Modify Subscription Settings</h4>
-                <p className="text-xs text-[#6B6B6B] font-semibold mt-1">Client: {selectedClient.companyName}</p>
+                <h4 className="text-sm font-bold text-blue-950 uppercase tracking-wider">Modify Subscription Settings</h4>
+                <p className="text-xs text-gray-500 font-semibold mt-1">Client: {selectedClient.companyName}</p>
               </div>
               <button 
                 onClick={() => setIsEditModalOpen(false)}
-                className="text-[#6B6B6B] hover:text-[#283570] transition-colors"
+                className="text-gray-500 hover:text-blue-950 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -855,11 +855,11 @@ export default function SuperOwnerDashboard() {
               
               {/* Select Plan */}
               <div>
-                <label className="text-[10px] text-[#6B6B6B] font-bold uppercase block mb-1.5">Select Tier Plan</label>
+                <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1.5">Select Tier Plan</label>
                 <select
                   value={editPlan}
                   onChange={(e) => setEditPlan(e.target.value as any)}
-                  className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-bold"
+                  className="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-blue-600 font-bold"
                 >
                   <option value="Free">Free Trial (₹0/yr)</option>
                   <option value="Smart AI-Review">Smart AI-Review (₹4,999/yr)</option>
@@ -870,11 +870,11 @@ export default function SuperOwnerDashboard() {
 
               {/* Select Status */}
               <div>
-                <label className="text-[10px] text-[#6B6B6B] font-bold uppercase block mb-1.5">Gateway Status</label>
+                <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1.5">Gateway Status</label>
                 <select
                   value={editStatus}
                   onChange={(e) => setEditStatus(e.target.value as any)}
-                  className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-bold"
+                  className="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-blue-600 font-bold"
                 >
                   <option value="Active">Active Subscription</option>
                   <option value="Expired">Expired Trial / Overdue</option>
@@ -884,12 +884,12 @@ export default function SuperOwnerDashboard() {
 
               {/* End Date Datepicker */}
               <div>
-                <label className="text-[10px] text-[#6B6B6B] font-bold uppercase block mb-1.5">Subscription Renewal Expiration Date</label>
+                <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1.5">Subscription Renewal Expiration Date</label>
                 <input
                   type="date"
                   value={editEndDate}
                   onChange={(e) => setEditEndDate(e.target.value)}
-                  className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-bold"
+                  className="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-blue-600 font-bold"
                 />
               </div>
 
@@ -900,7 +900,7 @@ export default function SuperOwnerDashboard() {
               <button
                 type="button"
                 onClick={() => setIsEditModalOpen(false)}
-                className="bg-white border border-[#E2DDD1] hover:bg-[#FFFFFF] text-[#6B6B6B] text-xs font-serif font-bold px-4.5 py-2.5 rounded-[6px] transition-colors"
+                className="bg-white border border-slate-200 hover:bg-white text-gray-500 text-xs font-bold px-4.5 py-2.5 rounded-[14px] transition-colors"
               >
                 Cancel Changes
               </button>
@@ -908,7 +908,7 @@ export default function SuperOwnerDashboard() {
                 type="button"
                 onClick={handleSaveSubscription}
                 disabled={savingPlan}
-                className="bg-[#283570] hover:bg-[#2E9E9C] text-[#2E9E9C] hover:text-[#283570] text-xs font-serif font-bold px-5 py-2.5 rounded-[6px] shadow-sm transition-colors flex items-center gap-1 disabled:opacity-50"
+                className="bg-blue-600 text-white hover:bg-blue-700 hover:text-white border-transparent text-xs font-bold px-5 py-2.5 rounded-[14px] shadow-sm transition-colors flex items-center gap-1 disabled:opacity-50"
               >
                 {savingPlan ? "Saving Plan..." : "Confirm & Save"}
               </button>
@@ -921,17 +921,17 @@ export default function SuperOwnerDashboard() {
       {/* Create Client Modal */}
       {isCreateModalOpen && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-[#E2DDD1] rounded-[6px] w-full max-w-md p-6 shadow-2xl space-y-5 animate-in zoom-in duration-200 relative">
+          <div className="bg-white border border-slate-200 rounded-[14px] w-full max-w-md p-6 shadow-2xl space-y-5 animate-in zoom-in duration-200 relative">
             
             {/* Modal Header */}
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="text-sm font-serif font-bold text-[#283570] uppercase tracking-wider">Create Client Account</h4>
-                <p className="text-xs text-[#6B6B6B] font-semibold mt-1">Issue login credentials to a purchasing company</p>
+                <h4 className="text-sm font-bold text-blue-950 uppercase tracking-wider">Create Client Account</h4>
+                <p className="text-xs text-gray-500 font-semibold mt-1">Issue login credentials to a purchasing company</p>
               </div>
               <button 
                 onClick={() => setIsCreateModalOpen(false)}
-                className="text-[#6B6B6B] hover:text-[#283570] transition-colors"
+                className="text-gray-500 hover:text-blue-950 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -942,60 +942,60 @@ export default function SuperOwnerDashboard() {
               
               {/* Client Contact Name */}
               <div>
-                <label className="text-[10px] text-[#6B6B6B] font-bold uppercase block mb-1">Company Contact Name *</label>
+                <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1">Company Contact Name *</label>
                 <input
                   type="text"
                   placeholder="e.g. John Doe"
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
-                  className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-semibold"
+                  className="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-blue-600 font-semibold"
                 />
               </div>
 
               {/* Client Email / Username */}
               <div>
-                <label className="text-[10px] text-[#6B6B6B] font-bold uppercase block mb-1">Email Address (Login ID) *</label>
+                <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1">Email Address (Login ID) *</label>
                 <input
                   type="email"
                   placeholder="e.g. contact@kikashops.com"
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
-                  className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-semibold"
+                  className="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-blue-600 font-semibold"
                 />
               </div>
 
               {/* Password */}
               <div>
-                <label className="text-[10px] text-[#6B6B6B] font-bold uppercase block mb-1">Account Password *</label>
+                <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1">Account Password *</label>
                 <input
                   type="password"
                   placeholder="Minimum 6 characters"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-semibold"
+                  className="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-blue-600 font-semibold"
                 />
               </div>
 
               {/* Company Name */}
               <div>
-                <label className="text-[10px] text-[#6B6B6B] font-bold uppercase block mb-1">Company Name *</label>
+                <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1">Company Name *</label>
                 <input
                   type="text"
                   placeholder="e.g. Kika Shops Ltd"
                   value={newCompanyName}
                   onChange={(e) => setNewCompanyName(e.target.value)}
-                  className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-semibold"
+                  className="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-blue-600 font-semibold"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 {/* Select Plan */}
                 <div>
-                  <label className="text-[10px] text-[#6B6B6B] font-bold uppercase block mb-1">Subscription Plan</label>
+                  <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1">Subscription Plan</label>
                   <select
                     value={newPlan}
                     onChange={(e) => setNewPlan(e.target.value as any)}
-                    className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-bold"
+                    className="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-blue-600 font-bold"
                   >
                     <option value="Free">Free (₹0/yr)</option>
                     <option value="Smart AI-Review">Smart AI-Review (₹4,999/yr)</option>
@@ -1006,11 +1006,11 @@ export default function SuperOwnerDashboard() {
 
                 {/* Select Status */}
                 <div>
-                  <label className="text-[10px] text-[#6B6B6B] font-bold uppercase block mb-1">Status</label>
+                  <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1">Status</label>
                   <select
                     value={newStatus}
                     onChange={(e) => setNewStatus(e.target.value as any)}
-                    className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-bold"
+                    className="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-blue-600 font-bold"
                   >
                     <option value="Active">Active</option>
                     <option value="Expired">Expired</option>
@@ -1021,12 +1021,12 @@ export default function SuperOwnerDashboard() {
 
               {/* End Date Datepicker */}
               <div>
-                <label className="text-[10px] text-[#6B6B6B] font-bold uppercase block mb-1">Subscription Expiration Date</label>
+                <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1">Subscription Expiration Date</label>
                 <input
                   type="date"
                   value={newEndDate}
                   onChange={(e) => setNewEndDate(e.target.value)}
-                  className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] font-bold"
+                  className="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-2.5 text-xs text-[#2B2B2B] focus:outline-none focus:border-blue-600 font-bold"
                 />
               </div>
 
@@ -1037,7 +1037,7 @@ export default function SuperOwnerDashboard() {
               <button
                 type="button"
                 onClick={() => setIsCreateModalOpen(false)}
-                className="bg-white border border-[#E2DDD1] hover:bg-[#FFFFFF] text-[#6B6B6B] text-xs font-serif font-bold px-4.5 py-2.5 rounded-[6px] transition-colors"
+                className="bg-white border border-slate-200 hover:bg-white text-gray-500 text-xs font-bold px-4.5 py-2.5 rounded-[14px] transition-colors"
               >
                 Cancel
               </button>
@@ -1045,7 +1045,7 @@ export default function SuperOwnerDashboard() {
                 type="button"
                 onClick={handleCreateClient}
                 disabled={creatingClient}
-                className="bg-[#2E9E9C] hover:bg-[#283570] text-[#283570] hover:text-[#2E9E9C] border border-[#2E9E9C] text-xs font-serif font-bold px-5 py-2.5 rounded-[6px] shadow-sm transition-colors flex items-center gap-1 disabled:opacity-50"
+                className="bg-blue-600 text-white hover:bg-blue-700 hover:text-white border-transparent border border-transparent text-xs font-bold px-5 py-2.5 rounded-[14px] shadow-sm transition-colors flex items-center gap-1 disabled:opacity-50"
               >
                 {creatingClient ? "Creating Account..." : "Create Account"}
               </button>
@@ -1057,34 +1057,34 @@ export default function SuperOwnerDashboard() {
       {/* Success Modal showing generated credentials */}
       {createdCredentials && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-[#E2DDD1] rounded-[6px] w-full max-w-md p-6 shadow-2xl space-y-5 animate-in zoom-in duration-200 relative">
+          <div className="bg-white border border-slate-200 rounded-[14px] w-full max-w-md p-6 shadow-2xl space-y-5 animate-in zoom-in duration-200 relative">
             
             {/* Modal Header */}
             <div className="text-center">
-              <div className="bg-[#2E9E9C]/15 text-[#283570] border border-[#2E9E9C]/20 p-3 rounded-full w-max mx-auto mb-3">
+              <div className="bg-blue-600/15 text-blue-950 border border-transparent p-3 rounded-full w-max mx-auto mb-3">
                 <CheckCircle className="w-8 h-8" />
               </div>
-              <h4 className="text-sm font-serif font-bold text-[#283570] uppercase tracking-wider">Client Account Created</h4>
-              <p className="text-xs text-[#6B6B6B] font-semibold mt-1">Credentials have been generated successfully</p>
+              <h4 className="text-sm font-bold text-blue-950 uppercase tracking-wider">Client Account Created</h4>
+              <p className="text-xs text-gray-500 font-semibold mt-1">Credentials have been generated successfully</p>
             </div>
 
             {/* Credentials details card */}
-            <div className="bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] p-4 space-y-3">
+            <div className="bg-white border border-slate-200 rounded-[14px] p-4 space-y-3">
               <div>
-                <span className="text-[10px] text-[#6B6B6B] font-bold uppercase block">Company Name</span>
-                <span className="text-xs font-serif font-bold text-[#283570]">{createdCredentials.companyName}</span>
+                <span className="text-[10px] text-gray-500 font-bold uppercase block">Company Name</span>
+                <span className="text-xs font-bold text-blue-950">{createdCredentials.companyName}</span>
               </div>
-              <div className="border-t border-[#E2DDD1] pt-2">
-                <span className="text-[10px] text-[#6B6B6B] font-bold uppercase block">Login Email / Username</span>
+              <div className="border-t border-slate-200 pt-2">
+                <span className="text-[10px] text-gray-500 font-bold uppercase block">Login Email / Username</span>
                 <span className="text-xs font-mono font-bold text-[#2B2B2B]">{createdCredentials.email}</span>
               </div>
-              <div className="border-t border-[#E2DDD1] pt-2">
-                <span className="text-[10px] text-[#6B6B6B] font-bold uppercase block">Temporary Password</span>
+              <div className="border-t border-slate-200 pt-2">
+                <span className="text-[10px] text-gray-500 font-bold uppercase block">Temporary Password</span>
                 <span className="text-xs font-mono font-bold text-[#2B2B2B]">{createdCredentials.password}</span>
               </div>
-              <div className="border-t border-[#E2DDD1] pt-2">
-                <span className="text-[10px] text-[#6B6B6B] font-bold uppercase block">Login Portal Link</span>
-                <span className="text-xs font-bold text-[#283570]">http://localhost:3000/login</span>
+              <div className="border-t border-slate-200 pt-2">
+                <span className="text-[10px] text-gray-500 font-bold uppercase block">Login Portal Link</span>
+                <span className="text-xs font-bold text-blue-950">http://localhost:3000/login</span>
               </div>
             </div>
 
@@ -1108,14 +1108,14 @@ Intuik Admin`;
                   navigator.clipboard.writeText(text);
                   alert("Credentials copied to clipboard!");
                 }}
-                className="flex-1 bg-[#283570] hover:bg-[#2E9E9C] text-[#2E9E9C] hover:text-[#283570] border border-[#2E9E9C]/20 text-xs font-serif font-bold px-4 py-2.5 rounded-[6px] transition-all flex items-center justify-center gap-1.5"
+                className="flex-1 bg-blue-600 text-white hover:bg-blue-700 hover:text-white border-transparent border border-transparent text-xs font-bold px-4 py-2.5 rounded-[14px] transition-all flex items-center justify-center gap-1.5"
               >
                 Copy Details for Client
               </button>
               <button
                 type="button"
                 onClick={() => setCreatedCredentials(null)}
-                className="bg-white border border-[#E2DDD1] hover:bg-[#FFFFFF] text-[#6B6B6B] text-xs font-serif font-bold px-4.5 py-2.5 rounded-[6px] transition-colors"
+                className="bg-white border border-slate-200 hover:bg-white text-gray-500 text-xs font-bold px-4.5 py-2.5 rounded-[14px] transition-colors"
               >
                 Close
               </button>
@@ -1128,29 +1128,29 @@ Intuik Admin`;
       {/* QR Code Modal */}
       {selectedLocationForQr && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-[#E2DDD1] rounded-[6px] w-full max-w-sm p-6 shadow-2xl space-y-6 text-center animate-in zoom-in duration-200 relative text-[#2B2B2B]">
+          <div className="bg-white border border-slate-200 rounded-[14px] w-full max-w-sm p-6 shadow-2xl space-y-6 text-center animate-in zoom-in duration-200 relative text-[#2B2B2B]">
             <button
               onClick={() => setSelectedLocationForQr(null)}
-              className="absolute top-6 right-6 text-[#6B6B6B] hover:text-[#283570] transition-colors"
+              className="absolute top-6 right-6 text-gray-500 hover:text-blue-950 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div>
-              <span className="text-[9px] font-bold text-[#283570] uppercase tracking-widest bg-[#2E9E9C]/15 border border-[#2E9E9C]/25 px-2.5 py-1 rounded-[6px]">
+              <span className="text-[9px] font-bold text-blue-950 uppercase tracking-widest bg-blue-600/15 border border-transparent/25 px-2.5 py-1 rounded-[14px]">
                 Location QR Standee
               </span>
-              <h4 className="text-sm font-serif font-bold text-[#283570] mt-3 truncate">
+              <h4 className="text-sm font-bold text-blue-950 mt-3 truncate">
                 {selectedLocationForQr.name}
               </h4>
-              <p className="text-[10px] text-[#6B6B6B] font-semibold mt-0.5">
+              <p className="text-[10px] text-gray-500 font-semibold mt-0.5">
                 Owner: {selectedLocationForQr.userId?.companyName || "No Company"}
               </p>
             </div>
 
             {/* QR SVG */}
             {qrMatrix.length > 0 && (
-              <div className="bg-[#FFFFFF] p-6 rounded-[6px] border border-[#E2DDD1] flex justify-center items-center">
+              <div className="bg-white p-6 rounded-[14px] border border-slate-200 flex justify-center items-center">
                 <svg
                   id="admin-qr-svg"
                   width="180"
@@ -1169,18 +1169,11 @@ Intuik Admin`;
                           y={y}
                           width="1"
                           height="1"
-                          fill="#283570"
+                          fill="#000000"
                         />
                       );
                     })
                   )}
-                  {/* Center Badge logo overlay */}
-                  <rect x={qrMatrix.length/2 - 2.5} y={qrMatrix.length/2 - 2.5} width="5" height="5" fill="#FFFFFF" rx="0.5" />
-                  <rect x={qrMatrix.length/2 - 2} y={qrMatrix.length/2 - 2} width="4" height="4" fill="#2E9E9C" rx="0.25" />
-                  <path
-                    d={`M${qrMatrix.length/2} ${qrMatrix.length/2 - 1.5}l.5 1h1.1l-.8.6.3 1-.9-.6-.9.6.3-1-.8-.6h1.1z`}
-                    fill="#283570"
-                  />
                 </svg>
               </div>
             )}
@@ -1199,7 +1192,7 @@ Intuik Admin`;
                   link.download = `intuik-qr-${selectedLocationForQr.name.toLowerCase().replace(/\s+/g, "-")}.svg`;
                   link.click();
                 }}
-                className="flex-1 bg-[#283570] hover:bg-[#2E9E9C] text-[#2E9E9C] hover:text-[#283570] font-serif font-bold text-xs py-2.5 rounded-[6px] transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+                className="flex-1 bg-blue-600 text-white hover:bg-blue-700 hover:text-white border-transparent font-bold text-xs py-2.5 rounded-[14px] transition-colors flex items-center justify-center gap-1.5 shadow-sm"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Download SVG</span>
@@ -1210,13 +1203,13 @@ Intuik Admin`;
                   navigator.clipboard.writeText(scanUrl);
                   alert("Scan link copied to clipboard!");
                 }}
-                className="bg-[#FFFFFF] hover:bg-[#F8FAFC] border border-[#E2DDD1] text-[#283570] text-xs font-serif font-bold px-4 py-2.5 rounded-[6px] transition-all"
+                className="bg-white hover:bg-[#F8FAFC] border border-slate-200 text-blue-950 text-xs font-bold px-4 py-2.5 rounded-[14px] transition-all"
               >
                 Copy Link
               </button>
             </div>
 
-            <div className="text-[9px] font-semibold text-[#6B6B6B] leading-normal">
+            <div className="text-[9px] font-semibold text-gray-500 leading-normal">
               Scan URL: <span className="font-mono text-[#2B2B2B] break-all select-all">{process.env.NEXT_PUBLIC_API_URL}/api/qr/{selectedLocationForQr._id}/scan</span>
             </div>
           </div>

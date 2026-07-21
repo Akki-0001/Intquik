@@ -38,6 +38,10 @@ const reviewSchema = new mongoose.Schema(
       enum: ["public", "private"],
       required: true,
     },
+    isArchived: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

@@ -46,7 +46,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="bg-slate-50 text-blue-950 min-h-screen font-sans relative flex flex-col justify-between">
+    <div className="bg-slate-50 text-blue-950 min-h-screen font-sans relative flex flex-col justify-between overflow-x-hidden">
 
       {/* Background Animated Blobs */}
       <div className="absolute top-0 right-[-10%] w-[500px] h-[500px] bg-gradient-to-tr from-blue-300/20 to-indigo-300/10 rounded-full blur-[120px] pointer-events-none -z-10" />
@@ -222,7 +222,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-650 text-[#14142B] font-bold text-sm py-4 rounded-[14px] transition-all shadow-md shadow-blue-500/10 hover:shadow-lg active:scale-[0.99] disabled:opacity-50 disabled:scale-100 flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-650 text-white font-bold text-sm py-4 rounded-[14px] transition-all shadow-md shadow-blue-500/10 hover:shadow-lg active:scale-[0.99] disabled:opacity-50 disabled:scale-100 flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <span>Sending Message...</span>
@@ -243,8 +243,8 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p>© 2026 Intuik. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="/" className="hover:text-[#14142B] transition-colors">Home</Link>
-            <Link href="/contact" className="text-[#14142B] hover:text-[#14142B] transition-colors">Contact Us</Link>
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <Link href="/contact" className="text-white hover:text-white transition-colors">Contact Us</Link>
           </div>
         </div>
       </footer>

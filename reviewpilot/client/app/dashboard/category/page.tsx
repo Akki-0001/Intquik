@@ -117,7 +117,7 @@ export default function CategoryPage() {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-[#14142B] font-bold text-xs py-3 rounded-[14px] transition-all shadow-md shadow-blue-500/10 hover:shadow-lg flex items-center justify-center gap-1.5"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3 rounded-[14px] transition-all shadow-md shadow-blue-500/10 hover:shadow-lg flex items-center justify-center gap-1.5"
             >
               <Plus className="w-4 h-4" />
               <span>Create</span>

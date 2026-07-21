@@ -76,12 +76,12 @@ export default function PlansPage() {
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* Header */}
       <div>
-        <div className="flex items-center gap-2 text-xs font-bold text-[#2E9E9C] mb-1.5 uppercase tracking-wider">
+        <div className="flex items-center gap-2 text-xs font-bold text-blue-600 mb-1.5 uppercase tracking-wider">
           <CreditCard className="w-3.5 h-3.5" />
           <span>Billing & Plans</span>
         </div>
-        <h2 className="text-xl md:text-2xl font-serif font-bold text-[#283570] tracking-tight">Subscription Plans</h2>
-        <p className="text-xs text-[#6B6B6B] font-semibold mt-1">Select and manage your pricing tier to access professional review tools.</p>
+        <h2 className="text-xl md:text-2xl font-bold text-blue-950 tracking-tight">Subscription Plans</h2>
+        <p className="text-xs text-gray-500 font-semibold mt-1">Select and manage your pricing tier to access professional review tools.</p>
       </div>
 
       {/* Grid of pricing plans matching landing page design */}

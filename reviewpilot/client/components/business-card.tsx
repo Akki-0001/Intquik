@@ -43,7 +43,7 @@ export default function BusinessCard({
               />
             ) : (
               <div 
-                className="w-12 h-12 rounded-[14px] flex items-center justify-center text-[#14142B] text-base font-extrabold shadow-md shadow-blue-500/5"
+                className="w-12 h-12 rounded-[14px] flex items-center justify-center text-white text-base font-extrabold shadow-md shadow-blue-500/5"
                 style={{ 
                   backgroundColor: business.primaryColor,
                   backgroundImage: `linear-gradient(135deg, rgba(255,255,255,0.15), rgba(0,0,0,0.05))` 
@@ -150,7 +150,7 @@ export default function BusinessCard({
           <Link
             href={`/review/${business.id}`}
             target="_blank"
-            className="bg-blue-600 hover:bg-blue-700 text-[#14142B] text-[10px] font-bold px-3 py-2 rounded-[14px] flex items-center gap-1.5 transition-all shadow-md shadow-blue-500/10 hover:shadow-blue-500/20"
+            className="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold px-3 py-2 rounded-[14px] flex items-center gap-1.5 transition-all shadow-md shadow-blue-500/10 hover:shadow-blue-500/20"
           >
             <Eye className="w-3.5 h-3.5" />
             <span>Portal</span>

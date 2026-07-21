@@ -84,7 +84,7 @@ function ResetPasswordForm() {
           {/* Logo and Headings */}
           <div className="text-center mb-6">
             <div className="bg-gradient-to-tr from-blue-600 to-indigo-500 p-2.5 rounded-[14px] shadow-lg shadow-blue-500/10 inline-block mb-3">
-              <Sparkles className="w-6 h-6 text-[#14142B] stroke-[2.5]" />
+              <Sparkles className="w-6 h-6 text-white stroke-[2.5]" />
             </div>
             <h2 className="text-2xl font-black text-blue-950 tracking-tight">Reset Password</h2>
             <p className="text-xs text-gray-500 font-semibold mt-1">
@@ -160,7 +160,7 @@ function ResetPasswordForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-[#14142B] font-bold py-3.5 rounded-[14px] hover:bg-blue-700 transition-colors mt-6 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/10 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-blue-600 text-white font-bold py-3.5 rounded-[14px] hover:bg-blue-700 transition-colors mt-6 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/10 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
@@ -190,7 +190,7 @@ function ResetPasswordForm() {
           <div className="pt-4 border-t border-slate-100">
             <Link
               href="/login"
-              className="inline-block bg-blue-950 hover:bg-[#1A1F5C] text-[#14142B] border-none shadow-sm rounded-full hover:bg-[#181C4C] text-xs font-bold px-6 py-3 rounded-[14px] transition-all shadow-sm"
+              className="inline-block bg-blue-950 hover:bg-[#1A1F5C] text-white border-none shadow-sm rounded-full hover:bg-[#181C4C] text-xs font-bold px-6 py-3 rounded-[14px] transition-all shadow-sm"
             >
               Go to Login
             </Link>

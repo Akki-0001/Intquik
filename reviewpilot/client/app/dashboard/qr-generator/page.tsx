@@ -54,10 +54,10 @@ export default function QrGeneratorPage() {
   const [selectedBiz, setSelectedBiz] = useState<Business | null>(null);
 
   // Customizer state
-  const [fgColor, setFgColor] = useState("#0D9488");
+  const [fgColor, setFgColor] = useState("#000000");
   const [bgColor, setBgColor] = useState("#FFFFFF");
-  const [dotStyle, setDotStyle] = useState<"square" | "rounded" | "dots">("rounded");
-  const [centerIcon, setCenterIcon] = useState<"none" | "star" | "coffee" | "heart" | "health">("star");
+  const [dotStyle, setDotStyle] = useState<"square" | "rounded" | "dots">("square");
+  const [centerIcon, setCenterIcon] = useState<"none" | "star" | "coffee" | "heart" | "health">("none");
   const [tagline, setTagline] = useState("Scan to Review Us!");
   const [offerText, setOfferText] = useState("Help our local business grow");
   const [saving, setSaving] = useState(false);
@@ -75,10 +75,10 @@ export default function QrGeneratorPage() {
       });
       if (res.ok) {
         const config = await res.json();
-        setFgColor(config.fgColor || "#0D9488");
-        setBgColor(config.bgColor || "#FFFFFF");
-        setDotStyle(config.dotStyle || "rounded");
-        setCenterIcon(config.centerIcon || "star");
+        setFgColor("#000000");
+        setBgColor("#FFFFFF");
+        setDotStyle("square");
+        setCenterIcon("none");
         setTagline(config.tagline || "Scan to Review Us!");
         setOfferText(config.offerText || "Help our local business grow");
       }
@@ -115,7 +115,7 @@ export default function QrGeneratorPage() {
           }
           setSelectedBiz(activeBiz);
           if (activeBiz) {
-            setFgColor(activeBiz.primaryColor);
+            setFgColor("#000000");
             loadQRConfig(activeBiz.id);
           }
           return;
@@ -133,7 +133,7 @@ export default function QrGeneratorPage() {
     }
     setSelectedBiz(activeBiz);
     if (activeBiz) {
-      setFgColor(activeBiz.primaryColor);
+      setFgColor("#000000");
     }
   };
 
@@ -146,7 +146,7 @@ export default function QrGeneratorPage() {
     const found = businesses.find(b => b.id === id) || null;
     setSelectedBiz(found);
     if (found) {
-      setFgColor(found.primaryColor);
+      setFgColor("#000000");
       const db = getDB();
       if (db.user) {
         loadQRConfig(found.id);
@@ -243,7 +243,7 @@ export default function QrGeneratorPage() {
           
           <button
             onClick={() => setPreviewMode("nfc")}
-            className="bg-indigo-600 text-[#14142B] text-xs font-bold px-4 py-2.5 rounded-[14px] hover:bg-indigo-700 transition-colors flex items-center gap-1.5 shadow-lg shadow-indigo-500/10"
+            className="bg-indigo-600 text-white text-xs font-bold px-4 py-2.5 rounded-[14px] hover:bg-indigo-700 transition-colors flex items-center gap-1.5 shadow-lg shadow-indigo-500/10"
           >
             <Nfc className="w-4 h-4" />
             <span>Order NFC Cards</span>
@@ -309,98 +309,11 @@ export default function QrGeneratorPage() {
             <div className="space-y-4 pt-4 border-t border-slate-100">
               <h3 className="text-xs font-bold text-blue-950 flex items-center gap-1.5">
                 <Palette className="w-4 h-4 text-blue-600" />
-                <span>Color & Branding</span>
+                <span>Professional QR Design</span>
               </h3>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1.5">Dots Color</label>
-                  <div className="flex gap-2">
-                    <input
-                      type="color"
-                      value={fgColor}
-                      onChange={(e) => setFgColor(e.target.value)}
-                      className="bg-slate-50 border-none shadow-[0_4px_20px_rgba(26,31,92,0.08)] p-1 w-8 h-8 rounded-lg cursor-pointer"
-                    />
-                    <input
-                      type="text"
-                      value={fgColor}
-                      onChange={(e) => setFgColor(e.target.value)}
-                      className="w-full bg-slate-50 border-none shadow-[0_4px_20px_rgba(26,31,92,0.08)] rounded-[14px] px-3 py-1 text-xs text-blue-950 font-mono font-bold focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1.5">Background Color</label>
-                  <div className="flex gap-2">
-                    <input
-                      type="color"
-                      value={bgColor}
-                      onChange={(e) => setBgColor(e.target.value)}
-                      className="bg-slate-50 border-none shadow-[0_4px_20px_rgba(26,31,92,0.08)] p-1 w-8 h-8 rounded-lg cursor-pointer"
-                    />
-                    <input
-                      type="text"
-                      value={bgColor}
-                      onChange={(e) => setBgColor(e.target.value)}
-                      className="w-full bg-slate-50 border-none shadow-[0_4px_20px_rgba(26,31,92,0.08)] rounded-[14px] px-3 py-1 text-xs text-blue-950 font-mono font-bold focus:outline-none"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Layout Options */}
-            <div className="space-y-4 pt-4 border-t border-slate-100">
-              <h3 className="text-xs font-bold text-blue-950 flex items-center gap-1.5">
-                <Grid className="w-4 h-4 text-blue-600" />
-                <span>Pattern & Overlays</span>
-              </h3>
-
-              <div className="grid grid-cols-2 gap-4">
-                {/* Dot Style */}
-                <div>
-                  <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1.5">Dot Shape</label>
-                  <div className="flex bg-slate-50 p-1 border-none shadow-[0_4px_20px_rgba(26,31,92,0.08)] rounded-[14px]">
-                    {[
-                      { val: "square", label: "Square" },
-                      { val: "rounded", label: "Smooth" },
-                      { val: "dots", label: "Dots" }
-                    ].map(style => (
-                      <button
-                        key={style.val}
-                        type="button"
-                        onClick={() => setDotStyle(style.val as any)}
-                        className={`flex-1 text-[10px] font-bold py-1 rounded-lg transition-colors ${
-                          dotStyle === style.val 
-                            ? "bg-blue-600 text-[#14142B] shadow" 
-                            : "text-gray-500 hover:text-blue-950"
-                        }`}
-                      >
-                        {style.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Center Icon */}
-                <div>
-                  <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1.5">Center Badge Logo</label>
-                  <select
-                    value={centerIcon}
-                    onChange={(e) => setCenterIcon(e.target.value as any)}
-                    className="w-full bg-slate-50 border-none shadow-[0_4px_20px_rgba(26,31,92,0.08)] rounded-[14px] px-3 py-1.5 text-xs text-blue-950 font-semibold focus:outline-none"
-                  >
-                    <option value="none">No Badge</option>
-                    <option value="star">★ Star Rating</option>
-                    <option value="coffee">☕ Coffee Cup</option>
-                    <option value="heart">♥ Heart Icon</option>
-                    <option value="health">⚕ Health Icon</option>
-                  </select>
-                </div>
-              </div>
-              
+              <p className="text-xs text-gray-500 font-semibold">
+                Your QR code uses a clean, high-contrast professional design for maximum scannability on all devices.
+              </p>
             </div>
 
             <div className="pt-4 border-t border-slate-100">
@@ -408,7 +321,7 @@ export default function QrGeneratorPage() {
                 type="button"
                 onClick={handleSaveConfig}
                 disabled={saving}
-                className="w-full bg-blue-600 text-[#14142B] text-xs font-bold py-2.5 rounded-[14px] hover:bg-blue-700 disabled:opacity-50 transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-blue-500/10"
+                className="w-full bg-blue-600 text-white text-xs font-bold py-2.5 rounded-[14px] hover:bg-blue-700 disabled:opacity-50 transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-blue-500/10"
               >
                 <QrCode className="w-4 h-4" />
                 <span>{saving ? "Saving Configuration..." : "Save QR Settings"}</span>
@@ -432,7 +345,7 @@ export default function QrGeneratorPage() {
             </button>
             <button
               onClick={() => setPreviewMode("nfc")}
-              className={`flex-1 py-2 rounded-[14px] text-xs font-bold transition-all flex items-center justify-center gap-2 ${previewMode === "nfc" ? "bg-indigo-600 text-[#14142B] shadow-md shadow-indigo-500/20" : "text-gray-500 hover:text-blue-800"}`}
+              className={`flex-1 py-2 rounded-[14px] text-xs font-bold transition-all flex items-center justify-center gap-2 ${previewMode === "nfc" ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/20" : "text-gray-500 hover:text-blue-800"}`}
             >
               <Nfc className="w-4 h-4" />
               <span>NFC Card Mockup</span>
@@ -458,7 +371,7 @@ export default function QrGeneratorPage() {
               />
             ) : (
               <div 
-                className="w-14 h-14 rounded-[14px] flex items-center justify-center text-[#14142B] text-xl font-bold shadow-md mb-6"
+                className="w-14 h-14 rounded-[14px] flex items-center justify-center text-white text-xl font-bold shadow-md mb-6"
                 style={{ backgroundColor: fgColor }}
               >
                 {selectedBiz.name[0].toUpperCase()}
@@ -622,7 +535,7 @@ export default function QrGeneratorPage() {
                 />
               ) : (
                 <div 
-                  className="w-16 h-16 rounded-full flex items-center justify-center text-[#14142B] text-2xl font-bold shadow-lg mb-4 z-10"
+                  className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg mb-4 z-10"
                   style={{ backgroundColor: fgColor }}
                 >
                   {selectedBiz.name[0].toUpperCase()}

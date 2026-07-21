@@ -490,7 +490,7 @@ export default function DashboardPage() {
                 </button>
                 <button 
                   onClick={handleSaveEdit}
-                  className="bg-blue-600 text-[#14142B] font-bold text-xs px-4 py-2.5 rounded-[14px] hover:bg-blue-700 transition-all shadow-md shadow-blue-500/10"
+                  className="bg-blue-600 text-white font-bold text-xs px-4 py-2.5 rounded-[14px] hover:bg-blue-700 transition-all shadow-md shadow-blue-500/10"
                 >
                   Save Changes
                 </button>
@@ -504,17 +504,17 @@ export default function DashboardPage() {
           {/* Header Block */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 text-xs font-bold text-[#283570] mb-1.5 uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5 text-[#2E9E9C]" />
+              <div className="flex items-center gap-2 text-xs font-bold text-blue-950 mb-1.5 uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5 text-blue-600" />
                 <span>AI Review Config System Active</span>
               </div>
-              <h2 className="text-xl md:text-2xl font-serif font-bold text-[#283570] tracking-tight">Reviews List ({reviewsList.length})</h2>
-              <p className="text-xs text-[#6B6B6B] font-semibold mt-1">Configure parameters and auto-generate target review suggestions for your customers.</p>
+              <h2 className="text-xl md:text-2xl font-bold text-blue-950 tracking-tight">Reviews List ({reviewsList.length})</h2>
+              <p className="text-xs text-gray-500 font-semibold mt-1">Configure parameters and auto-generate target review suggestions for your customers.</p>
             </div>
             
             <button
               onClick={() => setView("form")}
-              className="bg-[#283570] text-[#2E9E9C] border border-[#2E9E9C] hover:bg-[#2E9E9C] hover:text-[#283570] text-xs font-serif font-bold px-4 py-3 rounded-[6px] transition-colors duration-200 flex items-center gap-1.5 shadow-sm self-start"
+              className="bg-blue-600 text-white border border-transparent hover:bg-blue-700 hover:text-white text-xs font-bold px-4 py-3 rounded-[14px] transition-colors duration-200 flex items-center gap-1.5 shadow-sm self-start"
             >
               <Plus className="w-4 h-4 stroke-[2.5]" />
               <span>+ ADD NEW</span>
@@ -522,8 +522,8 @@ export default function DashboardPage() {
           </div>          {/* Business Locations & QR Codes Grid */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-[10px] font-serif font-bold text-[#283570] uppercase tracking-widest flex items-center gap-1.5 bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] px-3.5 py-1.5 shadow-sm">
-                <Building2 className="w-3.5 h-3.5 text-[#2E9E9C]" />
+              <h3 className="text-[10px] font-bold text-blue-950 uppercase tracking-widest flex items-center gap-1.5 bg-white border border-slate-200 rounded-[14px] px-3.5 py-1.5 shadow-sm">
+                <Building2 className="w-3.5 h-3.5 text-blue-600" />
                 <span>Your Registered Business Locations & QR Codes</span>
               </h3>
               
@@ -538,10 +538,10 @@ export default function DashboardPage() {
                     setShowAddLocModal(true);
                   }
                 }}
-                className={`text-[10px] font-bold px-3.5 py-2 rounded-[6px] transition-colors flex items-center gap-1 ${
+                className={`text-[10px] font-bold px-3.5 py-2 rounded-[14px] transition-colors flex items-center gap-1 ${
                   isLimitReached 
-                    ? "bg-[#E2DDD1]/50 text-[#6B6B6B] border border-[#E2DDD1] hover:bg-[#E2DDD1] hover:text-[#283570]" 
-                    : "bg-white border border-[#E2DDD1] hover:bg-[#FFFFFF] text-[#283570] hover:text-[#2E9E9C]"
+                    ? "bg-slate-100 text-slate-600 border border-slate-300 hover:bg-slate-200 hover:text-slate-800" 
+                    : "bg-white border border-slate-200 hover:bg-white text-blue-950 hover:text-blue-600"
                 }`}
               >
                 <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -550,15 +550,15 @@ export default function DashboardPage() {
             </div>
 
             {businesses.length === 0 ? (
-              <div className="bg-[#FFFFFF] border border-dashed border-[#2E9E9C] rounded-[6px] p-8 text-center space-y-3.5">
-                <Building2 className="w-8 h-8 text-[#2E9E9C] mx-auto" />
-                <h3 className="font-serif font-bold text-[#283570] text-lg">No locations added yet</h3>
-                <p className="text-[10px] text-[#6B6B6B] font-semibold max-w-xs mx-auto leading-relaxed">
+              <div className="bg-white border border-dashed border-blue-600 rounded-[14px] p-8 text-center space-y-3.5">
+                <Building2 className="w-8 h-8 text-blue-600 mx-auto" />
+                <h3 className="font-bold text-blue-950 text-lg">No locations added yet</h3>
+                <p className="text-[10px] text-gray-500 font-semibold max-w-xs mx-auto leading-relaxed">
                   Add your first business location to generate a custom review routing portal and its QR standee code.
                 </p>
                 <button
                   onClick={() => setShowAddLocModal(true)}
-                  className="bg-[#283570] text-[#2E9E9C] border border-[#2E9E9C] hover:bg-[#2E9E9C] hover:text-[#283570] text-[10px] font-serif font-bold px-4 py-2.5 rounded-[6px] transition-colors shadow-sm"
+                  className="bg-blue-600 text-white border border-transparent hover:bg-blue-700 hover:text-white text-[10px] font-bold px-4 py-2.5 rounded-[14px] transition-colors shadow-sm"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add Location Now</span>
@@ -569,25 +569,25 @@ export default function DashboardPage() {
                 {businesses.map((loc) => {
                   const scanUrl = typeof window !== 'undefined' ? `${window.location.origin}/review/${loc._id}` : `https://intquik-amr2.vercel.app/review/${loc._id}`;
                   return (
-                    <div key={loc._id} className="bg-[#FFFFFF] border border-[#E2DDD1] p-6 rounded-[6px] flex justify-between items-center hover:border-[#2E9E9C]/50 transition-all duration-350 group">
+                    <div key={loc._id} className="bg-white border border-slate-200 p-6 rounded-[14px] flex justify-between items-center hover:border-blue-600/50 transition-all duration-350 group">
                       <div className="space-y-2 max-w-[70%]">
                         <div className="flex items-center gap-2">
                           <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: loc.primaryColor || '#2E9E9C' }} />
-                          <h4 className="text-xs font-serif font-bold text-[#283570] truncate">{loc.name}</h4>
+                          <h4 className="text-xs font-bold text-blue-950 truncate">{loc.name}</h4>
                           
                           {loc.isActive === false ? (
-                            <span className="bg-rose-500/10 text-rose-700 border border-rose-500/20 text-[8px] font-bold px-2 py-0.5 rounded-[6px] uppercase tracking-wider">
+                            <span className="bg-rose-500/10 text-rose-700 border border-rose-500/20 text-[8px] font-bold px-2 py-0.5 rounded-[14px] uppercase tracking-wider">
                               Deactivated
                             </span>
                           ) : (
-                            <span className="bg-emerald-500/10 text-emerald-700 border border-emerald-500/20 text-[8px] font-bold px-2 py-0.5 rounded-[6px] uppercase tracking-wider">
+                            <span className="bg-emerald-500/10 text-emerald-700 border border-emerald-500/20 text-[8px] font-bold px-2 py-0.5 rounded-[14px] uppercase tracking-wider">
                               Active
                             </span>
                           )}
                         </div>
                         
-                        <div className="text-[10px] text-[#6B6B6B] font-bold truncate max-w-xs font-mono select-all flex items-center gap-1">
-                          <Globe className="w-3 h-3 text-[#2E9E9C]" />
+                        <div className="text-[10px] text-gray-500 font-bold truncate max-w-xs font-mono select-all flex items-center gap-1">
+                          <Globe className="w-3 h-3 text-blue-600" />
                           <span>{scanUrl}</span>
                         </div>
                       </div>
@@ -598,7 +598,7 @@ export default function DashboardPage() {
                             navigator.clipboard.writeText(scanUrl);
                             alert("Review link copied to clipboard!");
                           }}
-                          className="bg-white hover:bg-[#FFFFFF] text-[#283570] hover:text-[#2E9E9C] border border-[#E2DDD1] p-2 rounded-[6px] transition-colors"
+                          className="bg-white hover:bg-white text-blue-950 hover:text-blue-600 border border-slate-200 p-2 rounded-[14px] transition-colors"
                           title="Copy Public Review Link"
                         >
                           <Copy className="w-3.5 h-3.5" />
@@ -606,7 +606,7 @@ export default function DashboardPage() {
                         {loc.isActive !== false && (
                           <button
                             onClick={() => setSelectedLocationForQr(loc)}
-                            className="bg-[#283570] text-[#2E9E9C] hover:bg-[#2E9E9C] hover:text-[#283570] border border-[#2E9E9C] p-2 rounded-[6px] transition-colors flex items-center justify-center"
+                            className="bg-blue-600 text-white hover:bg-blue-700 hover:text-white border border-transparent p-2 rounded-[14px] transition-colors flex items-center justify-center"
                             title="Download QR Code Standee"
                           >
                             <QrCode className="w-3.5 h-3.5" />
@@ -614,7 +614,7 @@ export default function DashboardPage() {
                         )}
                         <button
                           onClick={() => handleDeleteLocation(loc._id, loc.name)}
-                          className="bg-white hover:bg-rose-50 text-[#283570] hover:text-rose-600 border border-[#E2DDD1] hover:border-rose-200 p-2 rounded-[6px] transition-colors"
+                          className="bg-white hover:bg-rose-50 text-blue-950 hover:text-rose-600 border border-slate-200 hover:border-rose-200 p-2 rounded-[14px] transition-colors"
                           title="Delete Location"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -627,29 +627,29 @@ export default function DashboardPage() {
             )}
           </div>
           {/* Filters Bar */}
-          <div className="bg-white border border-[#E2DDD1] p-4 rounded-[6px] shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="bg-white border border-slate-200 p-4 rounded-[14px] shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
             {/* Search */}
             <div className="relative w-full sm:max-w-xs">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2E9E9C]" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-600" />
               <input
                 type="text"
                 placeholder="Search reviews..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-[#FFFFFF] hover:bg-white border border-[#E2DDD1] rounded-[6px] pl-10 pr-4 py-2.5 text-xs text-[#2B2B2B] focus:ring-2 focus:ring-[#2E9E9C] focus:border-[#2E9E9C] focus:bg-white outline-none transition-colors font-semibold placeholder:text-[#6B6B6B]"
+                className="w-full bg-white hover:bg-white border border-slate-200 rounded-[14px] pl-10 pr-4 py-2.5 text-xs text-[#2B2B2B] focus:ring-2 focus:ring-[#2E9E9C] focus:border-blue-600 focus:bg-white outline-none transition-colors font-semibold placeholder:text-gray-500"
               />
             </div>
 
             {/* Filter Toggle Buttons */}
-            <div className="flex items-center gap-1 bg-[#F8FAFC] p-1 rounded-[6px] border border-[#E2DDD1] self-stretch sm:self-auto">
+            <div className="flex items-center gap-1 bg-[#F8FAFC] p-1 rounded-[14px] border border-slate-200 self-stretch sm:self-auto">
               {(["ALL", "AVAILABLE", "USED"] as const).map((filter) => (
                 <button
                   key={filter}
                   onClick={() => setStatusFilter(filter)}
-                  className={`text-[10px] font-bold px-4 py-2 rounded-[6px] uppercase tracking-wider transition-all duration-200 flex-1 sm:flex-none ${
+                  className={`text-[10px] font-bold px-4 py-2 rounded-[14px] uppercase tracking-wider transition-all duration-200 flex-1 sm:flex-none ${
                     statusFilter === filter 
-                      ? "bg-[#283570] text-[#2E9E9C] border border-[#2E9E9C]/20 shadow-sm" 
-                      : "text-[#6B6B6B] hover:text-[#283570]"
+                      ? "bg-blue-600 text-white border border-transparent shadow-sm" 
+                      : "text-gray-500 hover:text-blue-950"
                   }`}
                 >
                   {filter}
@@ -659,11 +659,11 @@ export default function DashboardPage() {
           </div>
 
           {/* Reviews List Table */}
-          <div className="bg-white border border-[#E2DDD1] rounded-[6px] shadow-sm overflow-hidden">
+          <div className="bg-white border border-slate-200 rounded-[14px] shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-[#E2DDD1] bg-[#FFFFFF] text-[9px] font-serif font-bold text-[#283570] uppercase tracking-widest">
+                  <tr className="border-b border-slate-200 bg-white text-[9px] font-bold text-blue-950 uppercase tracking-widest">
                     <th className="py-4 px-6 w-16">Sr. No.</th>
                     <th className="py-4 px-6 w-28">Review Category</th>
                     <th className="py-4 px-6">Review</th>
@@ -672,14 +672,14 @@ export default function DashboardPage() {
                     <th className="py-4 px-6 w-36 text-center">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#E2DDD1]/50 text-xs font-semibold text-[#2B2B2B]">
+                <tbody className="divide-y divide-slate-200/50 text-xs font-semibold text-[#2B2B2B]">
                   {filteredReviews.length === 0 ? (
                     <tr>
                       <td colSpan={6} className="py-12 px-6 text-center">
                         <div className="max-w-sm mx-auto flex flex-col items-center">
-                          <LayoutTemplate className="w-10 h-10 text-[#2E9E9C] mb-3" />
-                          <p className="text-[#283570] font-serif font-bold">No generated reviews found</p>
-                          <p className="text-[#6B6B6B] font-medium text-[11px] mt-1">Configure target business details and generate reviews to populate the list dashboard.</p>
+                          <LayoutTemplate className="w-10 h-10 text-blue-600 mb-3" />
+                          <p className="text-blue-950 font-bold">No generated reviews found</p>
+                          <p className="text-gray-500 font-medium text-[11px] mt-1">Configure target business details and generate reviews to populate the list dashboard.</p>
                         </div>
                       </td>
                     </tr>
@@ -687,11 +687,11 @@ export default function DashboardPage() {
                     filteredReviews.map((rev, index) => (
                       <tr 
                         key={rev.id} 
-                        className="odd:bg-[#FFFFFF] even:bg-white hover:bg-[#F8FAFC]/20 transition-colors"
+                        className="odd:bg-white even:bg-white hover:bg-[#F8FAFC]/20 transition-colors"
                       >
-                        <td className="py-5 px-6 font-mono text-[#6B6B6B]">{index + 1}</td>
+                        <td className="py-5 px-6 font-mono text-gray-500">{index + 1}</td>
                         <td className="py-5 px-6">
-                          <span className="bg-[#2E9E9C]/15 border border-[#2E9E9C]/30 text-[#283570] text-[9px] font-serif font-bold uppercase px-2.5 py-1 rounded-[6px] tracking-wider">
+                          <span className="bg-blue-600/15 border border-transparent/30 text-blue-950 text-[9px] font-bold uppercase px-2.5 py-1 rounded-[14px] tracking-wider">
                             {rev.category}
                           </span>
                         </td>
@@ -699,22 +699,22 @@ export default function DashboardPage() {
                           "{rev.text}"
                         </td>
                         <td className="py-5 px-6">
-                          <span className={`inline-flex items-center text-[9px] font-serif font-bold uppercase tracking-wider px-2.5 py-1 rounded-[6px] border ${
+                          <span className={`inline-flex items-center text-[9px]  font-bold uppercase tracking-wider px-2.5 py-1 rounded-[14px] border ${
                             rev.status === "AVAILABLE" 
-                              ? "bg-transparent text-[#283570] border-[#283570]" 
-                              : "bg-transparent text-[#6B6B6B] border-[#E2DDD1]"
+                              ? "bg-transparent text-blue-950 border-blue-950" 
+                              : "bg-transparent text-gray-500 border-slate-200"
                           }`}>
                             {rev.status}
                           </span>
                         </td>
-                        <td className="py-5 px-6 font-mono text-[11px] text-[#6B6B6B]">{rev.createdAt}</td>
+                        <td className="py-5 px-6 font-mono text-[11px] text-gray-500">{rev.createdAt}</td>
                         <td className="py-5 px-6">
                           <div className="flex items-center justify-center gap-1.5">
                             {/* Regenerate */}
                             <button
                               onClick={() => handleRegenerateReview(rev)}
                               title="Regenerate Review content"
-                              className="p-2 bg-white hover:bg-[#FFFFFF] hover:text-[#2E9E9C] text-[#283570] rounded-[6px] border border-[#E2DDD1] transition-colors"
+                              className="p-2 bg-white hover:bg-white hover:text-blue-600 text-blue-950 rounded-[14px] border border-slate-200 transition-colors"
                             >
                               <RefreshCcw className="w-3.5 h-3.5" />
                             </button>
@@ -723,10 +723,10 @@ export default function DashboardPage() {
                             <button
                               onClick={() => handleCopyReview(rev)}
                               title="Copy to clipboard"
-                              className={`p-2 rounded-[6px] border transition-all ${
+                              className={`p-2 rounded-[14px] border transition-all ${
                                 copiedReviewId === rev.id
-                                  ? "bg-[#2E9E9C]/15 text-[#283570] border-[#2E9E9C]/40"
-                                  : "bg-white hover:bg-[#FFFFFF] hover:text-[#2E9E9C] text-[#283570] border-[#E2DDD1]"
+                                  ? "bg-blue-600/15 text-blue-950 border-blue-600/40"
+                                  : "bg-white hover:bg-white hover:text-blue-600 text-blue-950 border-slate-200"
                               }`}
                             >
                               {copiedReviewId === rev.id ? <Check className="w-4 h-4 text-[#FF5A3C] shrink-0" /> : <Copy className="w-3.5 h-3.5" />}
@@ -739,7 +739,7 @@ export default function DashboardPage() {
                                 setEditFormText(rev.text);
                               }}
                               title="Edit Review content"
-                              className="p-2 bg-white hover:bg-[#FFFFFF] hover:text-[#2E9E9C] text-[#283570] rounded-[6px] border border-[#E2DDD1] transition-colors"
+                              className="p-2 bg-white hover:bg-white hover:text-blue-600 text-blue-950 rounded-[14px] border border-slate-200 transition-colors"
                             >
                               <Edit2 className="w-3.5 h-3.5" />
                             </button>
@@ -748,7 +748,7 @@ export default function DashboardPage() {
                             <button
                               onClick={() => handleDeleteReview(rev.id)}
                               title="Delete Review"
-                              className="p-2 bg-white hover:bg-rose-50 hover:text-rose-600 text-[#283570] rounded-[6px] border border-[#E2DDD1] transition-colors"
+                              className="p-2 bg-white hover:bg-rose-50 hover:text-rose-600 text-blue-950 rounded-[14px] border border-slate-200 transition-colors"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -1006,7 +1006,7 @@ export default function DashboardPage() {
               
               <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-[#14142B] font-bold text-xs px-8 py-3.5 rounded-[14px] transition-all shadow-md shadow-blue-500/10 hover:shadow-lg active:scale-[0.98] flex items-center gap-1.5"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-8 py-3.5 rounded-[14px] transition-all shadow-md shadow-blue-500/10 hover:shadow-lg active:scale-[0.98] flex items-center gap-1.5"
               >
                 <Wand2 className="w-4 h-4 stroke-[2.5]" />
                 <span>SUBMIT</span>
@@ -1060,18 +1060,11 @@ export default function DashboardPage() {
                           y={y}
                           width="1"
                           height="1"
-                          fill={selectedLocationForQr.primaryColor || "#0D9488"}
+                          fill="#000000"
                         />
                       );
                     })
                   )}
-                  {/* Center Badge logo overlay */}
-                  <rect x={qrMatrix.length/2 - 2.5} y={qrMatrix.length/2 - 2.5} width="5" height="5" fill="#FFFFFF" rx="1" />
-                  <rect x={qrMatrix.length/2 - 2} y={qrMatrix.length/2 - 2} width="4" height="4" fill={selectedLocationForQr.primaryColor || "#0D9488"} rx="0.5" />
-                  <path
-                    d={`M${qrMatrix.length/2} ${qrMatrix.length/2 - 1.5}l.5 1h1.1l-.8.6.3 1-.9-.6-.9.6.3-1-.8-.6h1.1z`}
-                    fill="#FFFFFF"
-                  />
                 </svg>
               </div>
             )}
@@ -1090,7 +1083,7 @@ export default function DashboardPage() {
                   link.download = `qr-standee-${selectedLocationForQr.name.toLowerCase().replace(/\s+/g, "-")}.svg`;
                   link.click();
                 }}
-                className="flex-1 bg-blue-600 text-[#14142B] font-bold text-xs py-3 rounded-[14px] hover:bg-blue-700 transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/10"
+                className="flex-1 bg-blue-600 text-white font-bold text-xs py-3 rounded-[14px] hover:bg-blue-700 transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/10"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Download SVG</span>
@@ -1162,43 +1155,17 @@ export default function DashboardPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-[10px] text-gray-500 font-bold uppercase block mb-2">Funnel Accent Color</label>
-                  <div className="flex gap-2.5">
-                    {[
-                      { hex: "#4F46E5", label: "Indigo" },
-                      { hex: "#0D9488", label: "Teal" },
-                      { hex: "#E11D48", label: "Rose" },
-                      { hex: "#D97706", label: "Amber" }
-                    ].map((c) => (
-                      <button
-                        key={c.hex}
-                        type="button"
-                        onClick={() => setNewLocColor(c.hex)}
-                        className="w-6.5 h-6.5 rounded-full border-2 transition-transform hover:scale-105"
-                        style={{ 
-                          backgroundColor: c.hex,
-                          borderColor: newLocColor === c.hex ? '#1E293B' : 'transparent'
-                        }}
-                        title={c.label}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1.5">Rating Threshold</label>
-                  <select
-                    value={newLocThreshold}
-                    onChange={(e) => setNewLocThreshold(Number(e.target.value))}
-                    className="w-full bg-slate-50 border-none shadow-[0_4px_20px_rgba(26,31,92,0.08)] rounded-[14px] px-3.5 py-2.5 text-xs text-blue-950 focus:outline-none focus:border-blue-600 font-semibold shadow-inner"
-                  >
-                    <option value={5}>5 Stars Only</option>
-                    <option value={4}>4 Stars and Up</option>
-                    <option value={3}>3 Stars and Up</option>
-                  </select>
-                </div>
+              <div>
+                <label className="text-[10px] text-gray-500 font-bold uppercase block mb-1.5">Rating Threshold</label>
+                <select
+                  value={newLocThreshold}
+                  onChange={(e) => setNewLocThreshold(Number(e.target.value))}
+                  className="w-full bg-slate-50 border-none shadow-[0_4px_20px_rgba(26,31,92,0.08)] rounded-[14px] px-3.5 py-2.5 text-xs text-blue-950 focus:outline-none focus:border-blue-600 font-semibold shadow-inner"
+                >
+                  <option value={5}>5 Stars Only</option>
+                  <option value={4}>4 Stars and Up</option>
+                  <option value={3}>3 Stars and Up</option>
+                </select>
               </div>
 
               <div className="flex justify-end gap-3 pt-3">
@@ -1212,7 +1179,7 @@ export default function DashboardPage() {
                 <button
                   type="submit"
                   disabled={creatingLocation}
-                  className="bg-blue-600 text-[#14142B] font-bold text-xs px-5 py-2.5 rounded-[14px] hover:bg-blue-700 transition-all shadow-md shadow-blue-500/10 disabled:opacity-50"
+                  className="bg-blue-600 text-white font-bold text-xs px-5 py-2.5 rounded-[14px] hover:bg-blue-700 transition-all shadow-md shadow-blue-500/10 disabled:opacity-50"
                 >
                   {creatingLocation ? "Adding..." : "Add Location"}
                 </button>

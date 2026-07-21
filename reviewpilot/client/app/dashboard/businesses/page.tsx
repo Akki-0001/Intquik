@@ -289,7 +289,7 @@ export default function BusinessesPage() {
           ) : (
             <button
               onClick={() => setShowAddForm(true)}
-              className="bg-blue-600 text-[#14142B] text-xs font-bold px-4 py-2.5 rounded-[14px] hover:bg-blue-700 transition-colors flex items-center gap-1.5 shadow-lg shadow-blue-500/15"
+              className="bg-blue-600 text-white text-xs font-bold px-4 py-2.5 rounded-[14px] hover:bg-blue-700 transition-colors flex items-center gap-1.5 shadow-lg shadow-blue-500/15"
             >
               <Plus className="w-4 h-4 stroke-[2.5]" />
               <span>Add Business</span>
@@ -424,7 +424,7 @@ export default function BusinessesPage() {
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-600 text-[#14142B] text-xs font-bold px-5 py-2 rounded-[14px] hover:bg-blue-700 shadow-md shadow-blue-500/10 transition-all"
+                  className="bg-blue-600 text-white text-xs font-bold px-5 py-2 rounded-[14px] hover:bg-blue-700 shadow-md shadow-blue-500/10 transition-all"
                 >
                   {editBizId ? "Save Changes" : "Create Profile"}
                 </button>

@@ -49,7 +49,10 @@ router.get("/", async (req, res, next) => {
     const businessIds = userBusinesses.map((b) => b._id);
 
     // 2. Fetch reviews matching those business IDs
-    const reviews = await Review.find({ businessId: { $in: businessIds } })
+    const reviews = await Review.find({ 
+      businessId: { $in: businessIds },
+      isArchived: { $ne: true }
+    })
       .populate("businessId", "name")
       .sort({ createdAt: -1 });
 
@@ -119,6 +122,32 @@ router.delete("/admin/:id", admin, async (req, res, next) => {
       throw new Error("Review not found");
     }
     res.json({ message: "Review deleted successfully by Administrator" });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// @desc    Archive/Hide a review from the dashboard
+// @route   PUT /api/reviews/:id/archive
+router.put("/:id/archive", async (req, res, next) => {
+  try {
+    const review = await Review.findById(req.params.id);
+    if (!review) {
+      res.status(404);
+      throw new Error("Review not found");
+    }
+
+    // Verify ownership
+    const business = await Business.findOne({ _id: review.businessId, userId: req.user._id });
+    if (!business) {
+      res.status(403);
+      throw new Error("Unauthorized to archive this review");
+    }
+
+    review.isArchived = true;
+    const updatedReview = await review.save();
+
+    res.json(updatedReview);
   } catch (error) {
     next(error);
   }
