@@ -81,7 +81,7 @@ export default function PublicReviewFunnel() {
       }
 
       // Local Storage Fallback
-      const biz = db.businesses.find(b => b.id === businessId);
+      const biz = db.businesses.find((b: Business) => b.id === businessId);
       if (biz) {
         setBusiness(biz);
         const newScanId = `scan-${Date.now()}`;

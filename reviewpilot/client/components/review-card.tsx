@@ -31,7 +31,7 @@ export default function ReviewCard({ review, businessName, onRefresh }: ReviewCa
     }
     
     // For local fallback or fast UI update
-    const updatedReviews = db.reviews.filter(r => r.id !== review.id);
+    const updatedReviews = db.reviews.filter((r: Review) => r.id !== review.id);
     saveReviews(updatedReviews);
     if (onRefresh) onRefresh();
     setIsArchiving(false);
@@ -52,7 +52,7 @@ export default function ReviewCard({ review, businessName, onRefresh }: ReviewCa
       }
     }
 
-    const updatedReviews = db.reviews.map(r => {
+    const updatedReviews = db.reviews.map((r: Review) => {
       if (r.id === review.id) {
         return { ...r, reply: replyText };
       }

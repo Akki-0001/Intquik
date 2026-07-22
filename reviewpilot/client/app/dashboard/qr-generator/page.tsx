@@ -128,7 +128,7 @@ export default function QrGeneratorPage() {
     setBusinesses(db.businesses);
     let activeBiz = db.businesses[0] || null;
     if (bizIdParam) {
-      const found = db.businesses.find(b => b.id === bizIdParam);
+      const found = db.businesses.find((b: Business) => b.id === bizIdParam);
       if (found) activeBiz = found;
     }
     setSelectedBiz(activeBiz);

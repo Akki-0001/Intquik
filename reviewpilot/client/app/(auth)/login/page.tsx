@@ -3,17 +3,17 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { 
-  Sparkles, 
-  ArrowRight, 
-  Lock, 
-  Mail, 
-  Loader2, 
-  AlertCircle, 
-  Eye, 
-  EyeOff, 
-  UserCheck, 
-  ShieldCheck 
+import {
+  Sparkles,
+  ArrowRight,
+  Lock,
+  Mail,
+  Loader2,
+  AlertCircle,
+  Eye,
+  EyeOff,
+  UserCheck,
+  ShieldCheck
 } from "lucide-react";
 import { getDB, saveUser } from "@/lib/db";
 
@@ -86,7 +86,7 @@ export default function LoginPage() {
 
   return (
     <div className="bg-[#FFFFFF] text-[#283570] min-h-screen flex items-center justify-center font-sans p-6 relative overflow-hidden">
-      
+
       <div className="w-full max-w-md bg-white border border-[#2E9E9C]/40 rounded-lg p-8 shadow relative z-10 animate-in fade-in duration-300">
         {/* Back Link */}
         <div className="mb-6 flex items-center justify-between">
