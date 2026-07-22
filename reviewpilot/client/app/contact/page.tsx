@@ -78,7 +78,7 @@ export default function ContactPage() {
           <div className="space-y-4">
             {/* Phone Card */}
             <a
-              href="tel:+918421520817"
+              href="tel:+919958754255"
               className="bg-white/80 backdrop-blur-sm border-none shadow-[0_4px_20px_rgba(26,31,92,0.08)] p-5 rounded-[24px] flex items-center gap-4 hover:border-blue-600/30 transition-all shadow-sm group"
             >
               <div className="w-12 h-12 rounded-[14px] bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
@@ -86,13 +86,13 @@ export default function ContactPage() {
               </div>
               <div>
                 <h4 className="text-[10px] text-gray-400 font-extrabold uppercase tracking-wider">Phone Call & WhatsApp</h4>
-                <p className="text-sm font-black text-blue-900 mt-0.5">+91 8421520817</p>
+                <p className="text-sm font-black text-blue-900 mt-0.5">+91 9958754255</p>
               </div>
             </a>
 
             {/* Email Card */}
             <a
-              href="mailto:support@intuik.co"
+              href="mailto:intuiktechnologies@gmail.com"
               className="bg-white/80 backdrop-blur-sm border-none shadow-[0_4px_20px_rgba(26,31,92,0.08)] p-5 rounded-[24px] flex items-center gap-4 hover:border-blue-600/30 transition-all shadow-sm group"
             >
               <div className="w-12 h-12 rounded-[14px] bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
@@ -100,7 +100,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h4 className="text-[10px] text-gray-400 font-extrabold uppercase tracking-wider">Support Email</h4>
-                <p className="text-sm font-black text-blue-900 mt-0.5">support@intuik.co</p>
+                <p className="text-sm font-black text-blue-900 mt-0.5">intuiktechnologies@gmail.com</p>
               </div>
             </a>
 
@@ -111,7 +111,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h4 className="text-[10px] text-gray-400 font-extrabold uppercase tracking-wider">Our Headquarters</h4>
-                <p className="text-sm font-black text-blue-900 mt-0.5">Gurugram, Haryana, India</p>
+                <p className="text-sm font-black text-blue-900 mt-0.5">313, Ganpati Arcade, Gurgaon, Haryana 122001</p>
               </div>
             </div>
 

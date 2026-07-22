@@ -19,9 +19,7 @@ import { getDB, saveUser } from "@/lib/db";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<"email" | "phone">("email");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -34,32 +32,15 @@ export default function LoginPage() {
     }
   }, [router]);
 
-  // Handle tab change
-  const handleTabChange = (tab: "email" | "phone") => {
-    setActiveTab(tab);
-    setError("");
-    setEmail("");
-    setPhone("");
-    setPassword("");
-  };
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    if (activeTab === "email") {
-      if (!email.trim() || !password.trim()) {
-        setError("Please fill in all email and password fields.");
-        setLoading(false);
-        return;
-      }
-    } else {
-      if (!phone.trim()) {
-        setError("Please enter your phone number.");
-        setLoading(false);
-        return;
-      }
+    if (!email.trim() || !password.trim()) {
+      setError("Please fill in all email and password fields.");
+      setLoading(false);
+      return;
     }
 
     try {
@@ -68,8 +49,7 @@ export default function LoginPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        // In a real scenario, the backend would handle phone login separately
-        body: JSON.stringify(activeTab === "email" ? { email, password } : { phone, password }),
+        body: JSON.stringify({ email, password }),
         credentials: "include",
       });
 
@@ -127,35 +107,6 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Login Tabs Selector */}
-        <div className="grid grid-cols-2 gap-1.5 p-1 bg-[#FFFFFF] border border-[#2E9E9C]/30 rounded-lg mb-6">
-          <button
-            type="button"
-            onClick={() => handleTabChange("email")}
-            className={`flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-bold transition-all ${
-              activeTab === "email"
-                ? "bg-[#283570] text-[#FFFFFF] border border-[#2E9E9C]/30 shadow-sm"
-                : "text-[#5F6473] hover:text-[#283570]"
-            }`}
-          >
-            <UserCheck className="w-4 h-4 text-[#FF5A3C] shrink-0" />
-            <span>Email Login</span>
-          </button>
-          
-          <button
-            type="button"
-            onClick={() => handleTabChange("phone")}
-            className={`flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-bold transition-all ${
-              activeTab === "phone"
-                ? "bg-[#283570] text-[#FFFFFF] border border-[#2E9E9C]/30 shadow-sm"
-                : "text-[#5F6473] hover:text-[#283570]"
-            }`}
-          >
-            <ShieldCheck className="w-4 h-4 text-[#FF5A3C] shrink-0" />
-            <span>Phone No. Login</span>
-          </button>
-        </div>
-
         {/* Error Notice */}
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-750 text-xs rounded-lg p-3 mb-6 flex items-start gap-2">
@@ -166,73 +117,52 @@ export default function LoginPage() {
 
         {/* Login Form */}
         <form onSubmit={handleLogin} className="space-y-4">
-          {activeTab === "email" ? (
-            <div>
-              <label className="text-[10px] font-bold text-[#283570] uppercase tracking-wider block mb-1.5">
-                Business Email Address
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2E9E9C]" />
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-[#FFFFFF] border border-[#2E9E9C]/35 rounded-lg pl-11 pr-4 py-3 text-xs text-[#283570] focus:outline-none focus:border-[#283570] focus:ring-1 focus:ring-[#283570] transition-colors placeholder:text-[#5F6473]/50 font-bold"
-                  placeholder="you@company.com"
-                />
-              </div>
+          <div>
+            <label className="text-[10px] font-bold text-[#283570] uppercase tracking-wider block mb-1.5">
+              Business Email Address
+            </label>
+            <div className="relative">
+              <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[#283570]" />
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-[#FFFFFF] border border-[#2E9E9C]/35 rounded-lg pl-11 pr-4 py-3 text-xs text-[#283570] focus:outline-none focus:border-[#283570] focus:ring-1 focus:ring-[#283570] transition-colors placeholder:text-[#5F6473]/50 font-bold"
+                placeholder="you@company.com"
+              />
             </div>
-          ) : (
-            <div>
-              <label className="text-[10px] font-bold text-[#283570] uppercase tracking-wider block mb-1.5">
-                Phone Number
-              </label>
-              <div className="relative">
-                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#2E9E9C] text-xs font-bold">+91</div>
-                <input
-                  type="tel"
-                  required
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="w-full bg-[#FFFFFF] border border-[#2E9E9C]/35 rounded-lg pl-11 pr-4 py-3 text-xs text-[#283570] focus:outline-none focus:border-[#283570] focus:ring-1 focus:ring-[#283570] transition-colors placeholder:text-[#5F6473]/50 font-bold"
-                  placeholder="9876543210"
-                />
-              </div>
-            </div>
-          )}
+          </div>
 
-          {activeTab === "email" && (
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="text-[10px] font-bold text-[#283570] uppercase tracking-wider block">Password</label>
-                <Link
-                  href="/forgot-password"
-                  className="text-[10px] font-bold text-[#2E9E9C] hover:text-[#283570] transition-colors"
-                >
-                  Forgot Password?
-                </Link>
-              </div>
-              <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2E9E9C]" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  required={activeTab === "email"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-[#FFFFFF] border border-[#2E9E9C]/35 rounded-lg pl-11 pr-12 py-3 text-xs text-[#283570] focus:outline-none focus:border-[#283570] focus:ring-1 focus:ring-[#283570] transition-colors placeholder:text-[#5F6473]/50 font-bold font-mono"
-                  placeholder="••••••••"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#2E9E9C] hover:text-[#283570] transition-colors"
-                >
-                  {showPassword ? <EyeOff className="w-4.5 h-4.5" /> : <Eye className="w-4.5 h-4.5" />}
-                </button>
-              </div>
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="text-[10px] font-bold text-[#283570] uppercase tracking-wider block">Password</label>
+              <Link
+                href="/forgot-password"
+                className="text-[10px] font-bold text-[#2E9E9C] hover:text-[#283570] transition-colors"
+              >
+                Forgot Password?
+              </Link>
             </div>
-          )}
+            <div className="relative">
+              <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[#283570]" />
+              <input
+                type={showPassword ? "text" : "password"}
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-[#FFFFFF] border border-[#2E9E9C]/35 rounded-lg pl-11 pr-12 py-3 text-xs text-[#283570] focus:outline-none focus:border-[#283570] focus:ring-1 focus:ring-[#283570] transition-colors placeholder:text-[#5F6473]/50 font-bold font-mono"
+                placeholder="••••••••"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#2E9E9C] hover:text-[#283570] transition-colors"
+              >
+                {showPassword ? <EyeOff className="w-4.5 h-4.5" /> : <Eye className="w-4.5 h-4.5" />}
+              </button>
+            </div>
+          </div>
 
           <button
             type="submit"

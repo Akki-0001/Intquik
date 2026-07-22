@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Sparkles, ArrowRight, Lock, Mail, User, Building, Loader2, AlertCircle } from "lucide-react";
+import { Sparkles, ArrowRight, Lock, Mail, User, Building, Loader2, AlertCircle, Phone } from "lucide-react";
 import { getDB, saveUser } from "@/lib/db";
 
 export default function RegisterPage() {
@@ -11,6 +11,7 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -27,7 +28,7 @@ export default function RegisterPage() {
     setError("");
     setLoading(true);
 
-    if (!name.trim() || !companyName.trim() || !email.trim() || !password.trim()) {
+    if (!name.trim() || !companyName.trim() || !email.trim() || !phone.trim() || !password.trim()) {
       setError("Please fill in all fields.");
       setLoading(false);
       return;
@@ -39,7 +40,7 @@ export default function RegisterPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, companyName, email, password }),
+        body: JSON.stringify({ name, companyName, email, phone, password }),
         credentials: "include",
       });
 
@@ -72,20 +73,15 @@ export default function RegisterPage() {
       <div className="w-full max-w-md bg-white border border-[#E2DDD1] rounded-[6px] p-8 shadow-sm relative z-10">
         
         {/* Back Link */}
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-6 flex items-center">
           <Link href="/" className="flex items-center gap-2 text-xs font-bold text-[#6B6B6B] hover:text-[#283570] transition-colors">
             ← Back to Home
           </Link>
-          <div className="bg-[#2E9E9C]/10 text-[#283570] border border-[#2E9E9C]/30 px-2 py-0.5 rounded-[6px] text-[10px] font-bold font-mono">
-            14-DAY TRIAL
-          </div>
         </div>
 
         {/* Logo and Headings */}
         <div className="text-center mb-6">
-          <div className="bg-[#283570] p-2.5 rounded-[6px] inline-block mb-3 border border-[#2E9E9C]/30">
-            <Sparkles className="w-6 h-6 text-[#2E9E9C] stroke-[2.5]" />
-          </div>
+          <img src="/logoen.png" alt="Intuik Logo" className="h-20 w-auto object-contain mx-auto mb-3 mix-blend-multiply" style={{ filter: 'brightness(1.1) contrast(1.2)' }} />
           <h2 className="text-2xl font-serif font-bold text-[#283570] tracking-tight">Create Your Account</h2>
           <p className="text-xs text-[#6B6B6B] font-semibold mt-2">Get setup and collect reviews in 2 minutes</p>
         </div>
@@ -103,7 +99,7 @@ export default function RegisterPage() {
           <div>
             <label className="text-xs font-bold text-[#283570] block mb-1">Your Full Name</label>
             <div className="relative">
-              <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2E9E9C]" />
+              <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[#283570]" />
               <input
                 type="text"
                 required
@@ -118,7 +114,7 @@ export default function RegisterPage() {
           <div>
             <label className="text-xs font-bold text-[#283570] block mb-1">Company Name</label>
             <div className="relative">
-              <Building className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2E9E9C]" />
+              <Building className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[#283570]" />
               <input
                 type="text"
                 required
@@ -133,7 +129,7 @@ export default function RegisterPage() {
           <div>
             <label className="text-xs font-bold text-[#283570] block mb-1">Business Email Address</label>
             <div className="relative">
-              <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2E9E9C]" />
+              <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[#283570]" />
               <input
                 type="email"
                 required
@@ -146,9 +142,24 @@ export default function RegisterPage() {
           </div>
 
           <div>
+            <label className="text-xs font-bold text-[#283570] block mb-1">Phone Number</label>
+            <div className="relative">
+              <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[#283570]" />
+              <input
+                type="tel"
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="w-full bg-[#FFFFFF] border border-[#E2DDD1] rounded-[6px] pl-11 pr-4 py-2.5 text-sm text-[#2B2B2B] focus:outline-none focus:border-[#2E9E9C] transition-colors placeholder:text-gray-400 font-semibold"
+                placeholder="+91 9876543210"
+              />
+            </div>
+          </div>
+
+          <div>
             <label className="text-xs font-bold text-[#283570] block mb-1">Password</label>
             <div className="relative">
-              <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2E9E9C]" />
+              <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[#283570]" />
               <input
                 type="password"
                 required
@@ -163,7 +174,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#283570] text-[#2E9E9C] hover:bg-[#2E9E9C] hover:text-[#283570] border border-[#2E9E9C] font-serif font-bold py-3 rounded-[6px] transition-colors duration-200 mt-6 flex items-center justify-center gap-2 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed text-xs"
+            className="w-full bg-[#283570] hover:bg-[#141f36] text-[#FFFFFF] border border-[#2E9E9C]/60 font-serif font-bold py-3.5 rounded-lg transition-all mt-6 flex items-center justify-center gap-2 shadow disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
               <>

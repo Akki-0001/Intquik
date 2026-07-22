@@ -19,7 +19,7 @@ const generateToken = (id) => {
 // @access  Public
 const registerUser = async (req, res, next) => {
   try {
-    const { name, email, password, companyName } = req.body;
+    const { name, email, password, companyName, phone } = req.body;
 
     const userExists = await User.findOne({ email });
     if (userExists) {
@@ -32,6 +32,7 @@ const registerUser = async (req, res, next) => {
       email,
       password,
       companyName,
+      phone,
     });
 
     if (user) {

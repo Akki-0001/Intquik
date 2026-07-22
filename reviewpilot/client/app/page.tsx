@@ -201,7 +201,7 @@ export default function LandingPage() {
                 </Link>
 
                 <a
-                  href="https://wa.me/918421520817"
+                  href="https://wa.me/919958754255"
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-3 font-semibold text-slate-600 hover:text-slate-900 transition-colors"
@@ -209,7 +209,7 @@ export default function LandingPage() {
                   <div className="w-10 h-10 rounded-full bg-white text-slate-900 border border-slate-200 shadow-sm hover:bg-slate-50 flex items-center justify-center hover:scale-105 transition-transform">
                     <Phone className="w-4 h-4" />
                   </div>
-                  <span className="text-[15px]">+91 8421520817</span>
+                  <span className="text-[15px]">+91 9958754255</span>
                 </a>
               </div>
             </ScrollReveal>
@@ -1369,18 +1369,18 @@ export default function LandingPage() {
                   <li className="flex items-start gap-3">
                     <MapPin className="w-4.5 h-4.5 text-sky-600 shrink-0 mt-0.5" />
                     <span className="leading-relaxed">
-                      12th Floor, Tech Park,
+                      313, Ganpati Arcade,
                       <br />
-                      Mumbai, India 400001
+                      Gurgaon, Haryana 122001
                     </span>
                   </li>
                   <li className="flex items-center gap-3">
                     <MessageSquare className="w-4.5 h-4.5 text-sky-600 shrink-0" />
                     <a
-                      href="mailto:Support@intuik.com"
+                      href="mailto:intuiktechnologies@gmail.com"
                       className="hover:text-sky-600 transition-colors"
                     >
-                      Support@intuik.com
+                      intuiktechnologies@gmail.com
                     </a>
                   </li>
                 </ul>
