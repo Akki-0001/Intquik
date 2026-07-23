@@ -33,7 +33,7 @@ const generateReviews = async (businessName, keywords = [], usedSuggestions = []
 
     const completion = await groq.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
-      model: "llama3-8b-8192", // Fast and capable for short copy
+      model: "llama-3.1-8b-instant", // Fast and capable for short copy
       temperature: 0.7,
       max_tokens: 200,
     });
@@ -79,7 +79,7 @@ const generateReply = async (customerName, rating, comment, businessName = "Our 
 
     const completion = await groq.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
-      model: "llama3-8b-8192",
+      model: "llama-3.1-8b-instant",
       temperature: 0.6,
       max_tokens: 150,
     });
