@@ -59,6 +59,7 @@ const businessSchema = new mongoose.Schema(
         createdAt: {
           type: Date,
           default: Date.now,
+        },
       },
     ],
     // Google My Business Integration

@@ -1,7 +1,7 @@
 const express = require("express");
 const Business = require("../models/business.model");
 const { protect } = require("../middleware/auth");
-const { getAuthUrl, getTokens, getLocations, syncReviews, replyToReview } = require("../services/gmb.service");
+const { getAuthUrl, getTokens, getLocations, syncReviews, replyToReview, processBusinessReviews } = require("../services/gmb.service");
 const { generateReply } = require("../services/ai.service");
 
 const router = express.Router();
@@ -96,36 +96,8 @@ router.post("/sync/:businessId", protect, async (req, res, next) => {
       throw new Error("GMB not fully configured");
     }
 
-    const tokens = {
-      access_token: business.googleAccessToken,
-      refresh_token: business.googleRefreshToken,
-      expiry_date: business.googleTokenExpiry,
-    };
-
-    // 1. Fetch reviews
-    const gmbReviews = await syncReviews(business, tokens);
-    let repliesSent = 0;
-
-    // 2. Loop through and process (Auto-reply logic)
-    for (const rev of gmbReviews) {
-      // In a real app, we'd check our DB to see if we already saved/replied to this review.
-      // We will skip that for this mock.
-      
-      const ratingNum = rev.starRating === 'FIVE' ? 5 : rev.starRating === 'FOUR' ? 4 : rev.starRating === 'THREE' ? 3 : rev.starRating === 'TWO' ? 2 : 1;
-      const customerName = rev.reviewer ? rev.reviewer.displayName : "Customer";
-      
-      if (business.autoReplyEnabled) {
-        // Generate real AI reply with Groq
-        const replyText = await generateReply(customerName, ratingNum, rev.comment || "", business.name);
-        // In a real app we would only reply if there is no reviewReply object on rev
-        if (!rev.reviewReply) {
-           await replyToReview(business.gmbLocationId, rev.reviewId, replyText, tokens);
-           repliesSent++;
-        }
-      }
-    }
-
-    res.json({ message: "Sync complete", reviewsSynced: gmbReviews.length, repliesSent });
+    const { synced, replied } = await processBusinessReviews(business);
+    res.json({ message: "Sync complete", reviewsSynced: synced, repliesSent: replied });
   } catch (error) {
     next(error);
   }

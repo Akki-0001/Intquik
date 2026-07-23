@@ -1,4 +1,5 @@
 const { google } = require("googleapis");
+const { generateReply } = require("./ai.service");
 
 // Initialize OAuth2 client
 const getOAuthClient = () => {
@@ -120,10 +121,45 @@ const replyToReview = async (locationId, reviewId, replyText, tokens) => {
   return true;
 };
 
+const processBusinessReviews = async (business) => {
+  if (!business.googleAccessToken || !business.gmbLocationId) return { synced: 0, replied: 0 };
+
+  const tokens = {
+    access_token: business.googleAccessToken,
+    refresh_token: business.googleRefreshToken,
+    expiry_date: business.googleTokenExpiry,
+  };
+
+  try {
+    const gmbReviews = await syncReviews(business, tokens);
+    let repliesSent = 0;
+
+    for (const rev of gmbReviews) {
+      const ratingNum = rev.starRating === 'FIVE' ? 5 : rev.starRating === 'FOUR' ? 4 : rev.starRating === 'THREE' ? 3 : rev.starRating === 'TWO' ? 2 : 1;
+      const customerName = rev.reviewer ? rev.reviewer.displayName : "Customer";
+      
+      if (business.autoReplyEnabled) {
+        // In a real app we would only reply if there is no reviewReply object on rev
+        if (!rev.reviewReply) {
+           const replyText = await generateReply(customerName, ratingNum, rev.comment || "", business.name);
+           await replyToReview(business.gmbLocationId, rev.reviewId, replyText, tokens);
+           repliesSent++;
+        }
+      }
+    }
+    
+    return { synced: gmbReviews.length, replied: repliesSent };
+  } catch (error) {
+    console.error(`Error processing reviews for business ${business._id}:`, error.message);
+    throw error;
+  }
+};
+
 module.exports = {
   getAuthUrl,
   getTokens,
   getLocations,
   syncReviews,
   replyToReview,
+  processBusinessReviews,
 };

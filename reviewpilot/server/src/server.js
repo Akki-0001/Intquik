@@ -4,8 +4,13 @@ const connectDB = require("./config/db");
 
 const PORT = process.env.PORT || 5000;
 
+const startReviewSyncJob = require("./jobs/reviewSync.job");
+
 // Connect to MongoDB Database
 connectDB();
+
+// Initialize Cron Jobs
+startReviewSyncJob();
 
 // Start Server
 const server = app.listen(PORT, () => {
