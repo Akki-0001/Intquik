@@ -1,5 +1,5 @@
 const Business = require("../models/business.model");
-const { generateReviews } = require("../services/ai.service");
+const { generateReviews, generateBatchReviews } = require("../services/ai.service");
 
 // @desc    Get user's businesses
 // @route   GET /api/businesses
@@ -266,21 +266,39 @@ const deleteBusinessAdmin = async (req, res, next) => {
   }
 };
 
-// @desc    Toggle business activation status (Admin only)
-// @route   PUT /api/businesses/admin/:id/status
+// @desc    Toggle business status (admin only)
+// @route   PUT /api/businesses/:id/status
 // @access  Private/Admin
 const toggleBusinessStatusAdmin = async (req, res, next) => {
   try {
-    const { isActive } = req.body;
     const business = await Business.findById(req.params.id);
     if (!business) {
       res.status(404);
-      throw new Error("Business location not found");
+      throw new Error("Business not found");
     }
 
-    business.isActive = isActive !== undefined ? isActive : !business.isActive;
-    const updated = await business.save();
-    res.json(updated);
+    business.isActive = !business.isActive;
+    await business.save();
+
+    res.json(business);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Generate batch of AI reviews for the dashboard
+// @route   POST /api/businesses/generate-batch
+// @access  Private (Dashboard)
+const generateBatch = async (req, res, next) => {
+  try {
+    const { config } = req.body;
+    if (!config) {
+      res.status(400);
+      throw new Error("Configuration is required");
+    }
+
+    const reviews = await generateBatchReviews(config);
+    res.json(reviews);
   } catch (error) {
     next(error);
   }
@@ -299,4 +317,5 @@ module.exports = {
   toggleBusinessStatusAdmin,
   getSuggestions,
   markSuggestionUsed,
+  generateBatch,
 };

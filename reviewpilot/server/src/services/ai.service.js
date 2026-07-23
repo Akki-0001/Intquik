@@ -132,7 +132,74 @@ const generateMockReply = (customerName, rating) => {
   }
 };
 
+const generateBatchReviews = async (config) => {
+  const { 
+    businessName, 
+    businessCategory, 
+    keywords, 
+    usp, 
+    location, 
+    tone, 
+    style, 
+    wordLimit, 
+    numReviews, 
+    serviceArea, 
+    otherSuggestions 
+  } = config;
+  
+  const count = parseInt(numReviews) || 10;
+  
+  const prompt = `You are an expert copywriter. Generate EXACTLY ${count} highly unique and distinct Google reviews for a business.
+  
+  Business Details:
+  - Name: ${businessName}
+  - Category: ${businessCategory}
+  - Location/Service Area: ${location} / ${serviceArea}
+  - Keywords to include naturally: ${keywords}
+  - Unique Selling Proposition (USP): ${usp}
+  
+  Review Style Guidelines:
+  - Tone: ${tone} (Ensure the wording strictly matches this tone)
+  - Style: ${style} (e.g. if 'Story-based', include a short backstory; if 'Short & Sweet', keep it very brief)
+  - Word Limit per review: ${wordLimit}
+  - Additional Rules: ${otherSuggestions || "None"}
+  
+  CRITICAL INSTRUCTION: DO NOT repeat phrases. Each of the ${count} reviews must sound completely different from the others. Be extremely creative and highly varied.
+  
+  IMPORTANT: Output ONLY a valid JSON array of exactly ${count} strings. No markdown formatting, no introduction, no explanation. Just the JSON array.
+  Example format: ["review 1", "review 2", "review 3"]`;
+
+  try {
+    if (!process.env.GROQ_API_KEY) {
+      throw new Error("GROQ_API_KEY is missing");
+    }
+
+    const completion = await groq.chat.completions.create({
+      messages: [{ role: "user", content: prompt }],
+      model: "llama-3.1-8b-instant",
+      temperature: 0.95, // High temperature for maximum variety
+      max_tokens: count * 100, // Enough tokens for the batch
+    });
+
+    let resultText = completion.choices[0]?.message?.content || "[]";
+    resultText = resultText.replace(/```json/g, "").replace(/```/g, "").trim();
+    
+    const reviews = JSON.parse(resultText);
+    
+    if (Array.isArray(reviews) && reviews.length > 0) {
+      return reviews;
+    } else {
+      throw new Error("Invalid response format from AI");
+    }
+  } catch (error) {
+    console.error("Groq API Error (generateBatchReviews):", error.message);
+    // Return empty array or throw error so frontend knows it failed
+    throw error;
+  }
+};
+
 module.exports = {
   generateReviews,
   generateReply,
+  generateBatchReviews,
 };

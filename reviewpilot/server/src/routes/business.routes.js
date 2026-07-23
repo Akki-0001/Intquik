@@ -14,6 +14,7 @@ const {
   toggleBusinessStatusAdmin,
   getSuggestions,
   markSuggestionUsed,
+  generateBatch,
 } = require("../controllers/business.controller");
 
 const router = express.Router();
@@ -28,6 +29,7 @@ router.put("/:id/scan/:scanId", convertScan);
 // Protect all other endpoints
 router.use(protect);
 
+router.post("/generate-batch", generateBatch);
 router.get("/", getBusinesses);
 router.post("/", upload.single("logo"), createBusiness);
 router.put("/:id", upload.single("logo"), updateBusiness);

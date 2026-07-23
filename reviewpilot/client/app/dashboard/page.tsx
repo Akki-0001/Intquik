@@ -95,6 +95,7 @@ export default function DashboardPage() {
   const [statusFilter, setStatusFilter] = useState<"ALL" | "AVAILABLE" | "USED">("ALL");
   const [copiedReviewId, setCopiedReviewId] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   
   // Edit review state
   const [editingReview, setEditingReview] = useState<GeneratedReview | null>(null);
@@ -422,30 +423,46 @@ export default function DashboardPage() {
     return generated;
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsGenerating(true);
 
-    const count = parseInt(config.numReviews) || 10;
-    const generatedReviews: GeneratedReview[] = [];
-    const dateStr = new Date().toLocaleDateString("en-GB").replace(/\//g, "-"); // DD-MM-YYYY
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/generate-batch`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ config }),
+        credentials: "include",
+      });
 
-    for (let i = 0; i < count; i++) {
-      const text = generateSingleReviewText(config, config.category);
-      generatedReviews.push({
+      if (!res.ok) {
+        throw new Error("Failed to generate reviews");
+      }
+
+      const generatedTexts: string[] = await res.json();
+      const dateStr = new Date().toLocaleDateString("en-GB").replace(/\//g, "-"); // DD-MM-YYYY
+      const generatedReviews: GeneratedReview[] = generatedTexts.map((text, i) => ({
         id: `gr-${Date.now()}-${i}`,
         category: config.category,
         text,
         status: "AVAILABLE",
         createdAt: dateStr
-      });
+      }));
+
+      const updatedList = [...generatedReviews, ...reviewsList];
+      setReviewsList(updatedList);
+      localStorage.setItem("rp_generated_reviews_list", JSON.stringify(updatedList));
+      localStorage.setItem("rp_generator_config", JSON.stringify(config));
+
+      setView("list");
+    } catch (error) {
+      console.error("Error generating reviews:", error);
+      alert("There was an error generating the reviews. Please try again.");
+    } finally {
+      setIsGenerating(false);
     }
-
-    const updatedList = [...generatedReviews, ...reviewsList];
-    setReviewsList(updatedList);
-    localStorage.setItem("rp_generated_reviews_list", JSON.stringify(updatedList));
-    localStorage.setItem("rp_generator_config", JSON.stringify(config));
-
-    setView("list");
   };
 
   // Filter list
@@ -484,7 +501,7 @@ export default function DashboardPage() {
               <div className="flex justify-end gap-3 pt-2">
                 <button 
                   onClick={() => setEditingReview(null)}
-                  className="bg-slate-100 text-blue-800 font-bold text-xs px-4 py-2.5 rounded-[14px] hover:bg-slate-200 transition-all"
+                  className="bg-gray-100 text-gray-700 font-semibold text-xs px-4 py-2.5 rounded-[14px] hover:bg-gray-200 transition-colors"
                 >
                   Cancel
                 </button>
@@ -1006,10 +1023,20 @@ export default function DashboardPage() {
               
               <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-8 py-3.5 rounded-[14px] transition-all shadow-md shadow-blue-500/10 hover:shadow-lg active:scale-[0.98] flex items-center gap-1.5"
+                disabled={isGenerating}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-8 py-3.5 rounded-[14px] transition-all shadow-md shadow-blue-500/10 hover:shadow-lg active:scale-[0.98] flex items-center gap-1.5 disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                <Wand2 className="w-4 h-4 stroke-[2.5]" />
-                <span>SUBMIT</span>
+                {isGenerating ? (
+                  <>
+                    <div className="h-4 w-4 rounded-full border-2 border-white border-t-transparent animate-spin"></div>
+                    <span>GENERATING AI...</span>
+                  </>
+                ) : (
+                  <>
+                    <Wand2 className="w-4 h-4 stroke-[2.5]" />
+                    <span>SUBMIT</span>
+                  </>
+                )}
               </button>
             </div>
           </form>
