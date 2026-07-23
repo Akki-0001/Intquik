@@ -48,7 +48,7 @@ export default function FeaturesPage() {
         </div>
 
         {/* 1. Smart AI-Review QR Kit */}
-        <section className="bg-white rounded-[14px] shadow-[0_4px_20px_rgba(20,20,43,0.06)] p-8 md:p-12 mb-12">
+        <section id="smart-qr" className="bg-white rounded-[14px] shadow-[0_4px_20px_rgba(20,20,43,0.06)] p-8 md:p-12 mb-12">
           <div className="flex flex-col lg:flex-row gap-12">
             <div className="lg:w-1/3">
               <span className="eyebrow mb-2 inline-block">Best Seller</span>
@@ -102,7 +102,7 @@ export default function FeaturesPage() {
         </section>
 
         {/* 2. AI Telecalling Agent */}
-        <section className="bg-white rounded-[14px] shadow-[0_4px_20px_rgba(20,20,43,0.06)] p-8 md:p-12 mb-12">
+        <section id="telecalling" className="bg-white rounded-[14px] shadow-[0_4px_20px_rgba(20,20,43,0.06)] p-8 md:p-12 mb-12">
           <div className="flex flex-col lg:flex-row gap-12">
             <div className="lg:w-1/3">
               <span className="eyebrow mb-2 inline-block">Voice AI Technology</span>
@@ -156,7 +156,7 @@ export default function FeaturesPage() {
         </section>
 
         {/* 3. WhatsApp Chatbot */}
-        <section className="bg-white rounded-[14px] shadow-[0_4px_20px_rgba(20,20,43,0.06)] p-8 md:p-12 mb-12">
+        <section id="whatsapp" className="bg-white rounded-[14px] shadow-[0_4px_20px_rgba(20,20,43,0.06)] p-8 md:p-12 mb-12">
           <div className="flex flex-col lg:flex-row gap-12">
             <div className="lg:w-1/3">
               <span className="eyebrow mb-2 inline-block">Button-Based Automation</span>

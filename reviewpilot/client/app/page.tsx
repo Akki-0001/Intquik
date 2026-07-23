@@ -1280,7 +1280,7 @@ export default function LandingPage() {
                 <ul className="space-y-4 text-sm font-medium text-slate-400">
                   <li>
                     <a
-                      href="#pricing"
+                      href="/features#smart-qr"
                       className="hover:text-sky-600 transition-colors flex items-center gap-2 group"
                     >
                       <span className="w-1 h-1 rounded-full bg-blue-900/0 group-hover:bg-blue-900 transition-all" />{" "}
@@ -1289,7 +1289,7 @@ export default function LandingPage() {
                   </li>
                   <li>
                     <a
-                      href="#pricing"
+                      href="/features#telecalling"
                       className="hover:text-sky-600 transition-colors flex items-center gap-2 group"
                     >
                       <span className="w-1 h-1 rounded-full bg-blue-900/0 group-hover:bg-blue-900 transition-all" />{" "}
@@ -1298,7 +1298,7 @@ export default function LandingPage() {
                   </li>
                   <li>
                     <a
-                      href="#pricing"
+                      href="/features#whatsapp"
                       className="hover:text-sky-600 transition-colors flex items-center gap-2 group"
                     >
                       <span className="w-1 h-1 rounded-full bg-blue-900/0 group-hover:bg-blue-900 transition-all" />{" "}
@@ -1307,7 +1307,7 @@ export default function LandingPage() {
                   </li>
                   <li>
                     <a
-                      href="#features"
+                      href="/features#smart-qr"
                       className="hover:text-sky-600 transition-colors flex items-center gap-2 group"
                     >
                       <span className="w-1 h-1 rounded-full bg-blue-900/0 group-hover:bg-blue-900 transition-all" />{" "}
