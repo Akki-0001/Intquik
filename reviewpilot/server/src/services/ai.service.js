@@ -28,13 +28,15 @@ const generateReviews = async (businessName, keywords = [], usedSuggestions = []
     The reviews MUST incorporate some of these keywords naturally: ${keywordStr}.
     Keep them under 2 sentences each. Make them sound like they were written by real customers.${excludePrompt}
     
+    CRITICAL: Be extremely creative, varied, and unique in your phrasing. Avoid generic templates. Every review must sound distinct.
+    
     IMPORTANT: Output ONLY a valid JSON array of 3 strings. No markdown, no introduction, no explanation. Just the JSON array.
     Example format: ["review 1", "review 2", "review 3"]`;
 
     const completion = await groq.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
       model: "llama-3.1-8b-instant", // Fast and capable for short copy
-      temperature: 0.7,
+      temperature: 0.95, // Increased temperature for higher randomness and variety
       max_tokens: 200,
     });
 
