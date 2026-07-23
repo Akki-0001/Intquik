@@ -304,6 +304,27 @@ const generateBatch = async (req, res, next) => {
   }
 };
 
+// @desc    Toggle business auto-reply status
+// @route   PUT /api/businesses/:id/auto-reply
+// @access  Private
+const toggleAutoReply = async (req, res, next) => {
+  try {
+    const { autoReplyEnabled } = req.body;
+    const business = await Business.findOne({ _id: req.params.id, userId: req.user._id });
+    if (!business) {
+      res.status(404);
+      throw new Error("Business not found");
+    }
+
+    business.autoReplyEnabled = autoReplyEnabled !== undefined ? autoReplyEnabled : !business.autoReplyEnabled;
+    const updated = await business.save();
+
+    res.json(updated);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getBusinesses,
   createBusiness,
@@ -318,4 +339,5 @@ module.exports = {
   getSuggestions,
   markSuggestionUsed,
   generateBatch,
+  toggleAutoReply,
 };

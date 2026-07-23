@@ -11,7 +11,8 @@ import {
   Lock,
   LogOut, 
   X,
-  Navigation
+  Navigation,
+  Bot
 } from "lucide-react";
 import { saveUser, MockUser } from "@/lib/db";
 
@@ -40,6 +41,7 @@ export default function Sidebar({ user, mobileMenuOpen, setMobileMenuOpen }: Sid
       ]
     : [
         { name: "Reviews", href: "/dashboard", icon: Star },
+        { name: "AI Replies", href: "/dashboard/ai-replies", icon: Bot },
         { name: "Category", href: "/dashboard/category", icon: Shapes },
         { name: "Plans", href: "/dashboard/plans", icon: CreditCard },
         { name: "Change Password", href: "/dashboard/change-password", icon: Lock },

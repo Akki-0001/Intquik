@@ -15,6 +15,7 @@ const {
   getSuggestions,
   markSuggestionUsed,
   generateBatch,
+  toggleAutoReply,
 } = require("../controllers/business.controller");
 
 const router = express.Router();
@@ -34,6 +35,7 @@ router.get("/", getBusinesses);
 router.post("/", upload.single("logo"), createBusiness);
 router.put("/:id", upload.single("logo"), updateBusiness);
 router.delete("/:id", deleteBusiness);
+router.put("/:id/auto-reply", toggleAutoReply);
 
 // Admin Database endpoints
 router.get("/admin/all", admin, getAllBusinessesAdmin);

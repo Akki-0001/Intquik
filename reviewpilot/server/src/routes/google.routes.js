@@ -34,6 +34,20 @@ router.post("/callback", protect, async (req, res, next) => {
     if (tokens.refresh_token) business.googleRefreshToken = tokens.refresh_token;
     business.googleTokenExpiry = tokens.expiry_date;
     
+    // Auto-fetch locations and set the first one as default to simplify onboarding
+    try {
+      const locations = await getLocations({
+        access_token: tokens.access_token,
+        refresh_token: tokens.refresh_token || business.googleRefreshToken,
+        expiry_date: tokens.expiry_date
+      });
+      if (locations && locations.length > 0) {
+        business.gmbLocationId = locations[0].name;
+      }
+    } catch (locErr) {
+      console.error("Failed to auto-fetch GMB locations:", locErr.message);
+    }
+    
     await business.save();
     res.json({ message: "Successfully connected to Google My Business" });
   } catch (error) {

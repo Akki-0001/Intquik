@@ -8,7 +8,8 @@ import {
   CheckCircle, 
   Send, 
   RefreshCcw,
-  MessageSquare
+  MessageSquare,
+  ChevronDown
 } from "lucide-react";
 
 type PendingReview = {
@@ -54,6 +55,73 @@ const MOCK_REVIEWS: PendingReview[] = [
 export default function AIRepliesPage() {
   const [reviews, setReviews] = useState<PendingReview[]>(MOCK_REVIEWS);
   const [activeTab, setActiveTab] = useState<"pending" | "resolved">("pending");
+  const [businesses, setBusinesses] = useState<any[]>([]);
+  const [selectedBusinessId, setSelectedBusinessId] = useState<string>("");
+  const [loadingAction, setLoadingAction] = useState<boolean>(false);
+
+  React.useEffect(() => {
+    loadBusinesses();
+  }, []);
+
+  const loadBusinesses = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses`, {
+        credentials: "include",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setBusinesses(data);
+        if (data.length > 0) {
+          setSelectedBusinessId(data[0]._id);
+        }
+      }
+    } catch (err) {
+      console.error("Failed to load businesses:", err);
+    }
+  };
+
+  const selectedBusiness = businesses.find(b => b._id === selectedBusinessId);
+  const isConnected = selectedBusiness && selectedBusiness.googleAccessToken && selectedBusiness.gmbLocationId;
+  const isAutoReplyEnabled = selectedBusiness && selectedBusiness.autoReplyEnabled;
+
+  const handleConnect = async () => {
+    try {
+      setLoadingAction(true);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/google/auth`, {
+        credentials: "include",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        // Save business ID to local storage so we know which one to link after redirect
+        localStorage.setItem("rp_linking_business_id", selectedBusinessId);
+        window.location.href = data.url;
+      }
+    } catch (err) {
+      console.error("Failed to get google auth URL:", err);
+    } finally {
+      setLoadingAction(false);
+    }
+  };
+
+  const toggleAutoReply = async () => {
+    if (!selectedBusiness) return;
+    try {
+      setLoadingAction(true);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/${selectedBusinessId}/auto-reply`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ autoReplyEnabled: !isAutoReplyEnabled }),
+        credentials: "include",
+      });
+      if (res.ok) {
+        await loadBusinesses(); // Reload to get updated state
+      }
+    } catch (err) {
+      console.error("Failed to toggle auto reply:", err);
+    } finally {
+      setLoadingAction(false);
+    }
+  };
 
   const pendingCount = reviews.filter(r => r.status !== "published").length;
 
@@ -103,40 +171,62 @@ export default function AIRepliesPage() {
       {/* GMB Connection & Auto-Reply Settings */}
       <div className="bg-indigo-50 border border-indigo-100 rounded-[20px] p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
-            <span className="text-xl font-bold text-blue-600">G</span>
+          <div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-sm shrink-0 ${isConnected ? 'bg-emerald-100 border border-emerald-200' : 'bg-white'}`}>
+            {isConnected ? <CheckCircle className="w-6 h-6 text-emerald-600" /> : <span className="text-xl font-bold text-blue-600">G</span>}
           </div>
           <div>
-            <h3 className="text-sm font-bold text-blue-950">Google My Business Integration</h3>
+            <div className="flex items-center gap-3">
+              <h3 className="text-sm font-bold text-blue-950">Google My Business Integration</h3>
+              {businesses.length > 0 && (
+                <div className="relative">
+                  <select 
+                    value={selectedBusinessId}
+                    onChange={(e) => setSelectedBusinessId(e.target.value)}
+                    className="appearance-none bg-white border border-indigo-200 text-indigo-900 text-[10px] font-bold px-3 py-1 pr-6 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-400"
+                  >
+                    {businesses.map(b => (
+                      <option key={b._id} value={b._id}>{b.name}</option>
+                    ))}
+                  </select>
+                  <ChevronDown className="w-3 h-3 text-indigo-400 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+                </div>
+              )}
+            </div>
             <p className="text-xs text-gray-500 font-medium mt-1 max-w-md">Connect your Google account to automatically pull in real reviews and post AI-generated replies directly to your profile.</p>
           </div>
         </div>
         <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0">
-          <button className="bg-white border border-slate-200 text-blue-950 text-xs font-bold px-4 py-2 rounded-xl shadow-sm hover:bg-slate-50 transition-colors">
-            Connect Account
-          </button>
+          
+          {selectedBusiness ? (
+            isConnected ? (
+              <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-100">
+                Connected
+              </span>
+            ) : (
+              <button 
+                onClick={handleConnect}
+                disabled={loadingAction}
+                className="bg-blue-600 border-none text-white text-xs font-bold px-4 py-2 rounded-xl shadow-sm shadow-blue-500/20 hover:bg-blue-700 transition-colors disabled:opacity-50"
+              >
+                {loadingAction ? "Connecting..." : "Connect Account"}
+              </button>
+            )
+          ) : (
+            <span className="text-xs text-gray-400 font-medium">Add a business first</span>
+          )}
           
           <div className="h-8 w-px bg-slate-200 hidden sm:block"></div>
           
           <div className="flex items-center gap-3">
             <span className="text-xs font-bold text-gray-600">Auto-Reply:</span>
             <button 
-              className="relative inline-flex h-6 w-11 items-center rounded-full bg-slate-200 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${isAutoReplyEnabled ? 'bg-indigo-600' : 'bg-slate-200'} ${(!isConnected || loadingAction) ? 'opacity-50 cursor-not-allowed' : ''}`}
               role="switch"
-              aria-checked="false"
-              onClick={(e) => {
-                const isChecked = e.currentTarget.getAttribute('aria-checked') === 'true';
-                e.currentTarget.setAttribute('aria-checked', (!isChecked).toString());
-                e.currentTarget.classList.toggle('bg-indigo-600');
-                e.currentTarget.classList.toggle('bg-slate-200');
-                const span = e.currentTarget.querySelector('span');
-                if (span) {
-                  span.classList.toggle('translate-x-6');
-                  span.classList.toggle('translate-x-1');
-                }
-              }}
+              disabled={!isConnected || loadingAction}
+              aria-checked={isAutoReplyEnabled}
+              onClick={toggleAutoReply}
             >
-              <span className="inline-block h-4 w-4 translate-x-1 rounded-full bg-white transition-transform" />
+              <span className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${isAutoReplyEnabled ? 'translate-x-6' : 'translate-x-1'}`} />
             </button>
           </div>
         </div>
