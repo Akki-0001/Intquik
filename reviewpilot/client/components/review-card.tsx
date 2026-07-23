@@ -29,7 +29,7 @@ export default function ReviewCard({ review, businessName, onRefresh }: ReviewCa
         console.error("Failed to archive review on backend", err);
       }
     }
-    
+
     // For local fallback or fast UI update
     const updatedReviews = db.reviews.filter((r: Review) => r.id !== review.id);
     saveReviews(updatedReviews);
@@ -80,25 +80,23 @@ export default function ReviewCard({ review, businessName, onRefresh }: ReviewCa
   };
 
   return (
-    <div 
-      className={`bg-white/80 border p-6 rounded-[28px] transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.015)] relative group ${
-        review.rating >= 4 
-          ? "border-slate-200/60 hover:border-blue-500/30 hover:shadow-xl hover:shadow-blue-500/[0.015]" 
-          : "border-slate-200/60 hover:border-red-500/30 hover:shadow-xl hover:shadow-red-500/[0.015]"
-      }`}
+    <div
+      className={`bg-white/80 border p-6 rounded-[28px] transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.015)] relative group ${review.rating >= 4
+        ? "border-slate-200/60 hover:border-blue-500/30 hover:shadow-xl hover:shadow-blue-500/[0.015]"
+        : "border-slate-200/60 hover:border-red-500/30 hover:shadow-xl hover:shadow-red-500/[0.015]"
+        }`}
     >
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
-        
+
         {/* Left: Star rating & Customer Info */}
         <div className="space-y-3 flex-1">
           <div className="flex items-center gap-2.5">
             <div className="flex">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star 
-                  key={i} 
-                  className={`w-4 h-4 ${
-                    i < review.rating ? "fill-amber-450 text-amber-450" : "text-slate-200"
-                  }`} 
+                <Star
+                  key={i}
+                  className={`w-4 h-4 ${i < review.rating ? "fill-amber-450 text-amber-450" : "text-slate-200"
+                    }`}
                 />
               ))}
             </div>
@@ -149,7 +147,7 @@ export default function ReviewCard({ review, businessName, onRefresh }: ReviewCa
 
         {/* Right: Action Badges & Buttons */}
         <div className="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-start gap-4 shrink-0 self-stretch md:self-auto pt-1 md:pt-0">
-          
+
           <div className="space-y-1.5 text-left md:text-right">
             {/* Status Badge */}
             {review.status === "public" ? (

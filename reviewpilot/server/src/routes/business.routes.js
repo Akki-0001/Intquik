@@ -12,12 +12,16 @@ const {
   getAllBusinessesAdmin,
   deleteBusinessAdmin,
   toggleBusinessStatusAdmin,
+  getSuggestions,
+  markSuggestionUsed,
 } = require("../controllers/business.controller");
 
 const router = express.Router();
 
 // Public endpoints
 router.get("/public/:id", getPublicBusiness);
+router.get("/public/:id/suggestions", getSuggestions);
+router.put("/public/:id/suggestions/mark-used", markSuggestionUsed);
 router.post("/:id/scan", trackScan);
 router.put("/:id/scan/:scanId", convertScan);
 

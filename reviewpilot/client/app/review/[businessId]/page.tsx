@@ -15,11 +15,11 @@ export default function PublicReviewFunnel() {
   const [hoverRating, setHoverRating] = useState(0);
 
   // AI Suggestions
-  const aiSuggestions = [
+  const [aiSuggestions, setAiSuggestions] = useState<string[]>([
     "The service was incredibly fast and the staff was super friendly! Highly recommend.",
     "Amazing experience from start to finish. Clean space and great atmosphere.",
     "Best in town! Exceeded all my expectations. Will definitely be coming back."
-  ];
+  ]);
   const [selectedSuggestion, setSelectedSuggestion] = useState<string | null>(null);
   
   // Feedback Form State
@@ -74,6 +74,20 @@ export default function PublicReviewFunnel() {
             const scanData = await scanRes.json();
             setScanId(scanData.scanId);
           }
+          
+          // Fetch dynamic suggestions to avoid repetition
+          try {
+            const sugRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/public/${b._id}/suggestions`);
+            if (sugRes.ok) {
+              const suggestions = await sugRes.json();
+              if (suggestions && suggestions.length > 0) {
+                setAiSuggestions(suggestions);
+              }
+            }
+          } catch (e) {
+             console.error("Failed to load dynamic suggestions", e);
+          }
+
           return;
         }
       } catch (err) {
@@ -174,6 +188,15 @@ export default function PublicReviewFunnel() {
     
     setStep("thankyou");
     submitPublicReviewBackground(5, text);
+
+    // Mark suggestion as used in backend to prevent repetition
+    if (business && !business.id.startsWith("biz-")) {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/public/${business.id}/suggestions/mark-used`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ suggestion: text })
+      }).catch(err => console.error("Failed to mark suggestion as used", err));
+    }
   };
 
   const handleGoogleRedirect = async () => {

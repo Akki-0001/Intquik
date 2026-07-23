@@ -11,6 +11,9 @@ export interface Business {
   ratingThreshold: number; // e.g. 4 (4-5 go to Google, 1-3 go to internal feedback)
   isActive?: boolean;
   createdAt: string;
+  gmbLocationId?: string;
+  autoReplyEnabled?: boolean;
+  isGmbLinked?: boolean;
 }
 
 export interface Review {

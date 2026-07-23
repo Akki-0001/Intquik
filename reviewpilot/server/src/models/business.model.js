@@ -35,6 +35,12 @@ const businessSchema = new mongoose.Schema(
       min: 1,
       max: 5,
     },
+    seoKeywords: [
+      {
+        type: String,
+        trim: true
+      }
+    ],
     isActive: {
       type: Boolean,
       default: true,
@@ -53,8 +59,32 @@ const businessSchema = new mongoose.Schema(
         createdAt: {
           type: Date,
           default: Date.now,
-        },
       },
+    ],
+    // Google My Business Integration
+    googleAccessToken: {
+      type: String,
+    },
+    googleRefreshToken: {
+      type: String,
+    },
+    googleTokenExpiry: {
+      type: Number,
+    },
+    gmbAccountId: {
+      type: String,
+    },
+    gmbLocationId: {
+      type: String,
+    },
+    autoReplyEnabled: {
+      type: Boolean,
+      default: false,
+    },
+    usedSuggestions: [
+      {
+        type: String,
+      }
     ],
   },
   {

@@ -100,6 +100,48 @@ export default function AIRepliesPage() {
         </div>
       </div>
 
+      {/* GMB Connection & Auto-Reply Settings */}
+      <div className="bg-indigo-50 border border-indigo-100 rounded-[20px] p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+        <div className="flex items-start gap-4">
+          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
+            <span className="text-xl font-bold text-blue-600">G</span>
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-blue-950">Google My Business Integration</h3>
+            <p className="text-xs text-gray-500 font-medium mt-1 max-w-md">Connect your Google account to automatically pull in real reviews and post AI-generated replies directly to your profile.</p>
+          </div>
+        </div>
+        <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0">
+          <button className="bg-white border border-slate-200 text-blue-950 text-xs font-bold px-4 py-2 rounded-xl shadow-sm hover:bg-slate-50 transition-colors">
+            Connect Account
+          </button>
+          
+          <div className="h-8 w-px bg-slate-200 hidden sm:block"></div>
+          
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-bold text-gray-600">Auto-Reply:</span>
+            <button 
+              className="relative inline-flex h-6 w-11 items-center rounded-full bg-slate-200 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              role="switch"
+              aria-checked="false"
+              onClick={(e) => {
+                const isChecked = e.currentTarget.getAttribute('aria-checked') === 'true';
+                e.currentTarget.setAttribute('aria-checked', (!isChecked).toString());
+                e.currentTarget.classList.toggle('bg-indigo-600');
+                e.currentTarget.classList.toggle('bg-slate-200');
+                const span = e.currentTarget.querySelector('span');
+                if (span) {
+                  span.classList.toggle('translate-x-6');
+                  span.classList.toggle('translate-x-1');
+                }
+              }}
+            >
+              <span className="inline-block h-4 w-4 translate-x-1 rounded-full bg-white transition-transform" />
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Tabs & Stats */}
       <div className="flex items-center justify-between border-b border-slate-200">
         <div className="flex gap-6">

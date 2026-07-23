@@ -9,6 +9,7 @@ const businessRoutes = require("./routes/business.routes");
 const reviewRoutes = require("./routes/review.routes");
 const qrRoutes = require("./routes/qr.routes");
 const paymentRoutes = require("./routes/payment.routes");
+const googleRoutes = require("./routes/google.routes");
 
 const path = require("path");
 const app = express();
@@ -40,6 +41,7 @@ app.use("/api/businesses", businessRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/qr", qrRoutes);
 app.use("/api/payment", paymentRoutes);
+app.use("/api/google", googleRoutes);
 
 // Error Handling (must be last)
 app.use(errorHandler);

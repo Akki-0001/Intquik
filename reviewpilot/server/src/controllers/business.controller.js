@@ -1,4 +1,5 @@
 const Business = require("../models/business.model");
+const { generateReviews } = require("../services/ai.service");
 
 // @desc    Get user's businesses
 // @route   GET /api/businesses
@@ -17,7 +18,7 @@ const getBusinesses = async (req, res, next) => {
 // @access  Private
 const createBusiness = async (req, res, next) => {
   try {
-    const { name, googleReviewUrl, yelpReviewUrl, primaryColor, ratingThreshold } = req.body;
+    const { name, googleReviewUrl, yelpReviewUrl, primaryColor, ratingThreshold, seoKeywords } = req.body;
 
     if (!name || !googleReviewUrl) {
       res.status(400);
@@ -50,6 +51,7 @@ const createBusiness = async (req, res, next) => {
       yelpReviewUrl,
       primaryColor,
       ratingThreshold: ratingThreshold ? parseInt(ratingThreshold) : 4,
+      seoKeywords: seoKeywords || [],
       logoUrl,
     });
 
@@ -70,13 +72,14 @@ const updateBusiness = async (req, res, next) => {
       throw new Error("Business not found or unauthorized");
     }
 
-    const { name, googleReviewUrl, yelpReviewUrl, primaryColor, ratingThreshold } = req.body;
+    const { name, googleReviewUrl, yelpReviewUrl, primaryColor, ratingThreshold, seoKeywords } = req.body;
 
     business.name = name || business.name;
     business.googleReviewUrl = googleReviewUrl || business.googleReviewUrl;
     business.yelpReviewUrl = yelpReviewUrl !== undefined ? yelpReviewUrl : business.yelpReviewUrl;
     business.primaryColor = primaryColor || business.primaryColor;
     business.ratingThreshold = ratingThreshold ? parseInt(ratingThreshold) : business.ratingThreshold;
+    if (seoKeywords !== undefined) business.seoKeywords = seoKeywords;
 
     if (req.file) {
       business.logoUrl = `http://localhost:5000/uploads/${req.file.filename}`;
@@ -177,6 +180,64 @@ const getPublicBusiness = async (req, res, next) => {
   }
 };
 
+// generateSeoSuggestions removed in favor of Groq API
+
+// @desc    Get random unused AI suggestions
+// @route   GET /api/businesses/public/:id/suggestions
+// @access  Public
+const getSuggestions = async (req, res, next) => {
+  try {
+    const business = await Business.findById(req.params.id);
+    if (!business) {
+      res.status(404);
+      throw new Error("Business not found");
+    }
+
+    const used = business.usedSuggestions || [];
+    let allSuggestions = await generateReviews(business.name, business.seoKeywords || [], used);
+    
+    // Filter out used suggestions
+    let available = allSuggestions.filter(s => !used.includes(s));
+    
+    // If all generated were used (unlikely with LLM, but possible), just use them anyway to ensure we return 3
+    if (available.length < 3) {
+      available = allSuggestions;
+    }
+
+    res.json(available.slice(0, 3));
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Mark a suggestion as used
+// @route   PUT /api/businesses/public/:id/suggestions/mark-used
+// @access  Public
+const markSuggestionUsed = async (req, res, next) => {
+  try {
+    const { suggestion } = req.body;
+    if (!suggestion) {
+      res.status(400);
+      throw new Error("Suggestion text required");
+    }
+
+    const business = await Business.findById(req.params.id);
+    if (!business) {
+      res.status(404);
+      throw new Error("Business not found");
+    }
+
+    if (!business.usedSuggestions.includes(suggestion)) {
+      business.usedSuggestions.push(suggestion);
+      await business.save();
+    }
+
+    res.json({ message: "Suggestion marked as used" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // @desc    Get all businesses (Admin only)
 // @route   GET /api/businesses/admin/all
 // @access  Private/Admin
@@ -236,4 +297,6 @@ module.exports = {
   getAllBusinessesAdmin,
   deleteBusinessAdmin,
   toggleBusinessStatusAdmin,
+  getSuggestions,
+  markSuggestionUsed,
 };
